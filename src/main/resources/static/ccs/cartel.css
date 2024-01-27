@@ -1,0 +1,137 @@
+.contenedorCartel{
+
+    width: 1000px;
+    height: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.contTitulo{
+    width: 1000px;
+    height: 110px;
+    background-color: #ea2411;
+    line-height: 100vh;
+    float: left;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+   
+
+}
+
+
+
+.contImg{
+    width: 400px;
+    height: 430px;
+    float: left;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+.contImg img {
+    height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #ea2411;;
+
+}
+.contDatos{
+    
+    width: 600px;
+    height: 430px;
+    float: left;
+
+    color: #ea2411;
+}
+
+.contDatos p{
+    color: black;
+    font-size: 17px;
+}
+
+
+
+.contInfo{
+    height: 100px;
+}
+
+.contSexo{
+    margin-left: 20px;
+    width: 290px;
+    height: 30px;
+    float: left;
+ 
+}
+
+.contRaza{
+    width: 290px;
+    height: 30px;
+    float: left;
+}
+
+.contChip{
+    width: 580px;
+    margin-left: 20px;
+    height: 30px;
+    float: left;
+   
+
+}
+
+.contDescripcion{
+    height: 165px;
+
+}
+
+.contDescripcion p{
+    width: 570px;
+    margin-left: 15px;
+}
+
+.contLugar{
+    height: 165px;
+}
+
+.contLugar p{
+    width: 570px;
+    margin-left: 15px;
+  
+}
+
+
+.contContacto{
+    background-color: #ea2411;
+    width: 1000px;
+    height: 110px;
+    float: left;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+     
+}
+
+.contNumero{
+    width: 1000px;
+    height: 55px;
+    float: left;
+}
+
+.contCorreo{
+    width: 1000px;
+    height: 55px;
+    float: left;
+}

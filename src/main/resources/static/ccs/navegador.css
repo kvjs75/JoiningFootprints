@@ -1,0 +1,59 @@
+
+.color1 {
+    background-color: #343c3e; 
+}
+
+.color2 {
+    background-color: #fe8d3e ;
+}
+
+.colorRegistro{
+    background-color: #edea95 !important;
+}
+
+.colorAutenticado {
+    background-color: #b5eca8 !important;
+}
+
+.custom-formatoTexto{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 16px;
+}
+
+.color-hover a:hover,
+.color-hover button:hover {
+    background-color: #343c3e !important;
+    color: aliceblue !important;
+}
+
+.logo {
+    position: relative;
+    width: 50px;
+    height: 60px;
+}
+
+.logo:hover{
+    content: url('/static/img/logo2.png');
+}
+
+
+.nav-link{
+    background-color: aliceblue;
+    text-align: center;
+    width: 110px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.btn-outline-success{
+    background-color: aliceblue;
+    color: black;
+    border: #343c3e;
+}
+
+
+
+
+
+
+
