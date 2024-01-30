@@ -30,6 +30,7 @@ public class SecurityConfiguration {
 									.requestMatchers("/registrarse").permitAll()
 									.requestMatchers("/crearUsuario").permitAll()
 									.requestMatchers("/login").permitAll()
+									.requestMatchers("/mostrar").permitAll()
 									.requestMatchers("/styles/**").permitAll()
 									.requestMatchers("/js/**").permitAll()
 									.requestMatchers("/img/**").permitAll()

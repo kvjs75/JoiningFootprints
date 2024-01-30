@@ -24,12 +24,12 @@ public class consultasUsuarios {
 			//esta es toda la transaccion
 			try {
 				//Insertar al usuario a la base de datos
-				String SQLinsertUsuario = "INSERT INTO db_petsearch.usuario (ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,FechaRegistro,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion) \r\n"
+				String SQLinsertUsuario = "INSERT INTO db_JNF.usuario (ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,FechaRegistro,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion) \r\n"
 						+ "VALUES (null,'"+usuario.getNombreUsuario()+"','"+usuario.getNick()+"','"+usuario.getCorreo()+"','"+usuario.getContrasena()+"','"+usuario.getFnacimiento()+"','"+usuario.getZonaGeografica()+"',current_timestamp(),0,0,0,0);";
 				miConeccion.executeInsert(SQLinsertUsuario);
 				
 				//Encontrar la id del anterior usuario insertado
-				String SQLselectId = "SELECT ID_Usuario FROM db_petsearch.usuario ORDER BY FechaRegistro DESC LIMIT 1;";
+				String SQLselectId = "SELECT ID_Usuario FROM db_JNF.usuario ORDER BY FechaRegistro DESC LIMIT 1;";
 				ResultSet usuarioInsertado = miConeccion.executeSelect(SQLselectId);
 				int idUsuario=-1;
 				
@@ -43,8 +43,8 @@ public class consultasUsuarios {
 				}
 				
 				//Insertar la relacion entre el usuario y su rol basico llamod "usuario"
-				String SQLinsertRol = "INSERT INTO db_petsearch.usuariorol (ID_UsuarioRol,ID_Usuario,RolID) \r\n"
-							+ "VALUES (null,"+idUsuario+",1);";
+				String SQLinsertRol = "INSERT INTO db_JNF.usuariorol (ID_Usuario,RolID) \r\n"
+							+ "VALUES ("+idUsuario+",1);";
 				miConeccion.executeInsert(SQLinsertRol);
 				
 				miConeccion.commit();
@@ -69,7 +69,7 @@ public class consultasUsuarios {
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			String SQL = "\r\n"
-					+ "SELECT ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion FROM db_petsearch.usuario;";
+					+ "SELECT ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion FROM db_JNF.usuario;";
 			ResultSet resultado = miConeccion.executeSelect(SQL);
 			
 			try {
@@ -94,8 +94,8 @@ public class consultasUsuarios {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
-			SQL = "SELECT ID_Usuario,NombreRol FROM db_petsearch.rol a\r\n"
-					+ "right JOIN db_petsearch.usuariorol b\r\n"
+			SQL = "SELECT ID_Usuario,NombreRol FROM db_JNF.rol a\r\n"
+					+ "right JOIN db_JNF.usuariorol b\r\n"
 					+ "ON a.RolID = b.RolID;";
 			resultado = miConeccion.executeSelect(SQL);
 			

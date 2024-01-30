@@ -30,7 +30,7 @@ public class MySqlConnection {
 	//Puerto
 	private String puerto = "3306";
 	//Nombre de la base de datos
-	private String nameDB = "db_petsearch";
+	private String nameDB = "db_jnf";
 	//Usuario de conexión
 	private String usuario = "root";
 	//Contraseña
