@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/ccs/cropper.css">
+    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/static/ccs/navegador.css" rel="stylesheet">
+    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
+    <link href="/static/ccs/cartel.css" rel="stylesheet">
+    <style>
+      #img-cropper {
+          max-width: 100%;  /* Ajusta el tamaño máximo de la imagen al 100% del contenedor */
+          max-height: 100%; /* Ajusta la altura máxima de la imagen al 100% del contenedor */
+          width: auto;      /* Hace que la imagen no exceda el ancho del contenedor */
+          height: auto;     /* Hace que la imagen no exceda la altura del contenedor */
+      }
+  </style>
+    
+    <title>Joining Footprints | Publicar</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Ultimos</a></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Moderar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Solicitudes</a></li>
+                    <li><a class="dropdown-item" href="#">Incidencias</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle color1 text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item color1 text-light" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="/templates/views/registro.html">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="/templates/views/autenticar.html">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">[Nombre de perfil]</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina -->
+  <div class="container flex-grow-1 bg-light ">
+    <div class="row text-center bg-white">
+      <h5 class="p-2">Publicar desapareción <strong>[Paso 2: visualizacion y foto]</strong></h5>
+    </div>
+      <div class="card flex-grow-1 border-0">
+        <div class="card-body overflow-auto" style="max-height: 700px !important;">
+            <!-- Cartel con scroll -->
+            <div class="container">
+              <div class="bg-light row">
+                <div> 
+                  <div class="contenedorCartel" id="cartel"> 
+                    <div class="contTitulo">
+                      <h1><span>[NOMBRE]</span><span> DESAPARECIDO</span></h1>
+                      <h2>desde el <span>01/01/2024</span></h2>
+                    </div>
+                    <div class="contImg">
+                        <img src="/static/img/ejemploPerro.jpg" alt="PerroSilueta" id="fotoAnimalDesaparecido">
+                    </div>
+                    <div class="contDatos">
+                      <div class="contInfo">
+                        <h3>Información básica</h3>
+                        <div class="contSexo">
+                          <p>Sexo: <span>[]</span></p>
+                        </div>
+                        <div class="contRaza">
+                          <p>Raza: <span>[]</span></p>
+                        </div>
+                        <div class="contChip">
+                          <p>No lleva chip</p>
+                        </div>
+                      </div>
+                      <div class="contDescripcion">
+                        <h3>Descripción del animal</h3>
+                        <div class="contTexDescripcion">
+                          <p>[Texto]</p>
+                        </div>
+                      </div>
+                      <div class="contLugar">
+                        <h3>Lugar de la desaprecion</h3>
+                        <div class="contTexLugar">
+                          <p>[Texto]</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="contContacto">
+                      <div class="contNumero">
+                        <h1><span>928 650 403</span><span> | 928 692 052</span></h1>
+                      </div>
+                      <div class="contCorreo">
+                        <h2>este.correo@gmailcom</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin del contenido con scroll -->
+        </div>
+    </div>
+    <form>
+      <div class="row color2 formatoTexto ">
+        <div class="row color-hover">
+          <div class="col mt-3 mb-3 d-flex align-items-center justify-content-start">
+            <a class="ms-4 btn color4 formatoTexto" href="#">Anterior</a>
+          </div>
+          <div class="group col mt-3 mb-3 d-flex align-items-center justify-content-center">
+            <button class="btn btn-outline-success" type="button"  data-bs-toggle="modal" data-bs-target="#subirImgModal" data-bs-target="#staticBackdrop">Subir foto</button>
+          </div>
+          <div class="col mt-3 mb-3 d-flex align-items-center justify-content-end">
+            <button type="button" class="btn color4 formatoTexto" id="publicar">Publicar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+        <div class="row">
+          <p style="margin: auto;">redes sociales</p>
+        </div>
+    </div>
+  </footer>
+
+  <!-- Ventana Modal para la subida de imagen -->
+  <div class="modal fade" id="subirImgModal" tabindex="-1" aria-labelledby="subirImgModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="subirImgModalLabe">Subir fotografía</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonClose"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <input type="file" id="subirFoto" name="subirFoto" accept=".png,.jpg">
+          </div>
+          <div class="row content-imagen-cropper">
+            <img src="" alt="" class=" img-cropper" id="img-cropper">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelar" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="aceptar">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/jquery-3.6.1.min.js"></script>
+<script src="/static/js/html2canvas.min.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#publicar').on('click', function() {
+      // Selecciona el div en donde se aloja la maquetación del cartel
+      var contenedorCartel = $("#cartel")[0];
+
+      // Utiliza html2canvas para convertir el div en una imagen
+      html2canvas(contenedorCartel).then(function(canvas) {
+        // Crea un elemento de imagen y establece la imagen generada como fuente
+        var imagen = new Image();
+        imagen.src = canvas.toDataURL("image/png");
+
+        // Agrega la imagen al documento o realiza alguna acción con ella
+        document.body.appendChild(imagen);
+      });
+    });
+  });
+</script>
+</body>
+</html>

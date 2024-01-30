@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/ccs/cropper.css">
     <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
     <link href="/static/ccs/navegador.css" rel="stylesheet">
     <link href="/static/ccs/formatoColores.css" rel="stylesheet">
+    <link href="/static/ccs/p.css" rel="stylesheet">
     <link href="/static/ccs/cartel.css" rel="stylesheet">
+    
     <title>Joining Footprints | Publicar</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
@@ -70,6 +73,9 @@
                 </ul>
               </li>
               <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link colorRegistro" href="/templates/views/registro.html">Registrarse</a>
               </li>
               <li class="nav-item">
@@ -89,8 +95,8 @@
   </nav>
   <!-- Contenido de la pagina -->
   <div class="container flex-grow-1 bg-light ">
-    <div class="row text-center bg-white">
-      <h5 class="p-2">Publicar desapareción <strong>[Paso 2: visualizacion y foto]</strong></h5>
+    <div class="row text-center color4">
+      <h5 class="p-2">Publicar desapareción <strong>[Paso 2/2]</strong></h5>
     </div>
       <div class="card flex-grow-1 border-0">
         <div class="card-body overflow-auto" style="max-height: 700px !important;">
@@ -98,13 +104,13 @@
             <div class="container">
               <div class="bg-light row">
                 <div> 
-                  <div class="contenedorCartel"> 
+                  <div class="contenedorCartel" id="cartel"> 
                     <div class="contTitulo">
                       <h1><span>[NOMBRE]</span><span> DESAPARECIDO</span></h1>
                       <h2>desde el <span>01/01/2024</span></h2>
                     </div>
                     <div class="contImg">
-                        <img src="/static/img/ejemploPerro.jpg" alt="foto del animal" srcset="">
+                        <img src="/static/img/ejemploPerro.jpg" alt="siluetaPerro" id="fotoAnimalDesaparecido" srcset="">
                     </div>
                     <div class="contDatos">
                       <div class="contInfo">
@@ -115,8 +121,8 @@
                         <div class="contRaza">
                           <p>Raza: <span>[]</span></p>
                         </div>
-                        <div class="contChip">
-                          <p>No lleva chip</p>
+                        <div class="contRecompensa">
+                          <p>Se recompensará</p>
                         </div>
                       </div>
                       <div class="contDescripcion">
@@ -126,7 +132,7 @@
                         </div>
                       </div>
                       <div class="contLugar">
-                        <h3>Lugar de la desaprecion</h3>
+                        <h3>Lugar de la desapreción</h3>
                         <div class="contTexLugar">
                           <p>[Texto]</p>
                         </div>
@@ -151,13 +157,13 @@
       <div class="row color2 formatoTexto ">
         <div class="row color-hover">
           <div class="col mt-3 mb-3 d-flex align-items-center justify-content-start">
-            <a class="ms-4 btn color4 formatoTexto" href="#">Anterior</a>
+            <a class="ms-4 btn color4" href="#">Anterior</a>
           </div>
-          <div class="col mt-3 mb-3 d-flex align-items-center justify-content-center">
-            <a class="btn color4 formatoTexto" href="#">Poner foto</a>
+          <div class="group col mt-3 mb-3 d-flex align-items-center justify-content-center">
+            <button class="btn color4" type="button"  data-bs-toggle="modal" data-bs-target="#subirImgModal" data-bs-target="#staticBackdrop">Subir foto</button>
           </div>
           <div class="col mt-3 mb-3 d-flex align-items-center justify-content-end">
-            <button type="submit" class="btn color4 formatoTexto">Publicar</button>
+            <button type="button" class="btn color4" id="publicar">Publicar</button>
           </div>
         </div>
       </div>
@@ -166,11 +172,44 @@
   <!-- Pie de pagina -->
   <footer class="bg-dark text-light text-center">
     <div class="container">
-        <div class="row">
-                <p style="margin: auto;">redes sociales</p>
-            </div>
-        </div>
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
     </div>
   </footer>
+
+  <!-- Ventana Modal para la subida de imagen -->
+  <div class="modal fade" id="subirImgModal" tabindex="-1" aria-labelledby="subirImgModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subirImgModalLabe">Subir fotografía</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="botonClose"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <input type="file" id="subirFoto" name="subirFoto" accept=".png,.jpg">
+            </div>
+            <div class="row content-imagen-cropper">
+              <img src="" alt="" class=" img-cropper" id="img-cropper">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancelar" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="aceptar">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/jquery-3.6.1.min.js"></script>
+  <script src="/static/js/cropper.js"></script>
+  <script src="/static/js/html2canvas.min.js"></script>
+  <script src="/static/js/publicar_paso2/subirRecorteFoto.js"></script>
+  <script src="/static/js/publicar_paso2/guardarCartel.js"></script>
+  
+  
 </body>
 </html>
