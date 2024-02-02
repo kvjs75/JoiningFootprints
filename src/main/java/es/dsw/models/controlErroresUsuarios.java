@@ -45,8 +45,8 @@ public class controlErroresUsuarios {
 		LocalDate fechaActual = LocalDate.now();
 		LocalDate fechaNacimiento = null;
 		//para comprobar anticipadamente si el usuario dejo el campo vacio (y asi evitar errores sobretodo el error de que un campo vacio no se puede añadir en el LocalDate)
-		if(!usuario.getFnacimiento().equals("")) {
-			fechaNacimiento = LocalDate.parse(usuario.getFnacimiento());
+		if(!usuario.getFechaNacimiento().equals("")) {
+			fechaNacimiento = LocalDate.parse(usuario.getFechaNacimiento());
 		}
 		
 		
@@ -77,37 +77,37 @@ public class controlErroresUsuarios {
 			this.error=true;
 		}
 		
-		else if(usuario.getContrasena().equals("")) {
-			this.numError="3-1";
-			this.msgError="El contraseña no puede estar vacio";
-			this.error=true;
-		}
-		
-		else if(!usuario.getContrasena().equals(contrasenaRe)) {
-			this.numError="3-2";
-			this.msgError="El campo Contraseña no coincide con el campo Repetir Contraseña";
-			this.error=true;
-		}
-		
 		else if(usuario.getCorreo().equals("")) {
-			this.numError="4-1";
+			this.numError="3-1";
 			this.msgError="El correo no puede estar vacio";
 			this.error=true;
 		}
 		
 		else if(!usuario.getCorreo().equals(correoRe)) {
-			this.numError="4-2";
+			this.numError="3-2";
 			this.msgError="El campo Correo no coincide con el campo Repetir Correo";
 			this.error=true;
 		}
 		
 		else if(repetidoCorreo == true) {
-			this.numError="4-3";
+			this.numError="3-3";
 			this.msgError="El correo ya esta en uso";
 			this.error=true;
 		}
 		
-		else if(usuario.getFnacimiento().equals("")) {
+		else if(usuario.getContrasena().equals("")) {
+			this.numError="4-1";
+			this.msgError="El contraseña no puede estar vacio";
+			this.error=true;
+		}
+		
+		else if(!usuario.getContrasena().equals(contrasenaRe)) {
+			this.numError="4-2";
+			this.msgError="El campo Contraseña no coincide con el campo Repetir Contraseña";
+			this.error=true;
+		}
+		
+		else if(usuario.getFechaNacimiento().equals("")) {
 			this.numError="5-1";
 			this.msgError="El fecha nacimiento no puede estar vacio";
 			this.error=true;
@@ -148,27 +148,27 @@ public controlErroresUsuarios(String nError) {
 		}
 		
 		else if(nError.equals("3-1")) {
-			this.msgError="El contraseña no puede estar vacio";
-			this.error=true;
-		}
-		
-		else if(nError.equals("3-2")) {
-			this.msgError="El campo Contraseña no coincide con el campo Repetir Contraseña";
-			this.error=true;
-		}
-		
-		else if(nError.equals("4-1")) {
 			this.msgError="El correo no puede estar vacio";
 			this.error=true;
 		}
 		
-		else if(nError.equals("4-2")) {
+		else if(nError.equals("3-2")) {
 			this.msgError="El campo Correo no coincide con el campo Repetir Correo";
 			this.error=true;
 		}
 		
-		else if(nError.equals("4-3")) {
+		else if(nError.equals("3-3")) {
 			this.msgError="El correo ya esta en uso";
+			this.error=true;
+		}
+		
+		else if(nError.equals("4-1")) {
+			this.msgError="El contraseña no puede estar vacio";
+			this.error=true;
+		}
+		
+		else if(nError.equals("4-2")) {
+			this.msgError="El campo Contraseña no coincide con el campo Repetir Contraseña";
 			this.error=true;
 		}
 		

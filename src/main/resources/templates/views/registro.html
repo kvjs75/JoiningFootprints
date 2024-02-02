@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-    <link href="/static/ccs/navegador.css" rel="stylesheet">
-    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
-    <link href="/static/ccs/autenticar.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/autenticar.css}" rel="stylesheet">
     <title>Joining Footprints | Registrarse</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,33 +102,33 @@
               </div>
               <div class="card-body color2 ">
                 <!-- Alertas -->
-                <div class="alert alert-success fade show d-flex align-items-center" role="alert">
+                <div class="alert alert-success fade show d-flex align-items-center" role="alert" th:if="${param.creado}">
                   <p class="m-0 flex-grow-1 text-success">¡Se ha registrado con éxito!</p>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="alert alert-warning alert-danger fade show d-flex align-items-center" role="alert">
-                  <p class="m-0 flex-grow-1">Ha sucedido un error</p>
+                <div class="alert alert-warning alert-danger fade show d-flex align-items-center" th:if="${param.errorcreado}" role="alert">
+                  <p class="m-0 flex-grow-1" th:text="${msgError}">Ha sucedido un error</p>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <!-- Formulario de registro -->
-                <form>
+                <form method="post" th:action="@{/crearUsuario}" th:object="${usuario}">
                   <div class="row">
                     <div class="col-6">
                       <div class="form-group">
                         <label for="nombreUsuario">Nombre de Usuario:</label>
-                        <input type="text" class="form-control" id="nombreUsuario">
+                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" th:field="*{nombreUsuario}">
                       </div>
                       <div class="form-group">
                         <label for="correoElectronico">Email:</label>
-                        <input type="email" class="form-control" id="correoElectronico">
+                        <input type="email" class="form-control" id="correoElectronico"  name="correoElectronico">
                       </div>
                       <div class="form-group">
                         <label for="contrasena">Contraseña:</label>
-                        <input type="password" class="form-control" id="contrasena">
+                        <input type="password" class="form-control" id="contrasena" name="contrasena">
                       </div>
                       <div class="form-group">
                         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                        <input type="date" class="form-control" id="fechaNacimiento">
+                        <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}">
                       </div>
                     </div>
 
@@ -136,19 +136,19 @@
                     <div class="col-6">
                       <div class="form-group">
                         <label for="nick">Nick:</label>
-                        <input type="text" class="form-control" id="nick">
+                        <input type="text" class="form-control" id="nick" name="nick" th:field="*{nick}">
                       </div>
                       <div class="form-group">
                         <label for="reCorreoElectronico">Repetir email:</label>
-                        <input type="email" class="form-control" id="ReCorreoElectronico">
+                        <input type="email" class="form-control" id="ReCorreoElectronico" name="ReCorreoElectronico">
                       </div>
                       <div class="form-group">
                         <label for="reContrasena">Repetir contraseña:</label>
-                        <input type="password" class="form-control" id="reContrasena">
+                        <input type="password" class="form-control" id="reContrasena" name="reContrasena">
                       </div>
                       <div class="form-group">
                         <label for="zonaGeografica">Zona geografica:</label>
-                        <input type="text" class="form-control" id="zonaGeografica">
+                        <input type="text" class="form-control" id="zonaGeografica" name="zonaGeografica" th:field="*{zonaGeografica}">
                       </div>
                     </div>
                   </div>

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-    <link href="/static/ccs/navegador.css" rel="stylesheet">
-    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
-    <link href="/static/ccs/autenticar.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/autenticar.css}" rel="stylesheet">
     <title>Joining Footprints | Login</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,19 +102,19 @@
                         </div>
                         <div class="card-body color2">
                             <!-- Alertas -->
-                            <div class="alert alert-warning alert-danger fade show d-flex align-items-center" role="alert">
-                              <p class="m-0 flex-grow-1">Ha sucedido un error</p>
+                            <div class="alert alert-warning alert-danger fade show d-flex align-items-center" role="alert" th:if="${param.error}">
+                              <p class="m-0 flex-grow-1">Datos de validacion incorrectos</p>
                               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <!-- Formulario de autenticacion -->
-                            <form class="text-center">
+                            <form class="text-center" method="post" th:action="@{/logginprocess}">
                                 <div class="mb-3">
                                     <label for="usuario" class="form-label">Usuario</label>
-                                    <input type="text" class="form-control mx-auto entrada usuarioContrasena" id="usuario" name="usuario">
+                                    <input type="text" class="form-control mx-auto entrada usuarioContrasena" id="usuario" name="username">
                                 </div>
                                 <div class="mb-3">
                                     <label for="contrasena" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control mx-auto entrada usuarioContrasena" id="contrasena" name="contrasena">
+                                    <input type="password" class="form-control mx-auto entrada usuarioContrasena" id="contrasena" name="password">
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center color-hover">
                                   <button type="submit" class="btn color3 mt-3">Iniciar sesión</button>

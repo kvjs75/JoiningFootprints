@@ -25,9 +25,15 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((authorize) -> authorize
+									.requestMatchers("/ccs/**").permitAll()
+									.requestMatchers("/js/**").permitAll()
+									.requestMatchers("/img/**").permitAll()
+									.requestMatchers("/bootstrap-5.3.2-dist/**").permitAll()
+									.requestMatchers("/cropperjs-main/**").permitAll()
 									.requestMatchers("/").permitAll()
 									.requestMatchers("/index").permitAll()
-									.requestMatchers("/registrarse").permitAll()
+									.requestMatchers("/carteles").permitAll()
+									.requestMatchers("/registro").permitAll()
 									.requestMatchers("/crearUsuario").permitAll()
 									.requestMatchers("/login").permitAll()
 									.requestMatchers("/mostrar").permitAll()
@@ -40,7 +46,7 @@ public class SecurityConfiguration {
 			.formLogin(form -> form
 								.loginPage("/login")
 								.loginProcessingUrl("/logginprocess")
-								.defaultSuccessUrl("/index", true)
+								.defaultSuccessUrl("/carteles", true)
 								.permitAll()
 					)
 			.logout((logout) -> logout.logoutSuccessUrl("/login?cerrar").permitAll());
