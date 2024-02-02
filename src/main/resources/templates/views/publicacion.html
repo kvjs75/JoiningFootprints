@@ -6,20 +6,11 @@
     <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
     <link href="/static/ccs/navegador.css" rel="stylesheet">
+    <link href="/static/ccs/carteles.css" rel="stylesheet">
+    <link href="/static/ccs/navegador.css" rel="stylesheet">
     <link href="/static/ccs/formatoColores.css" rel="stylesheet">
-    <style>
-      @media (max-width: 1000px) {
-        h1, h2, h3 {
-            font-size: 1.2em;
-        }
-      }
-      @media (max-width: 800px) {
-        h1, h2, h3 {
-            font-size: 0.9em;
-        }
-      }
-    </style>
-    <title>Joining Footprints | Carteles</title>
+    <link href="/static/ccs/publicacion.css" rel="stylesheet">
+    <title>Joining Footprints | Cartel</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
@@ -37,7 +28,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
                 <!-- Botones sin autenticar -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,7 +38,6 @@
                         <li><a class="dropdown-item" href="#">Desapareción</a></li>
                         <li><a class="dropdown-item" href="#">Adopción</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Ultimos</a></li>
                         <li><a class="dropdown-item" href="#">Viejos</a></li>
                         <li><a class="dropdown-item" href="#">Aleotorios</a></li>
                     </ul>
@@ -102,62 +92,102 @@
     </div>
   </nav>
   <!-- Contenido de la pagina principal -->
-  <div class="container bg-white flex-grow-1 d-flex formatoTexto">
-    <div class="bg-light row pb-5">
-                
-                
-      <div class="row d-flex align-items-center justify-content-center mb-2 mt-2">
-        <!-- Usuario y fecha de publicación -->
-        <div class="col-10 pb-2">
-            <div class="row">
-                <div class="col d-flex justify-content-start">
-                    <h1>Publicado por <a href="#">[nick]</a> el <span>[01/01/2024]</span></h1>
+  <div class="container bg-light flex-grow-1 d-flex align-items-center justify-content-center formatoTexto">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row">
+             <!-- Alertas -->
+          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
+            <p class="m-0 flex-grow-1 text-success">Tu cartel se ha publicado con éxito</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
+            <p class="m-0 flex-grow-1 text-success">Tu reporte se ha enviado con éxito</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+              <!-- Panel administracion del cartel solo le aparece al moderador -->
+          <div class="card mt-2 bg-transparent border-0">
+            <div class="card-body">
+              <button type="button" class="btn btn-danger mr-2">Borrar publicación</button>
+            </div>
+          </div>  
+        </div>
+        <div class="row d-flex align-items-center justify-content-center mb-2 mt-4">
+            <div class="col-10 pb-2">
+                <div class="row">
+                    <div class="col d-flex justify-content-start">
+                        <h3>Publicado por <a href="#">[NICK]</a></h3>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-start">
+                    <h4><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
+                  </div>
                 </div>
             </div>
-            <div class="row">
-              <div class="col d-flex justify-content-start">
-                <h3>Estado: <span>[no resuelto]</span></h3>
+            <!-- Cartel -->
+            <div class="text-center col-10">
+                <img src="/static/img/carteles/desaparecion/cartelEjemplo.png" class="img-fluid w-100" srcset="">
+            </div>
+            <!-- Botones de compartir -->
+            <div class="col-10">
+    
+              <div class="row">
+                <div class="col-6 justify-content-start">
+                  <a href="/static/img/cartel1.jpg" class="btn adapBtn boton1 mt-2" download="cartelDesaparecion_animal">Descargar</a>
+                  <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
+                </div>
+                <div class="col-6 d-flex align-items-end justify-content-end">
+                    <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/facebook.png"></a>
+                    <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/instragram.png"></a>
+                    <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/reddit.png"></a>
+                    <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/twitter.png"></a>
+                    <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/whatsapp.png"></a>
+                </div>
               </div>
             </div>
-        </div>
-        <!-- Cartel -->
-        <div class="text-center col-10">
-            <img src="/static/img/carteles/desaparecion/cartelEjemplo.png" class="img-fluid w-100" srcset="">
-        </div>
-        <!-- Botones de compartir -->
-        <div class="col-10">
+          </div>
+          <div class="row mt-5 mb-5">
+            <div class="col-10 mx-auto">
+                <!-- Formulario de Comentarios -->
+                <form class="enviar">
+                  <div class="mb-3">
+                      <label for="comentario" class="form-label">Deja un comentario</label>
+                      <textarea class="form-control" id="comentario" rows="3"></textarea>
+                  </div>
+                  <button type="submit" class="btn boton1">Enviar</button>
+                </form>
+                <!-- Lista de Comentarios -->
+                <ul class="list-unstyled mt-5">
+    
+    
+                  <!-- Repetir comentarios (principio) -->
+                  <li class="media mb-3 contComentario">
+                      <div class="media-body">
+                        <div class="row">
+                          <div class="col">
+                            <a href="#"><h4>[NICK]</h4></a>
+                          </div>
+                          <div class="col">
+                            <a href="#" class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1">Borrar</a>
+                          <button type="button" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal">Reportar</button>
+                          </div>
+                        </div>
+                          <p class="comentario">[Comentario]</p>
+                          <small><i>[01/01/2024]</i></small>
+                          <span class="float-end mt-2">(0)</span>
+                          <a href="#" class="like float-end ms-2 "><img class="img-fluid" src="/static/img/iconos_redesSociales/like.png" alt=""></a>
+                      </div>
+                  </li>
+                  <!-- Repetir comentarios (final) -->
 
-          <div class="row">
-            <div class="col-6 justify-content-start">
-              <a href="/static/img/cartel1.jpg" download="cartelDesaparecion_animal">
-                <button class="btn color4 mt-2">Descargar</button>
-              </a>
-            </div>
-            <div class="col-6 d-flex align-items-end justify-content-end">
-                <a href="#"><img class="img-fluid" src="/static/img/iconos_redesSociales/facebook.png"></a>
-                <a href="#"><img class="img-fluid" src="/static/img/iconos_redesSociales/instragram.png"></a>
-                <a href="#"><img class="img-fluid" src="/static/img/iconos_redesSociales/reddit.png"></a>
-                <a href="#"><img class="img-fluid" src="/static/img/iconos_redesSociales/twitter.png"></a>
-                <a href="#"><img class="img-fluid" src="/static/img/iconos_redesSociales/whatsapp.png"></a>
+
+                </ul>
             </div>
           </div>
         </div>
       </div>
-
-
-      <!-- Comentarios -->
-      <div class="row d-flex align-items-center justify-content-center mb-5 mt-5"> 
-        <div class="col-11 pb-2" style="background-color: rgb(255, 0, 55);">
-          <h3>Comentarios</h3>
-        </div>
-        <div class="text-center col-11" style="background-color: rgb(255, 0, 55);">
-     
-        </div>
-        <div class="col-11" style="background-color: rgb(0, 255, 183);">
-          Redes sociales
-        </div>
-      </div>
-    </div>
+  </div>
   </div>
   <!-- Pie de pagina -->
   <footer class="bg-dark text-light text-center">
@@ -168,23 +198,48 @@
     </div>
   </footer>
 
-  <!-- Ventana Modal para el filtro -->
-  <div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
-    <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="filtroModalLabel">Filtrar carteles</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal para reportar comentarios -->
+    <form>
+        <div class="modal fade" id="reportarComentarioModal" tabindex="-1" aria-labelledby="reportarComentarioModalLabel" aria-hidden="true">
+          <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="reportarComentarioModalLabel">Reportar incidencia sobre el comentario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Reportar</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          [Formulario de filtro]
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Filtrar</button>
+    </form>
+    
+    
+      <!-- Modal para reportar cartel -->
+    <form>
+      <div class="modal fade" id="reportarCartelModal" tabindex="-1" aria-labelledby="reportarCartelModalLabel" aria-hidden="true">
+        <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reportarCartelModalLabel">Reportar incidencia sobre el cartel</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Reportar</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </form>
+    
 </body>
 </html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/static/ccs/navegador.css" rel="stylesheet">
+    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
+    <link href="/static/ccs/perfil.css" rel="stylesheet">
+    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery-3.6.1.min.js"></script>
+    <title>Joining Footprints | Carteles</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Moderar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Solicitudes</a></li>
+                    <li><a class="dropdown-item" href="#">Incidencias</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">[Nombre de perfil]</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina -->
+  <div class="container flex-grow-1 d-flex align-items-center justify-content-center formatoTexto" style="background-color: aliceblue;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 text-center bg-dark mt-2">
+            <h1 class="text-light m-1">[NICK]</h1>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="contInfo col-md-5 m-2">
+              <div class="mt-3 mb-3">
+                <p>E-mail: <span>[esteCorreo@gmail.com]</span></p>
+                <p>F-nacimiento: <span>[01/01/24]</span></p>
+                <p>Localidad: <span>[las palmas de gran canaria]</span></p>
+                <p>F-Registro: <span>[01/01/24]</span></p>
+              </div>
+            </div>
+            <div class="col-md-5 m-2">
+              <div class="row contInfo">
+                <div class="col-7"> 
+                  <div class="contPuntuaciones mt-3 mb-3">
+                    <p>Me gusta recibidos</p>
+                    <p>Veces compartidos:</p>
+                    <p>Veces penalizado</p>
+                    <hr>
+                    <p>Puntuación de honor:</p>
+                  </div>
+                </div>
+                <div class="col"> 
+                  <div class="mt-3 mb-3">
+                    <p>[0]</p>
+                    <p>[0]</p>
+                    <p>[0]</p>
+                    <hr>
+                    <p>[0]</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="container mt-3">
+            <h2>Publicaciones</h2>
+            <ul class="nav nav-tabs" id="myTabs">
+              <!-- Primera pestaña de publicaciones (lo pueden ver todos) -->
+              <li class="nav-item">
+                <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Actuales <span>(0)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2">Resueltas <span>(0)</span> </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Pendientes <span>(0)</span> </a>
+              </li>
+            </ul>
+            <div class="tab-content mt-2">
+              <!-- Primer contenido de la pestaña de publicaciones (lo pueden ver todos) -->
+              <div class="tab-pane fade show active" id="tab1">
+                <div class="card flex-grow-1">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="bg-light row pb-5">
+                          <ul class="list-unstyled ">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="text-center mb-3 mt-3 p-3 color2">
+                              <a href="#" id="enlace"><h1><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span></h1></a>
+                              <!-- botones que solo lo puede ver el usuario publicador -->
+                              <div class="row">
+                                <div class="col-6">
+                                  <button type="button" class="btn color4 w-100">Resuelto</button>
+                                </div>
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
+                                </div>
+                              </div>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+              <!-- Segundo contenido de la pestaña de resueltas (lo pueden ver todos) -->
+              <div class="tab-pane fade" id="tab2">
+                <div class="card flex-grow-1">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="bg-light row pb-5">
+                          <ul class="list-unstyled ">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="text-center mb-3 mt-3 p-3 color4">
+                              <a href="#" id="enlace"><h1><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span></h1></a>
+                              <!-- botones que solo lo puede ver el usuario publicador -->
+                              <div class="row">
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">No resuelto...</button>
+                                </div>
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
+                                </div>
+                              </div>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+              <!-- tercer contenido de la pestaña de solicitudes (solo puede verlo el dueño del perfil) -->
+              <div class="tab-pane fade" id="tab3">
+                <div class="card flex-grow-1">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="bg-light row pb-5">
+                          <ul class="list-unstyled ">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="text-center mb-3 mt-3 p-3 color3">
+                              <a href="#" id="enlace"><h1><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span></h1></a>
+                              <h2>Esperando para ser aprobada...</h2>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+
+        </div>
+        <div class="row">
+          <div class="card mt-2 bg-transparent border-0">
+            <div class="card-body">
+              <button type="button" class="btn btn-danger mr-2">Sancionar</button>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mensajePrivadoModal">Enviar mensaje privado</button>
+            </div>
+          </div>  
+        </div>
+      </div>
+        
+    </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Ventana Modal para mensajePrivado -->
+  <form>
+    <div class="modal fade" id="mensajePrivadoModal" tabindex="-1" aria-labelledby="mensajePrivadoModalLabel" aria-hidden="true">
+      <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="mensajePrivadoModalLabel">Mensaje</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea class="form-control" id="mensaje" rows="3"></textarea>    
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+
+</body>
+</html>

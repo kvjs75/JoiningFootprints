@@ -25,15 +25,7 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((authorize) -> authorize
-									.requestMatchers("/").permitAll()
-									.requestMatchers("/index").permitAll()
-									.requestMatchers("/registrarse").permitAll()
-									.requestMatchers("/crearUsuario").permitAll()
-									.requestMatchers("/login").permitAll()
-									.requestMatchers("/mostrar").permitAll()
-									.requestMatchers("/styles/**").permitAll()
-									.requestMatchers("/js/**").permitAll()
-									.requestMatchers("/img/**").permitAll()
+									
 									.anyRequest().authenticated()
 									)
 			.httpBasic(withDefaults())

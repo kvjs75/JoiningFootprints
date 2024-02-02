@@ -1,16 +1,29 @@
 $(document).ready(function() {
     $('#publicar').on('click', function() {
-        // Selecciona el div en donde se aloja la maquetación del cartel
         var contenedorCartel = $("#cartel")[0];
 
-        // Utiliza html2canvas para convertir el div en una imagen
         html2canvas(contenedorCartel).then(function(canvas) {
-        // Crea un elemento de imagen y establece la imagen generada como fuente
-        var imagen = new Image();
-        imagen.src = canvas.toDataURL("image/png");
+            let estaImagen = canvas.toDataURL("image/png");
+            let token = $("meta[name='_csrf']").attr("content");
+            let header = $("meta[name='_csrf_header']").attr("content");
 
-        // Agrega la imagen al documento o realiza alguna acción con ella
-        document.body.appendChild(imagen);
+            $.ajax({
+                type: "POST",
+                url: "/guardarImagen",
+                data: JSON.stringify({ "estaImagen": estaImagen }),
+                contentType: "application/json",
+                beforeSend: function(request) {
+                    request.setRequestHeader(header, token);
+                },
+                success: function(response) {
+                    console.log(response);
+                    // Puedes manejar la respuesta del servidor aquí
+                },
+                error: function(error) {
+                    console.error(error);
+                    alert("Error al guardar la imagen.");
+                }
+            });
         });
     });
 });
