@@ -25,7 +25,7 @@ public class consultasUsuarios {
 			try {
 				//Insertar al usuario a la base de datos
 				String SQLinsertUsuario = "INSERT INTO db_JNF.usuario (ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,FechaRegistro,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion) \r\n"
-						+ "VALUES (null,'"+usuario.getNombreUsuario()+"','"+usuario.getNick()+"','"+usuario.getCorreo()+"','"+usuario.getContrasena()+"','"+usuario.getFnacimiento()+"','"+usuario.getZonaGeografica()+"',current_timestamp(),0,0,0,0);";
+						+ "VALUES (null,'"+usuario.getNombreUsuario()+"','"+usuario.getNick()+"','"+usuario.getCorreo()+"','"+usuario.getContrasena()+"','"+usuario.getFechaNacimiento()+"','"+usuario.getZonaGeografica()+"',current_timestamp(),0,0,0,0);";
 				miConeccion.executeInsert(SQLinsertUsuario);
 				
 				//Encontrar la id del anterior usuario insertado
@@ -80,7 +80,7 @@ public class consultasUsuarios {
 							usuario.setNick(resultado.getNString("Nick"));
 							usuario.setCorreo(resultado.getNString("CorreoElectronico"));
 							usuario.setContrasena(resultado.getNString("Contrasena"));
-							usuario.setFnacimiento(resultado.getDate("FechaNacimiento").toString());
+							usuario.setFechaNacimiento(resultado.getDate("FechaNacimiento").toString());
 							usuario.setZonaGeografica(resultado.getNString("ZonaGeografica"));
 							usuario.setPuntuacionHonor(resultado.getInt("PuntuacionHonor"));
 							usuario.setNumLikes(resultado.getInt("NumLikes"));

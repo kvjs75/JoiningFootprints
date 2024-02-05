@@ -25,7 +25,21 @@ public class SecurityConfiguration {
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((authorize) -> authorize
-									
+								
+									.requestMatchers("/ccs/**").permitAll()
+									.requestMatchers("/js/**").permitAll()
+									.requestMatchers("/img/**").permitAll()
+									.requestMatchers("/bootstrap-5.3.2-dist/**").permitAll()
+									.requestMatchers("/cropperjs-main/**").permitAll()
+									.requestMatchers("/").permitAll()
+									.requestMatchers("/index").permitAll()
+									.requestMatchers("/registro").permitAll()
+									.requestMatchers("/crearUsuario").permitAll()
+									.requestMatchers("/login").permitAll()
+									.requestMatchers("/publicar1_1").permitAll()
+									.requestMatchers("/paso1_1").permitAll()
+									.requestMatchers("/publicar1_2").permitAll()
+									.requestMatchers("/paso1_2").permitAll()
 									.anyRequest().authenticated()
 									)
 			.httpBasic(withDefaults())

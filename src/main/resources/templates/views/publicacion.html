@@ -52,14 +52,8 @@
               <li class="nav-item">
                 <a class="nav-link colorAutenticado" href="#">Administrar</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Moderar
-                </a>
-                <ul class="dropdown-menu colorAutenticado">
-                    <li><a class="dropdown-item" href="#">Solicitudes</a></li>
-                    <li><a class="dropdown-item" href="#">Incidencias</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,14 +73,14 @@
               <li class="nav-item">
                 <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
               </li>
-              <!-- 
+              
               <li class="nav-item">
-                <a class="nav-link" href="#">[Nombre de perfil]</a>
+                <a class="nav-link" href="#">Aaaaaaaaaaaaaaa</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Cerrar sesión</a>
               </li>
-               -->
+          
             </ul> 
         </div>
     </div>
@@ -97,10 +91,6 @@
       <div class="col-12">
         <div class="row">
              <!-- Alertas -->
-          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
-            <p class="m-0 flex-grow-1 text-success">Tu cartel se ha publicado con éxito</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
           <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
             <p class="m-0 flex-grow-1 text-success">Tu reporte se ha enviado con éxito</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -121,20 +111,20 @@
                 </div>
                 <div class="row">
                   <div class="col d-flex justify-content-start">
-                    <h4><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
+                    <h4 class="subtitulo"><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
                   </div>
                 </div>
             </div>
             <!-- Cartel -->
             <div class="text-center col-10">
-                <img src="/static/img/carteles/desaparecion/cartelEjemplo.png" class="img-fluid w-100" srcset="">
+                <img src="/static/img/carteles/desaparicion/cartelEjemplo.png" class="img-fluid w-100" srcset="">
             </div>
             <!-- Botones de compartir -->
             <div class="col-10">
     
               <div class="row">
                 <div class="col-6 justify-content-start">
-                  <a href="/static/img/cartel1.jpg" class="btn adapBtn boton1 mt-2" download="cartelDesaparecion_animal">Descargar</a>
+                  <a href="/static/img/cartel1.jpg" class="btn btn-success mt-2" download="cartelDesaparecion_animal">Descargar</a>
                   <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
                 </div>
                 <div class="col-6 d-flex align-items-end justify-content-end">
@@ -155,14 +145,14 @@
                       <label for="comentario" class="form-label">Deja un comentario</label>
                       <textarea class="form-control" id="comentario" rows="3"></textarea>
                   </div>
-                  <button type="submit" class="btn boton1">Enviar</button>
+                  <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
                 <!-- Lista de Comentarios -->
-                <ul class="list-unstyled mt-5">
-    
-    
+                <ul class="list-group list-unstyled mt-5">
+        
                   <!-- Repetir comentarios (principio) -->
-                  <li class="media mb-3 contComentario">
+
+                  <li class="list-group-item media mb-3 contComentario">
                       <div class="media-body">
                         <div class="row">
                           <div class="col">
@@ -179,8 +169,8 @@
                           <a href="#" class="like float-end ms-2 "><img class="img-fluid" src="/static/img/iconos_redesSociales/like.png" alt=""></a>
                       </div>
                   </li>
-                  <!-- Repetir comentarios (final) -->
 
+                  <!-- Repetir comentarios (final) -->
 
                 </ul>
             </div>

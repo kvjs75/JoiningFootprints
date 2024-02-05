@@ -2,9 +2,9 @@ package es.dsw.models;
 
 public class cartelDesaparicion extends carteles {
 	
-	private String fechaDesaparicion;
-	private String lugarDesaparicion;
-	private String llevaChip;
+	private String fechaDesaparicion="";
+	private String lugarDesaparicion="";
+	private String recompensa="";
 	
 	public cartelDesaparicion() {
 		super();
@@ -18,7 +18,7 @@ public class cartelDesaparicion extends carteles {
 		
 		this.fechaDesaparicion = fechaDesaparicion;
 		this.lugarDesaparicion = lugarDesaparicion;
-		this.llevaChip = llevaChip;
+		this.recompensa = llevaChip;
 		
 	}
 
@@ -38,19 +38,12 @@ public class cartelDesaparicion extends carteles {
 		this.lugarDesaparicion = lucgarDesaparicion;
 	}
 
-	public String getLlevaChip() {
-		return llevaChip;
+	public String getRecompensa() {
+		return recompensa;
 	}
 
-	public void setLlevaChip(String llevaChip) {
-		this.llevaChip = llevaChip;
-	}
-	
-	
-	
-	
-	
-
-	
+	public void setRecompensa(String llevaChip) {
+		this.recompensa = llevaChip;
+	}	
 	
 }

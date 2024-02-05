@@ -174,11 +174,11 @@ public class consultasCarteles {
 					cartelDesaparicion.setTipoCartel(resultado.getNString("TipoCartel"));
 					cartelDesaparicion.setFechaDesaparicion(resultado.getDate("FechaDesaparicion").toString());
 					cartelDesaparicion.setLugarDesaparicion(resultado.getNString("LugarDesaparicion"));
-					if(resultado.getBoolean("LlevaChip")==true) {
-						cartelDesaparicion.setLlevaChip("si");
+					if(resultado.getBoolean("Recompensa")==true) {
+						cartelDesaparicion.setRecompensa("si");
 					}
 					else {
-						cartelDesaparicion.setLlevaChip("no");
+						cartelDesaparicion.setRecompensa("no");
 					}
 				}
 				
@@ -264,4 +264,51 @@ public class consultasCarteles {
 	}
 	
 	
+	public void insertarDesaparicion (String nombre, cartelDesaparicion objCartelDesaparicion) {
+		miConeccion.open();
+		int idUsuario= -1;
+		int idCartel = -1;
+		if(!miConeccion.isError()) {
+			
+			try {
+				String SQL = "SELECT ID_Usuario FROM db_JNF.usuario WHERE NombreUsuario='"+nombre+"'";
+				ResultSet resultado = miConeccion.executeSelect(SQL);
+				while(resultado.next()) {
+					idUsuario=resultado.getInt("ID_Usuario");
+				}
+				
+				SQL = "INSERT INTO db_jnf.Cartel (ID_Usuario, Fotografia, Nombre_Animal, Especie, Raza, Sexo, Telefono_Contacto1, Telefono_Contacto2, Email_Contacto, Descripcion, TipoCartel, Aprobacion, Estado_Cartel)\r\n"
+						+ "VALUES\r\n"
+						+ "("+idUsuario+", '"+objCartelDesaparicion.getFoto()+"', '"+objCartelDesaparicion.getNombreAnimal()+"', '"+objCartelDesaparicion.getEspecie()+"', '"+objCartelDesaparicion.getRaza()+"', '"+objCartelDesaparicion.getSexo()+"', '"+objCartelDesaparicion.getTelefono1()+"', '"+objCartelDesaparicion.getTelefono2()+"', '"+objCartelDesaparicion.getCorreo()+"', '"+objCartelDesaparicion.getDescripcion()+"', 'Desaparición', 'Pendiente', 0)";
+				miConeccion.executeInsert(SQL);
+				
+				SQL = "SELECT ID_Cartel FROM db_JNF.cartel ORDER BY Fecha_Publicacion DESC LIMIT 1;";
+				resultado = miConeccion.executeSelect(SQL);
+				
+				while(resultado.next()) {
+					idCartel=resultado.getInt("ID_Cartel");
+				}
+				
+				if(objCartelDesaparicion.getRecompensa().equals("si")) {
+					SQL = "INSERT INTO db_jnf.Cartel_Desaparicion (ID_Cartel, FechaDesaparicion, LugarDesaparicion, Recompensa)\r\n"
+							+ "VALUES\r\n"
+							+ "("+idCartel+", '"+objCartelDesaparicion.getFechaDesaparicion()+"', '"+objCartelDesaparicion.getLugarDesaparicion()+"', 1);";
+				}else {
+					SQL = "INSERT INTO db_jnf.Cartel_Desaparicion (ID_Cartel, FechaDesaparicion, LugarDesaparicion, Recompensa)\r\n"
+							+ "VALUES\r\n"
+							+ "("+idCartel+", '"+objCartelDesaparicion.getFechaDesaparicion()+"', '"+objCartelDesaparicion.getLugarDesaparicion()+"', 0);";
+				}
+				
+				miConeccion.executeInsert(SQL);
+				
+				miConeccion.commit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				miConeccion.rollback();
+			}
+			finally {
+				miConeccion.close();
+			}
+		}
+	}
 }

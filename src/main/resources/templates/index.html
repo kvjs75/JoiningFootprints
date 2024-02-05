@@ -7,7 +7,7 @@
     <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
     <link href="/static/ccs/formatoColores.css" rel="stylesheet">
     <link href="/static/ccs/navegador.css" rel="stylesheet">
-    <link href="/static/ccs/carteles.css" rel="stylesheet">
+    <link href="/static/ccs/index.css" rel="stylesheet">
     <title>Joining Footprints</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
@@ -50,14 +50,8 @@
               <li class="nav-item">
                 <a class="nav-link colorAutenticado" href="#">Administrar</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Moderar
-                </a>
-                <ul class="dropdown-menu colorAutenticado">
-                    <li><a class="dropdown-item" href="#">Solicitudes</a></li>
-                    <li><a class="dropdown-item" href="#">Incidencias</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Moderar</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,7 +73,7 @@
               </li>
               <!-- 
               <li class="nav-item">
-                <a class="nav-link" href="#">[Nombre de perfil]</a>
+                <a class="nav-link" href="#">Mi perfil</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Cerrar sesión</a>
@@ -106,14 +100,14 @@
               <div class="contenidoScroll card-body overflow-auto">
                   <!-- Contenido con scroll -->
                   <div class="container">
-                    <ul class="list-unstyled">
+                    <ul class="list-group list-unstyled">
 
                       <!-- Contenido en bucle -->
                       
-                      <li id="listaCarteles">
+                      <li class="list-group-item" id="listaCarteles">
                         <hr>
                         <div class="row d-flex align-items-center justify-content-center">
-                          <div class="col-10 pb-2">
+                          <div class="col-10 mb-3">
                               <div class="row">
                                   <div class="col d-flex justify-content-start">
                                       <h3>Publicado por <a href="#">[NICK]</a></h3>
@@ -121,20 +115,20 @@
                               </div>
                               <div class="row">
                                 <div class="col d-flex justify-content-start">
-                                  <h4><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
+                                  <h4 class="subtitulo"><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
                                 </div>
                               </div>
                           </div>
                           <!-- Cartel -->
-                          <div class="text-center col-10">
-                              <img src="/static/img/carteles/desaparecion/cartelEjemplo.png" class="w-100" alt="cartel">
+                          <div class="contCartel text-center col-10">
+                              <a href="#"><img src="/static/img/carteles/desaparicion/cartelEjemplo.png" class="w-60" alt="cartel"></a>
                           </div>
                           <!-- Botones de compartir -->
                           <div class="col-10">
                   
                             <div class="row">
                               <div class="col-6 justify-content-start">
-                                <a href="/static/img/cartel1.jpg" class="btn btn-outline-success mt-2" download="cartelDesaparecion_animal">Descargar</a>
+                                <a href="/static/img/cartel1.jpg" class="btn btn-success mt-2" download="cartelDesaparecion_animal">Descargar</a>
                                 <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
                               </div>
                               <div class="col-6 d-flex align-items-end justify-content-end">
@@ -149,7 +143,9 @@
                         </div>
                         <hr>
                       </li>
+
                       <!-- fin contenido en bucle -->
+
                     </ul>
                   </div>
                   <!-- Fin del contenido con scroll -->

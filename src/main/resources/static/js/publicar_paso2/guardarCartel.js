@@ -2,14 +2,16 @@ $(document).ready(function() {
     $('#publicar').on('click', function() {
         var contenedorCartel = $("#cartel")[0];
 
+        //Convierte en una imagen (canvas) el div seleccionado
         html2canvas(contenedorCartel).then(function(canvas) {
             let estaImagen = canvas.toDataURL("image/png");
             let token = $("meta[name='_csrf']").attr("content");
             let header = $("meta[name='_csrf_header']").attr("content");
 
+            //Hace una petición al backend para guardar la imagen
             $.ajax({
                 type: "POST",
-                url: "/guardarImagen",
+                url: "/paso1_2",
                 data: JSON.stringify({ "estaImagen": estaImagen }),
                 contentType: "application/json",
                 beforeSend: function(request) {
@@ -17,7 +19,9 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     console.log(response);
-                    // Puedes manejar la respuesta del servidor aquí
+                    
+                    //una vez guardado correctamente, redireccina al index
+                    window.location.href = "/index";
                 },
                 error: function(error) {
                     console.error(error);

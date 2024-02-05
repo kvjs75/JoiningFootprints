@@ -33,7 +33,7 @@
 }
 
 .logo:hover{
-    content: url('/static/img/logo2.png');
+    content: url('../img/logo2.png');
 }
 
 

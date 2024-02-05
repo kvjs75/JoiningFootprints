@@ -8,7 +8,7 @@ public class usuario {
 	private String nick;
 	private String contrasena;
 	private String correo;
-	private String Fnacimiento;
+	private String fechaNacimiento;
 	private String zonaGeografica;
 	private int puntuacionHonor;
 	private int numLikes;
@@ -22,7 +22,7 @@ public class usuario {
 		this.nick="";
 		this.contrasena="";
 		this.correo="";
-		this.Fnacimiento="";
+		this.fechaNacimiento="";
 		this.zonaGeografica="";
 		this.puntuacionHonor=0;
 		this.numLikes=0;
@@ -32,20 +32,20 @@ public class usuario {
 	}
 	
 	//contructor basico (sin roles ni sistemas de honor en general)
-	public usuario(String nombreUsuario, String nick, String contrasena, String correo, String Fnacimiento,
+	public usuario(String nombreUsuario, String nick, String contrasena, String correo, String fechaNacimiento,
 			String zonaGeografica) {
 	
 		this.nombreUsuario = nombreUsuario;
 		this.nick = nick;
 		this.contrasena = contrasena;
 		this.correo = correo;
-		this.Fnacimiento = Fnacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.zonaGeografica = zonaGeografica;
 	}
 	
 	
 	//constructor con roles y id (sin sistema de honor)
-	public usuario(int idUsuario, String nombreUsuario, String nick, String contrasena, String correo, String Fnacimiento,
+	public usuario(int idUsuario, String nombreUsuario, String nick, String contrasena, String correo, String fechaNacimiento,
 			String zonaGeografica, String roles) {
 		
 		this.idusuario = idUsuario;
@@ -53,14 +53,14 @@ public class usuario {
 		this.nick = nick;
 		this.contrasena = contrasena;
 		this.correo = correo;
-		this.Fnacimiento = Fnacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.zonaGeografica = zonaGeografica;
 		this.roles = roles;
 	}
 
 	
 	//contructor complejo (lo trae todo)
-	public usuario(int idUsuario, String nombreUsuario, String nick, String contrasena, String correo, String fnacimiento,
+	public usuario(int idUsuario, String nombreUsuario, String nick, String contrasena, String correo, String fechaNacimiento,
 			String zonaGeografica, int puntuacionHonor, int numLikes, int numCompartir, int numPenalizaciones,
 			String roles) {
 		
@@ -69,7 +69,7 @@ public class usuario {
 		this.nick = nick;
 		this.contrasena = contrasena;
 		this.correo = correo;
-		Fnacimiento = fnacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.zonaGeografica = zonaGeografica;
 		this.puntuacionHonor = puntuacionHonor;
 		this.numLikes = numLikes;
@@ -120,12 +120,12 @@ public class usuario {
 		this.correo = correo;
 	}
 
-	public String getFnacimiento() {
-		return Fnacimiento;
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setFnacimiento(String fnacimiento) {
-		Fnacimiento = fnacimiento;
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getZonaGeografica() {

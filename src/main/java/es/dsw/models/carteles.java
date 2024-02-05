@@ -1,17 +1,17 @@
 package es.dsw.models;
 
 public class carteles {
-	private int id;
-	private String foto;
-	private String nombreAnimal;
-	private String especie;
-	private String raza;
-	private String sexo;
-	private String telefono1;
-	private String telefono2;
-	private String correo;
-	private String descripcion;
-	private String tipoCartel;
+	private int id=0;
+	private String foto="";
+	private String nombreAnimal="";
+	private String especie="";
+	private String raza="";
+	private String sexo="";
+	private String telefono1="";
+	private String telefono2="";
+	private String correo="";
+	private String descripcion="";
+	private String tipoCartel="";
 	
 	
 	public carteles() {
