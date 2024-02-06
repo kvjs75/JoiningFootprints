@@ -12,12 +12,16 @@ public class carteles {
 	private String correo="";
 	private String descripcion="";
 	private String tipoCartel="";
+	private String estadoCartel="";
+	private String nick="";
+	private String fechaPublicacion="";
 	
 	
 	public carteles() {
 		
 	}
-
+	
+	//insertar datos
 	public carteles(int id, String foto, String nombreAnimal, String especie, String raza, String sexo,
 			String telefono1, String telefono2, String correo, String descripcion,
 			String tipoCartel) {
@@ -34,8 +38,28 @@ public class carteles {
 		this.descripcion = descripcion;
 		this.tipoCartel = tipoCartel;
 	}
-
 	
+	//mostrar datos
+	public carteles(int id, String foto, String nombreAnimal, String especie, String raza, String sexo,
+			String telefono1, String telefono2, String correo, String descripcion, String tipoCartel,
+			String estadoCartel, String nick, String fechaPublicacion) {
+		super();
+		this.id = id;
+		this.foto = foto;
+		this.nombreAnimal = nombreAnimal;
+		this.especie = especie;
+		this.raza = raza;
+		this.sexo = sexo;
+		this.telefono1 = telefono1;
+		this.telefono2 = telefono2;
+		this.correo = correo;
+		this.descripcion = descripcion;
+		this.tipoCartel = tipoCartel;
+		this.estadoCartel = estadoCartel;
+		this.nick = nick;
+		this.fechaPublicacion=fechaPublicacion;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -124,6 +148,32 @@ public class carteles {
 	public void setTipoCartel(String tipoCartel) {
 		this.tipoCartel = tipoCartel;
 	}
+
+	public String getEstadoCartel() {
+		return estadoCartel;
+	}
+
+	public void setEstadoCartel(String estadoCartel) {
+		this.estadoCartel = estadoCartel;
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getFechaPublicacion() {
+		return fechaPublicacion;
+	}
+
+	public void setFechaPublicacion(String fechaPublicacion) {
+		this.fechaPublicacion = fechaPublicacion;
+	}
+
+	
 	
 	
 	

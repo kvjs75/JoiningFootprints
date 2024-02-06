@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/ccs/formatoColores.css" rel="stylesheet">
+    <link href="/ccs/navegador.css" rel="stylesheet">
+    <link href="/ccs/index.css" rel="stylesheet">
+    <title>Joining Footprints</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/img/logo1.png" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Moderar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">Mi perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina principal -->
+  <div class="container flex-grow-1 d-flex align-items-center justify-content-center formatoTexto" style="background-color: aliceblue;">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row">
+          <h5 class="text-center mt-1">[Sección]</h5>
+          <form class="d-flex mt-1 mb-1" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar carteles" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <!-- Boton para el filtro Modal-->
+            <button class="btn btn-outline-success" type="button"  data-bs-toggle="modal" data-bs-target="#filtroModal">Filtrar</button>
+          </form>
+        </div>
+          <div class="card flex-grow-1">
+              <div class="contenidoScroll card-body overflow-auto">
+                  <!-- Contenido con scroll -->
+                  <div class="container">
+                    <ul class="list-group list-unstyled">
+
+                      <!-- Contenido en bucle -->
+                      
+                      <li class="list-group-item border-0" id="listaCarteles" th:each ="operacion, iterador : ${carteles}">
+                        <hr>
+                        <div class="row d-flex align-items-center justify-content-center">
+                          <div class="col-10 mb-3">
+                              <div class="row">
+                                  <div class="col d-flex justify-content-start">
+                                      <h3>Publicado por <a href="#" >[NICK]</a></h3>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                <div class="col d-flex justify-content-start">
+                                  <h4 class="subtitulo"><i><span th:text="${operacion.getFechaPublicacion()}">[/01/01/24]</span> | <span th:text="${operacion.getEstadoCartel()}">[no resuelto]</span></i></h4>
+                                </div>
+                              </div>
+                          </div>
+                          <!-- Cartel -->
+                          <div class="contCartel text-center col-10">
+                              <a href="#"><img th:src="@{${operacion.getFoto()}}" class="w-60" alt="cartel"></a>
+                          </div>
+                          <!-- Botones de compartir -->
+                          <div class="col-10">
+                  
+                            <div class="row">
+                              <div class="col-6 justify-content-start">
+                                <a href="/static/img/cartel1.jpg" class="btn btn-success mt-2" download="cartelDesaparecion_animal">Descargar</a>
+                                <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
+                              </div>
+                              <div class="col-6 d-flex align-items-end justify-content-end">
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/instragram.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/reddit.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/twitter.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/whatsapp.png}"></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr>
+                      </li>
+
+                      <!-- fin contenido en bucle -->
+
+                    </ul>
+                  </div>
+                  <!-- Fin del contenido con scroll -->
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Ventana Modal para el filtro -->
+  <div class="modal fade" id="filtroModal" tabindex="-1" aria-labelledby="filtroModalLabel" aria-hidden="true">
+    <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filtroModalLabel">Filtrar carteles</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          [Formulario de filtro]
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Filtrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

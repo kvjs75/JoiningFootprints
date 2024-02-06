@@ -40,6 +40,8 @@ public class SecurityConfiguration {
 									.requestMatchers("/paso1_1").permitAll()
 									.requestMatchers("/publicar1_2").permitAll()
 									.requestMatchers("/paso1_2").permitAll()
+									.requestMatchers("/publicacion").permitAll()
+									.requestMatchers("/perfil").permitAll()
 									.anyRequest().authenticated()
 									)
 			.httpBasic(withDefaults())

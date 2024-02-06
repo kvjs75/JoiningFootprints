@@ -10,6 +10,7 @@ public class usuario {
 	private String correo;
 	private String fechaNacimiento;
 	private String zonaGeografica;
+	private String fechaRegistro;
 	private int puntuacionHonor;
 	private int numLikes;
 	private int numCompartir;
@@ -134,6 +135,14 @@ public class usuario {
 
 	public void setZonaGeografica(String zonaGeografica) {
 		this.zonaGeografica = zonaGeografica;
+	}
+
+	public String getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(String fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
 	public int getPuntuacionHonor() {

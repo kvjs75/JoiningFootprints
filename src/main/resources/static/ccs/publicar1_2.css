@@ -8,6 +8,57 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.card-body{
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (min-height: 919px) {
+  .card-body{
+    height: 691px !important;
+    max-height: 691px !important;
+}
+}
+
+@media screen and (min-height: 950px) {
+  .card-body{
+    height: 770px !important;
+    max-height: 770px !important;
+}
+}
+
+@media screen and (min-height: 1000px) {
+  .card-body{
+    height: 820px !important;
+    max-height: 820px !important;
+}
+}
+
+@media screen and (min-height: 1050px) {
+  .card-body{
+    height: 870px !important;
+    max-height: 870px !important;
+}
+}
+
+@media screen and (min-height: 1100px) {
+  .card-body{
+    height: 921px !important;
+    max-height: 921px !important;
+}
+}
+@media screen and (min-height: 1150px) {
+  .card-body{
+    height: 1085px !important;
+    max-height: 1085px !important;
+}
+
+}
+
+
+
+
+
 .contTitulo{
     width: 1000px;
     height: 110px;

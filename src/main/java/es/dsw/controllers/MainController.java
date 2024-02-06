@@ -41,6 +41,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MainController {
 	@GetMapping(value= {"/","/index"})
 	public String index(Model modelo) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneral();
+		modelo.addAttribute("carteles",carteles);
 		return "index";
 	}
 	
@@ -141,7 +144,7 @@ public class MainController {
 						 @RequestParam(name="lugarDesaparicion", defaultValue="" ) String lugarDesaparicion,
 						 @RequestParam(name="telefono1", defaultValue="" ) String telefono1,
 						 @RequestParam(name="telefono2", defaultValue="" ) String telefono2,
-						 @RequestParam(name="emailContacto", defaultValue="" ) String emailContacto,
+						 @RequestParam(name="correo", defaultValue="" ) String emailContacto,
 						 @RequestParam(name="recompensa", defaultValue="" ) String recompensa
 			  			) {
 		
@@ -239,6 +242,40 @@ public class MainController {
             return "Error al guardar la imagen.";
         }
     }
+	
+	@GetMapping(value= {"/publicacion"})
+	public String publicacion(Model modelo,
+							  @RequestParam(name="idCatel", defaultValue="-1" ) int idCartel) {
+		
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		carteles cartel = null;
+		if(consultasCarteles.detectarTipoCartel(idCartel).equals("Desaparición")) {
+			
+			cartel = (cartelDesaparicion) consultasCarteles.mostrarDatosDesaparicion(idCartel);
+			modelo.addAttribute("cartel",cartel);
+		}else if(consultasCarteles.detectarTipoCartel(idCartel).equals("Adopcion")){
+			
+			cartel = (cartelAdopcion) consultasCarteles.mostrarDatosAdopcion(idCartel);;
+			modelo.addAttribute("cartel",cartel);
+		}
+		
+		
+		return "views/publicacion";
+	}
+	
+	@GetMapping(value= {"/perfil"})
+	public String perfil(Model modelo,
+						 @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		consultasUsuarios consultasUsuarios = new consultasUsuarios();
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNick(nick);
+		usuario usuario = consultasUsuarios.mostrarPerfilNick(nick);
+		modelo.addAttribute("usuario",usuario);
+		modelo.addAttribute("carteles",carteles);
+		return "views/perfil";
+	}
 }
 
 

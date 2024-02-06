@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
-    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
-    <link href="/static/ccs/navegador.css" rel="stylesheet">
-    <link href="/static/ccs/index.css" rel="stylesheet">
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/index.css}" rel="stylesheet">
     <title>Joining Footprints</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="#">
-            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,39 +104,39 @@
 
                       <!-- Contenido en bucle -->
                       
-                      <li class="list-group-item" id="listaCarteles">
+                      <li class="list-group-item border-0" id="listaCarteles" th:each ="operacion, iterador : ${carteles}">
                         <hr>
                         <div class="row d-flex align-items-center justify-content-center">
                           <div class="col-10 mb-3">
                               <div class="row">
                                   <div class="col d-flex justify-content-start">
-                                      <h3>Publicado por <a href="#">[NICK]</a></h3>
+                                      <h3>Publicado por <a th:href="@{'/perfil?nick='+${operacion.getNick()}+''}" th:text="${operacion.getNick()}">[NICK]</a></h3>
                                   </div>
                               </div>
                               <div class="row">
                                 <div class="col d-flex justify-content-start">
-                                  <h4 class="subtitulo"><i><span>[/01/01/24]</span> | <span>[no resuelto]</span></i></h4>
+                                  <h4 class="subtitulo"><i><span th:text="${operacion.getFechaPublicacion()}">[/01/01/24]</span> | <span th:text="${operacion.getEstadoCartel()}">[no resuelto]</span></i></h4>
                                 </div>
                               </div>
                           </div>
                           <!-- Cartel -->
                           <div class="contCartel text-center col-10">
-                              <a href="#"><img src="/static/img/carteles/desaparicion/cartelEjemplo.png" class="w-60" alt="cartel"></a>
+                              <a th:href="@{'/publicacion?idCatel='+${operacion.getId()}+''}"><img tH:src="@{${operacion.getFoto()}}" class="w-60" alt="cartel"></a>
                           </div>
                           <!-- Botones de compartir -->
                           <div class="col-10">
                   
                             <div class="row">
                               <div class="col-6 justify-content-start">
-                                <a href="/static/img/cartel1.jpg" class="btn btn-success mt-2" download="cartelDesaparecion_animal">Descargar</a>
+                                <a th:href="@{${operacion.getFoto()}}" class="btn btn-success mt-2" download="cartel_animal">Descargar</a>
                                 <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
                               </div>
                               <div class="col-6 d-flex align-items-end justify-content-end">
-                                  <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/facebook.png"></a>
-                                  <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/instragram.png"></a>
-                                  <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/reddit.png"></a>
-                                  <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/twitter.png"></a>
-                                  <a href="#"><img class="redes img-fluid" src="/static/img/iconos_redesSociales/whatsapp.png"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/instragram.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/reddit.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/twitter.png}"></a>
+                                  <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/whatsapp.png}"></a>
                               </div>
                             </div>
                           </div>

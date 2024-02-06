@@ -1,0 +1,27 @@
+.contenidoScroll{
+    height: 721px;
+    max-height: 721px !important;
+}
+
+@media screen and (min-height: 1311px) {
+  .contenidoScroll{
+    height: 81vh;
+    max-height: 80vh !important;
+}
+}
+
+#listaCarteles{
+    margin-bottom: 120px;
+}
+
+.contCartel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: border-color 0.3s ease;
+    border: 3px solid transparent;
+  }
+
+  .contCartel:hover img {
+    border-color: #fe8d3e; 
+  }
