@@ -141,8 +141,10 @@
                         <input type="password" class="form-control" id="reContrasena" name="reContrasena">
                       </div>
                       <div class="form-group">
-                        <label for="zonaGeografica">Zona geografica:</label>
-                        <input type="text" class="form-control" id="zonaGeografica" name="zonaGeografica" th:field="*{zonaGeografica}">
+                        <label for="provincias">Provincia:</label>
+			              <select class="form-select" id="zonaGeografica" name="zonaGeografica" th:field="*{zonaGeografica}">
+			                  <option value="no-especificar">No especificar</option>
+			              </select>
                       </div>
                     </div>
                   </div>
@@ -166,5 +168,7 @@
         </div>
     </div>
   </footer>
+  <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+  <script th:src="@{/js/autenticar_y_filtros/api_obtenerProvincias.js}"></script>
 </body>
 </html>

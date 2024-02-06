@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/static/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js"></script>
+    <link href="/static/ccs/formatoColores.css" rel="stylesheet">
+    <link href="/static/ccs/navegador.css" rel="stylesheet">
+    <link href="/static/ccs/administrar.css" rel="stylesheet">
+    <title>Joining Footprints</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="/static/img/logo1.png" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link color1 text-light" href="#">Moderar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">[Nombre de perfil]</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina principal -->
+  <div class="container flex-grow-1 d-flex align-items-center justify-content-center formatoTexto" style="background-color: aliceblue;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 text-center">
+            <h5 class="m-1">Moderar</h5>
+        </div>
+        <div class="row">
+          <div class="container">
+            <ul class="nav nav-tabs color-hover" id="myTabs">
+              <!-- Primera pestaña de solicitudes de carteles -->
+              <li class="nav-item">
+                <a class="nav-link text-dark active fondo1" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Gestión usuarios</a>
+              </li>
+              <!-- Segunda pestaña de denuncias de carteles -->
+              <li class="nav-item">
+                <a class="nav-link text-dark fondo2" id="tab2-tab" data-bs-toggle="tab" href="#tab2">Gestión roles</a>
+              </li>
+              <!-- Tercera pestaña de denuncias de comentarios -->
+            </ul>
+            <div class="tab-content mt-2">
+              <!-- Primer contenido de solicitudes de carteles -->
+              <div class="tab-pane fade show active" id="tab1">
+                <div class="card flex-grow-1 fondo1">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid contDenuncia">
+                        <div class="row">
+                          <form class="d-flex mt-1 mb-1" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Buscar por nick" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                            <!-- Boton para localizar nick-->
+                          </form>
+                        </div>
+                        <div class="row pb-5">
+                            <table class="table table-striped table-bordered text-center mt-4">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Nick</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Provincia</th>
+                                        <th scope="col">Rol</th>
+                                        <th scope="col" class="celdaGestion">Gestión</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <!-- Contenido en bucle -->
+
+                                    <tr>
+                                        <td>0</td>
+                                        <td>Usuario</td>
+                                        <td>Nick</td>
+                                        <td>correo electronico</td>
+                                        <td>Provincia</td>
+                                        <td>Rol</td>
+                                        <td>
+                                          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificarUsuarioModal">Modificar</button>
+                                          <button class="btn btn-danger">Eliminar</button>
+                                          <button class="btn btn-warning">Anular</button>
+                                        </td>
+
+                                    </tr>
+                                    
+                                    <!-- Fin del contenido contenido en bucle -->
+
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+              <!-- Segundo contenido de denuncias de carteles -->
+              <div class="tab-pane fade" id="tab2">
+                <div class="card flex-grow-1 fondo2">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid contDenuncia">
+                        <div class="row pb-5">
+                          <ul class="list-group list-unstyled">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class=" list-group-item mb-3 mt-3 p-3 border-0 bg-dark">
+                              <div class=" tituloDenunciaCartel row text-center text-light">
+                                <h1>Denuncia cartel: [ID]</h1>
+                              </div>
+                              <div class="row colorFondo">
+                                <div class="col-6">
+                                  <p>Cartel</p>
+                                </div>
+                                <div class="col-6">
+                                  <a href="#" id="enlace"><p><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span> <i><span>[Fecha]</span></i></p></a>
+                                </div>
+                              </div>
+                              <div class="row colorFondo">
+                                <div class="col-6">
+                                  <p>Denunciante</p>
+                                </div>
+                                <div class="col-6">
+                                  <a href="#"><p>[Nick denunciante]</p></a>
+                                </div>
+                                </div>
+                              <div class="row colorFondo">
+                                <div class="col-6">
+                                  <p>Denunciado</p>
+                                </div>
+                                <div class="col-6">
+                                  <a href="#"><p>[Nick denunciado]</p></a>
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col text-light">
+                                  <h2>Motivo de la denuncia</h2>
+                                </div>
+                              </div>
+                              <div class="row colorFondo">
+                                <p>[Texto]</p>
+                              </div>
+                              <div class="row mt-3 justify-content-center">
+                                <button type="button" class="btn adapBtn btn-success">Marcar como resuelto</button>
+                              </div>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+
+ <!-- Ventana Modal para modificarUsuario -->
+  <form>
+    <div class="modal fade" id="modificarUsuarioModal" tabindex="-1" aria-labelledby="modificarUsuarioModalLabel" aria-hidden="true">
+      <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5>Modificar <span>[nick]</span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            [Formulario]
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+</html>
