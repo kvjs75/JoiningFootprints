@@ -15,10 +15,10 @@ public class controlErroresCartelDesaparicion {
 	public controlErroresCartelDesaparicion(cartelDesaparicion objCartelDesaparicion) {
 		
 		LocalDate fechaActual = LocalDate.now();
-		LocalDate fechaNacimiento = null;
+		LocalDate fechaDesaparecion = null;
 		
 		if(!objCartelDesaparicion.getFechaDesaparicion().equals("")) {
-			fechaNacimiento = LocalDate.parse(objCartelDesaparicion.getFechaDesaparicion());
+			fechaDesaparecion = LocalDate.parse(objCartelDesaparicion.getFechaDesaparicion());
 		}
 		
 		
@@ -47,15 +47,13 @@ public class controlErroresCartelDesaparicion {
 			this.msgError="Sexo es obligatorio";
 		}
 		
-		
-		
 		else if(objCartelDesaparicion.getFechaDesaparicion().equals("")) {
 			this.numError="4-1";
 			this.error=true;
 			this.msgError="La fecha es obligatorio";
 		}
 		
-		else if(!objCartelDesaparicion.getFechaDesaparicion().equals("") && fechaActual.isBefore(fechaNacimiento)) {
+		else if(!objCartelDesaparicion.getFechaDesaparicion().equals("") && fechaActual.isBefore(fechaDesaparecion)) {
 				this.numError="4-2";
 				this.error=true;
 				this.msgError="La fecha no puede ser mayor que la actual";

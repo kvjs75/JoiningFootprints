@@ -97,7 +97,7 @@
         <div class="card-body overflow-auto">
             <!-- Cartel con scroll -->
             <div class="container">
-              <div class="bg-light row" style="background-color: aqua; width: 1262px;">
+              <div class="bg-light row">
                 <div> 
                   <div class="contenedorCartel" id="cartel"> 
                     <div class="contTitulo">
@@ -113,17 +113,17 @@
                         <div class="contSexo">
                           <p>Sexo: <span th:text="${cartelDesaparicion.getSexo()}">[Macho]</span></p>
                         </div>
-                        <div class="contRaza">
+                        <div class="contRaza" th:if="${!cartelDesaparicion.getRaza().trim().equals('')}">
                           <p>Raza: <span th:text="${cartelDesaparicion.getRaza()}">[Labrador]</span></p>
                         </div>
-                        <div th:if="${cartelDesaparicion.getRecompensa().equals('si')}" class="contRecompensa">
+                        <div th:if="${cartelDesaparicion.getRecompensa().equals('1')}" class="contRecompensa">
                           <p>Se recompensará</p>
                         </div>
                       </div>
                       <div class="contDescripcion">
                         <h3>Descripción del animal</h3>
                         <div class="contTexDescripcion">
-                          <p th:text="${cartelDesaparicion.getDescripcion()}"}>[Texto]</p>
+                          <p th:text="${cartelDesaparicion.getDescripcion()}">[Texto]</p>
                         </div>
                       </div>
                       <div class="contLugar">
@@ -149,7 +149,7 @@
         </div>
     </div>
     <form method="post" action="@{/paso1_2}">
-      <div class="row color2 formatoTexto ">
+      <div class="row formatoTexto ">
         <div class="row color-hover">
           <div class="col mt-3 mb-3 d-flex align-items-center justify-content-start">
             <a class="ms-4 btn color4" th:href="@{/publicar1_1}">Anterior</a>
@@ -158,7 +158,7 @@
             <button class="btn color4" type="button"  data-bs-toggle="modal" data-bs-target="#subirImgModal">Subir foto</button>
           </div>
           <div class="col mt-3 mb-3 d-flex align-items-center justify-content-end">
-            <button type="button" class="btn color4" id="publicar">Publicar</button>
+            <button type="button" class="btn color4" id="enviar1">Enviar</button>
           </div>
         </div>
       </div>

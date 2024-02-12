@@ -1,0 +1,83 @@
+.contenidoScroll{
+    border: 2px solid #343c3e;
+    height: 705px;
+    max-height: 721px !important;
+}
+
+@media screen and (min-height: 919px) {
+.contenidoScroll{
+    height: 691px !important;
+      max-height: 691px !important;
+}
+}
+  @media screen and (min-height: 920px) {
+.contenidoScroll{
+    height: 730px !important;
+    max-height: 730px !important;
+  }
+  }
+  
+  @media screen and (min-height: 950px) {
+    .contenidoScroll{
+      height: 770px !important;
+      max-height: 770px !important;
+  }
+  }
+  
+  @media screen and (min-height: 1000px) {
+    .contenidoScroll{
+      height: 820px !important;
+      max-height: 820px !important;
+  }
+  }
+  
+  @media screen and (min-height: 1050px) {
+    .contenidoScroll{
+      height: 870px !important;
+      max-height: 870px !important;
+  }
+  }
+  
+  @media screen and (min-height: 1100px) {
+    .contenidoScroll{
+      height: 921px !important;
+      max-height: 921px !important;
+  }
+  }
+  
+  @media screen and (min-height: 1150px) {
+    .contenidoScroll{
+      height: 1085px !important;
+      max-height: 10850px !important;
+  }
+  
+  }
+
+#tab1-tab, #tab2-tab, #tab3-tab{
+    border: 2px solid #343c3e;
+    width: 260px; 
+}
+
+.contDenuncia li{
+    margin-left: 10px;
+    margin-bottom: 100px !important;
+}
+
+.colorFondo{
+    background-color: rgb(239, 239, 212);
+}
+
+.colorFondo2{
+    background-color: rgb(239, 212, 212);
+}
+
+.contDenuncia h1{
+    margin-bottom: 15px;
+}
+
+.contDenuncia button{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px !important;
+}
+

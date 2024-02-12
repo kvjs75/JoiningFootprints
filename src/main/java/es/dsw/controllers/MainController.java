@@ -24,10 +24,13 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import es.dsw.config.SecurityConfiguration;
 import es.dsw.datos.consultasCarteles;
+import es.dsw.datos.consultasComentarios;
 import es.dsw.datos.consultasUsuarios;
+import es.dsw.models.comentarios;
 import es.dsw.models.cartelDesaparicion;
 import es.dsw.models.cartelAdopcion;
 import es.dsw.models.carteles;
+import es.dsw.models.controlErroresCartelAdopcion;
 import es.dsw.models.controlErroresCartelDesaparicion;
 import es.dsw.models.controlErroresUsuarios;
 import es.dsw.models.solicitudImagen;
@@ -36,12 +39,28 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@SessionAttributes({"usuario","cartelDesaparicion"})
+@SessionAttributes({"usuario","cartelDesaparicion", "cartelAdopcion"})
 
 public class MainController {
 	@GetMapping(value= {"/","/index"})
 	public String index(Model modelo) {
+		
+		cartelDesaparicion cartelDesaparicion = new cartelDesaparicion();
+		modelo.addAttribute("cartelDesaparicion",cartelDesaparicion);
+		cartelAdopcion cartelAdopcion = new cartelAdopcion();
+		modelo.addAttribute("cartelAdopcion",cartelAdopcion);
 		return "index";
+	}
+	
+	@GetMapping("/masCarteles")
+	public String moreCarteles(Model modelo,
+								@RequestParam(defaultValue = "5") int cantidad,
+        						@RequestParam(defaultValue = "5") int offset) {
+		
+	    consultasCarteles consultasCarteles = new consultasCarteles();
+	    ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneral(cantidad, offset);
+	    modelo.addAttribute("carteles",carteles);
+	    return "subview/listaCarteles";
 	}
 	
 	@GetMapping(value= {"/login"})
@@ -141,7 +160,7 @@ public class MainController {
 						 @RequestParam(name="lugarDesaparicion", defaultValue="" ) String lugarDesaparicion,
 						 @RequestParam(name="telefono1", defaultValue="" ) String telefono1,
 						 @RequestParam(name="telefono2", defaultValue="" ) String telefono2,
-						 @RequestParam(name="emailContacto", defaultValue="" ) String emailContacto,
+						 @RequestParam(name="correo", defaultValue="" ) String emailContacto,
 						 @RequestParam(name="recompensa", defaultValue="" ) String recompensa
 			  			) {
 		
@@ -169,9 +188,9 @@ public class MainController {
 		objCartelDesaparicion.setTelefono2(telefono2);
 		objCartelDesaparicion.setCorreo(emailContacto);
 		if(recompensa.equals("on")) {
-			objCartelDesaparicion.setRecompensa("si");
+			objCartelDesaparicion.setRecompensa("1");
 		}else {
-			objCartelDesaparicion.setRecompensa("no");
+			objCartelDesaparicion.setRecompensa("0");
 		}
 		
 		controlErroresCartelDesaparicion objControlErroresCartelDesaparicion = new controlErroresCartelDesaparicion(objCartelDesaparicion);
@@ -212,8 +231,9 @@ public class MainController {
 	@PostMapping("/paso1_2")
     @ResponseBody
     public String guardarImagen(Model modelo,
+    							SessionStatus estado,
     							@RequestBody solicitudImagen imagenRequest) {
-
+		
         byte[] decodedImage = Base64.getDecoder().decode(imagenRequest.getEstaImagen().split(",")[1]);
 
         try {
@@ -239,6 +259,253 @@ public class MainController {
             return "Error al guardar la imagen.";
         }
     }
+	
+	
+	
+	
+	@GetMapping(value= {"/publicar2_1"})
+	public String publicar2_1(Model modelo,
+							  @RequestParam(name="codError", defaultValue="" ) String codError) {
+		
+		if(modelo.getAttribute("cartelAdopcion") == null) {
+			cartelAdopcion cartelAdopcion = new cartelAdopcion();
+			modelo.addAttribute("cartelAdopcion",cartelAdopcion);
+		}
+		
+		controlErroresCartelAdopcion objControlErroresCartelAdopcion = new controlErroresCartelAdopcion(codError);
+		
+		modelo.addAttribute("msgError", objControlErroresCartelAdopcion.getMsgError());
+		
+		return "views/publicar2_1";
+	}
+	
+	
+	@PostMapping(value= {"/paso2_1"})
+	public String paso2_1(Model modelo, 
+						 @RequestParam(name="nombreAnimal", defaultValue="" ) String nombreAnimal,
+						 @RequestParam(name="raza", defaultValue="" ) String raza,
+						 @RequestParam(name="especie", defaultValue="" ) String especie,
+						 @RequestParam(name="sexo", defaultValue="" ) String sexo,
+						 @RequestParam(name="fechaNacimiento", defaultValue="" ) String fechaNacimiento,
+						 @RequestParam(name="descripcion", defaultValue="" ) String descripcion,
+						 @RequestParam(name="requisitos", defaultValue="" ) String requisitos,
+						 @RequestParam(name="telefono1", defaultValue="" ) String telefono1,
+						 @RequestParam(name="telefono2", defaultValue="" ) String telefono2,
+						 @RequestParam(name="correo", defaultValue="" ) String emailContacto,
+						 @RequestParam(name="vacunado", defaultValue="" ) String vacunado,
+						 @RequestParam(name="esterilizado", defaultValue="" ) String esterilizado,
+						 @RequestParam(name="desparasitado", defaultValue="" ) String desparasitado,
+						 @RequestParam(name="entrevista", defaultValue="" ) String entrevista
+ 							) {
+		
+		cartelAdopcion objCartelAdopcion = new cartelAdopcion();
+		
+		//Condicion para poner las primeras letras del nombre en mayuscula
+		if (nombreAnimal != null && !nombreAnimal.isEmpty()) {
+			String[] palabras = nombreAnimal.split("\\s+");
+		    for (int i = 0; i < palabras.length; i++) {
+		    	palabras[i] = palabras[i].substring(0, 1).toUpperCase() + palabras[i].substring(1).toLowerCase();
+		    }
+		    nombreAnimal = String.join(" ", palabras);
+		}		
+		
+		objCartelAdopcion.setNombreAnimal(nombreAnimal);
+		objCartelAdopcion.setRaza(raza);
+		objCartelAdopcion.setEspecie(especie);
+		objCartelAdopcion.setSexo(sexo);
+		objCartelAdopcion.setFechaNacimiento(fechaNacimiento);
+		objCartelAdopcion.setDescripcion(descripcion);
+		objCartelAdopcion.setRequisitos(requisitos);
+		objCartelAdopcion.setTelefono1(telefono1);
+		objCartelAdopcion.setTelefono2(telefono2);
+		objCartelAdopcion.setCorreo(emailContacto);
+		if(vacunado.equals("on")) {
+			objCartelAdopcion.setVacunado("1");
+		}else {
+			objCartelAdopcion.setVacunado("0");
+		}
+		if(esterilizado.equals("on")) {
+			objCartelAdopcion.setEsterilizado("1");
+		}else {
+			objCartelAdopcion.setEsterilizado("0");
+		}
+		if(desparasitado.equals("on")) {
+			objCartelAdopcion.setDesparasitado("1");
+		}else {
+			objCartelAdopcion.setDesparasitado("0");
+		}
+		if(entrevista.equals("on")) {
+			objCartelAdopcion.setEntrevista("1");
+		}else {
+			objCartelAdopcion.setEntrevista("0");
+		}
+		
+		controlErroresCartelAdopcion objControlErroresCartelAdopcion = new controlErroresCartelAdopcion(objCartelAdopcion);
+		
+		modelo.addAttribute("cartelAdopcion",objCartelAdopcion);
+		
+		if(objControlErroresCartelAdopcion.isError() == true) {
+			return "redirect:/publicar2_1?codError="+objControlErroresCartelAdopcion.getNumError();
+		}else {
+			return "redirect:/publicar2_2";
+		}
+	
+	}
+	
+	@GetMapping(value= {"/publicar2_2"})
+	public String publicar2_2(Model modelo) {
+		
+		
+		if(modelo.getAttribute("cartelAdopcion") == null) {
+			return "redirect:/publicar2_1";
+		}
+		
+		cartelAdopcion sesionCartelAdopcion  = (cartelAdopcion ) modelo.getAttribute("cartelAdopcion");
+		
+		controlErroresCartelAdopcion  objControlErroresCartelAdopcion  = new controlErroresCartelAdopcion (sesionCartelAdopcion);
+		
+		if(objControlErroresCartelAdopcion .isError() == true) {
+			return "redirect:/publicar2_1";
+		}
+		
+		
+		return "views/publicar2_2";
+	}
+	
+	@Value("${ruta.cartelesAdopciones}")
+	private String rutaDirectorio2;
+	
+	@PostMapping("/paso2_2")
+    @ResponseBody
+    public String guardarImagen2(Model modelo,
+    							SessionStatus estado,
+    							@RequestBody solicitudImagen imagenRequest) {
+				
+        byte[] decodedImage = Base64.getDecoder().decode(imagenRequest.getEstaImagen().split(",")[1]);
+
+        try {
+            String nombreImagen = System.currentTimeMillis() + ".png";
+            File archivoImagen = new File(rutaDirectorio2 + nombreImagen);
+            try (FileOutputStream fos = new FileOutputStream(archivoImagen)) {
+                fos.write(decodedImage);
+            }
+            cartelAdopcion SesionCartelAdopcion = (cartelAdopcion) modelo.getAttribute("cartelAdopcion");
+            SesionCartelAdopcion.setFoto("/img/carteles/adopcion/"+nombreImagen);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            // Obtiene el nombre del usuario autenticado
+            String nombreUsuario = authentication.getName();
+            consultasCarteles consultasCarteles = new consultasCarteles();
+            
+            consultasCarteles.insertarAdopcion(nombreUsuario, SesionCartelAdopcion);
+            // Devuelve el nombre de la imagen guardada
+            
+            return nombreImagen;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error al guardar la imagen.";
+        }
+    }
+	
+	
+	
+	@GetMapping(value= {"/publicacion"})
+	public String publicacion(Model modelo,
+							  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		carteles cartel = null;
+		if(consultasCarteles.detectarTipoCartel(idCartel).equals("Desaparición")) {
+			
+			cartel = (cartelDesaparicion) consultasCarteles.mostrarDatosDesaparicion(idCartel);
+			modelo.addAttribute("cartel",cartel);
+		}else if(consultasCarteles.detectarTipoCartel(idCartel).equals("Adopción")){
+			
+			cartel = (cartelAdopcion) consultasCarteles.mostrarDatosAdopcion(idCartel);;
+			modelo.addAttribute("cartel",cartel);
+		}
+		
+		
+		return "views/publicacion";
+	}
+	
+	
+	@PostMapping(value= {"/comentarios"},produces="application/json")
+	@ResponseBody
+	public comentarios comentarios(Model modelo,
+							  	   @RequestParam(name="esteComentario", defaultValue="" ) String comentario,
+							  	   @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String nombreUsuario = authentication.getName();
+		
+		consultasComentarios objConsultaComentarios = new consultasComentarios();
+		
+		comentarios objComentarios = new comentarios();
+		objComentarios.setTextoComentario(comentario);
+		
+		objConsultaComentarios.insertarComentario(nombreUsuario, idCartel, objComentarios);
+		return objComentarios;
+	}
+	
+	@GetMapping(value= {"/cajaComentarios"})
+	public String cajaComentarios(Model modelo,
+								  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		
+		consultasComentarios objConsultasComentarios = new consultasComentarios();
+		
+		ArrayList<comentarios> listaComentarios = objConsultasComentarios.mostrarComentario(idCartel);
+		
+		modelo.addAttribute("listaComentarios", listaComentarios);
+		
+		return "subview/cajaComentarios";
+	}
+	
+	
+	
+	@GetMapping(value= {"/likeComentarios"})
+	public String likeComentarios(Model modelo,
+								  @RequestParam(name="idComentario", defaultValue="-1" ) int idComentario,
+								  @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // Obtiene el nombre del usuario autenticado
+        String nombreUsuario = authentication.getName();
+		
+		consultasComentarios objConsultasComentarios = new consultasComentarios();
+		
+		objConsultasComentarios.likesComentarios(idComentario, nombreUsuario, nick);
+		
+		return "redirect:/cajaComentarios";
+	}
+	
+	
+	@GetMapping(value= {"/borrarComentarios"})
+	public String borrarComentarios(Model modelo,
+								  @RequestParam(name="idComentario", defaultValue="-1" ) int idComentario,
+								  @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		consultasComentarios objConsultasComentarios = new consultasComentarios();
+		
+		objConsultasComentarios.borrarComentario(idComentario,nick);
+		
+		return "redirect:/cajaComentarios";
+	}
+	
+	@GetMapping(value= {"/perfil"})
+	public String perfil(Model modelo,
+						 @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		consultasUsuarios consultasUsuarios = new consultasUsuarios();
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNick(nick);
+		usuario usuario = consultasUsuarios.mostrarPerfilNick(nick);
+		modelo.addAttribute("usuario",usuario);
+		modelo.addAttribute("carteles",carteles);
+		return "views/perfil";
+	}
 }
 
 

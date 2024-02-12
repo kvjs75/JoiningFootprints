@@ -1,0 +1,21 @@
+<ul id="cajaComentarios" class="list-group list-unstyled mt-5">
+	<!-- principio del bucle -->
+    <li th:each="operacion, iterador : ${listaComentarios}" id="contComentario" class="list-group-item contComentario">
+        <div class="media-body">
+            <div class="row">
+                <div class="col">
+                    <a th:href="'/perfil?nick='+${operacion.getNick()}+''"><h4 th:text="${operacion.getNick()}">[NICK]</h4></a>
+                </div>
+                <div class="col">
+                    <button id="borrarComentario" th:data-nick="${operacion.getNick()}" th:data-idComentario="${operacion.getIdComentario()}" class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1">Borrar</button>
+                    <button type="button" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal">Reportar</button>
+                </div>
+            </div>
+            <p class="comentario" th:text="${operacion.getTextoComentario()}">[Comentario]</p>
+            <small><i th:text="${operacion.getFechaPublicacion()}">[01/01/2024]</i></small>
+            <span class="float-end mt-2" th:text="'('+${operacion.getLikes()}+')'">(0)</span>
+            <button id="meGusta" th:data-nick="${operacion.getNick()}" th:data-idComentario="${operacion.getIdComentario()}"  class="like float-end ms-2 border-0 bg-transparent"><img class="img-fluid" th:src="@{/img/iconos_redesSociales/like.png}" alt=""></button>
+        </div>
+    </li>
+    <!-- final del bucle -->
+</ul>

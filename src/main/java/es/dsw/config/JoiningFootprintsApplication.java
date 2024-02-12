@@ -19,6 +19,10 @@ public class JoiningFootprintsApplication {
 	@Value("${ruta.cartelesDesapareciones}")
 	private String rutaDirectorio;
 	
+	@Value("${ruta.cartelesAdopciones}")
+	private String rutaDirectorio2;
+	
+	
 	@Configuration
     public class MvcConfig implements WebMvcConfigurer {
 
@@ -26,7 +30,11 @@ public class JoiningFootprintsApplication {
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/img/carteles/desaparicion/**")
                     .addResourceLocations("file:"+rutaDirectorio);
+            
+            registry.addResourceHandler("/img/carteles/adopcion/**")
+            		.addResourceLocations("file:"+rutaDirectorio2);
         }
+        
     }
 
 }

@@ -1,0 +1,73 @@
+.contenidoScroll{
+    height: 721px;
+    max-height: 721px !important;
+}
+
+<<<<<<< HEAD
+
+=======
+@media screen and (min-height: 919px) {
+  .contenidoScroll{
+    height: 691px !important;
+    max-height: 691px !important;
+}
+}
+
+@media screen and (min-height: 920px) {
+  .contenidoScroll{
+    height: 730px !important;
+    max-height: 730px !important;
+}
+}
+
+@media screen and (min-height: 950px) {
+  .contenidoScroll{
+    height: 770px !important;
+    max-height: 770px !important;
+}
+}
+
+@media screen and (min-height: 1000px) {
+  .contenidoScroll{
+    height: 820px !important;
+    max-height: 820px !important;
+}
+}
+
+@media screen and (min-height: 1050px) {
+  .contenidoScroll{
+    height: 870px !important;
+    max-height: 870px !important;
+}
+}
+
+@media screen and (min-height: 1100px) {
+  .contenidoScroll{
+    height: 921px !important;
+    max-height: 921px !important;
+}
+}
+@media screen and (min-height: 1150px) {
+  .contenidoScroll{
+    height: 1085px !important;
+    max-height: 1085px !important;
+}
+
+}
+>>>>>>> ba85ac79e7301e8b5f5ddde5215976f3397a9ad1
+
+#listaCarteles{
+    margin-bottom: 120px;
+}
+
+.contCartel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: border-color 0.3s ease;
+    border: 3px solid transparent;
+  }
+
+  .contCartel:hover img {
+    border-color: #fe8d3e; 
+  }

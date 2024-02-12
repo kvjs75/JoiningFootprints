@@ -1,11 +1,12 @@
 package es.dsw.models;
 
 public class cartelAdopcion extends carteles{
-	private String vacunado;
-	private String esterilizado;
-	private String desparasitado;
-	private String requisitos;
-	private String entrevista;
+	private String vacunado="";
+	private String esterilizado="";
+	private String desparasitado="";
+	private String requisitos="";
+	private String entrevista="";
+	private String fechaNacimiento="";
 	
 	
 	public cartelAdopcion() {
@@ -15,7 +16,7 @@ public class cartelAdopcion extends carteles{
 
 	public cartelAdopcion(int id, String foto, String nombreAnimal, String especie, String raza, String sexo,
 			String telefono1, String telefono2, String correo, String descripcion, String tipoCartel, String vacunado, String esterilizado, String desparasitado, String requisitos,
-			String entrevista) {
+			String entrevista, String fechaNacimiento) {
 		
 		super(id, foto, nombreAnimal, especie, raza, sexo, telefono1, telefono2, correo, descripcion, tipoCartel);
 		this.vacunado = vacunado;
@@ -23,6 +24,7 @@ public class cartelAdopcion extends carteles{
 		this.desparasitado = desparasitado;
 		this.requisitos = requisitos;
 		this.entrevista = entrevista;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getVacunado() {
@@ -63,6 +65,14 @@ public class cartelAdopcion extends carteles{
 
 	public void setEntrevista(String entrevista) {
 		this.entrevista = entrevista;
+	}
+
+	public String getFechaNacimiento() {
+		return this.fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	
 	

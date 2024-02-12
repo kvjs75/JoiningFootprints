@@ -2,6 +2,8 @@ package es.dsw.datos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import es.dsw.connector.MySqlConnection;
@@ -42,7 +44,7 @@ public class consultasUsuarios {
 					e.printStackTrace();
 				}
 				
-				//Insertar la relacion entre el usuario y su rol basico llamod "usuario"
+				//Insertar la relacion entre el usuario y su rol basico llamodo "usuario"
 				String SQLinsertRol = "INSERT INTO db_JNF.usuariorol (ID_Usuario,RolID) \r\n"
 							+ "VALUES ("+idUsuario+",1);";
 				miConeccion.executeInsert(SQLinsertRol);
@@ -128,5 +130,46 @@ public class consultasUsuarios {
 		return usuarios;
 	
 }
+	
+	public usuario mostrarPerfilNick(String nick){
+		usuario usuario =new usuario();
+		miConeccion.open();
+		if(!miConeccion.isError()) {
+			String SQL = "SELECT ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,FechaRegistro,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion\r\n"
+					+ "FROM db_jnf.usuario\r\n"
+					+ "where nick='"+nick+"';";
+			ResultSet resultado = miConeccion.executeSelect(SQL);
+			
+			try {
+				while(resultado.next()) {
+							usuario.setIdusuario(resultado.getInt("ID_Usuario"));
+							usuario.setNombreUsuario(resultado.getNString("NombreUsuario"));
+							usuario.setNick(resultado.getNString("Nick"));
+							usuario.setCorreo(resultado.getNString("CorreoElectronico"));
+							usuario.setContrasena(resultado.getNString("Contrasena"));
+							usuario.setFechaNacimiento(resultado.getDate("FechaNacimiento").toString());
+							usuario.setZonaGeografica(resultado.getNString("ZonaGeografica"));
+							
+							DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+							LocalDate fechaRegistro = LocalDate.parse(resultado.getDate("FechaRegistro").toString());
+							String fechaRegistroFormateada = fechaRegistro.format(formatoFecha);
+							
+							usuario.setFechaRegistro(fechaRegistroFormateada);
+							usuario.setPuntuacionHonor(resultado.getInt("PuntuacionHonor"));
+							usuario.setNumLikes(resultado.getInt("NumLikes"));
+							usuario.setNumCompartir(resultado.getInt("NumCompartir"));
+							usuario.setNumPenalizaciones(resultado.getInt("NumPenalizacion"));
+							miConeccion.commit();
+				}
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return usuario;
+	}
 	
 }

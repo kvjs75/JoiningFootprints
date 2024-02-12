@@ -1,0 +1,87 @@
+.contInfo{
+    border: 4px solid #343c3e;
+    border-radius: 8px; 
+}
+
+.fondo1{
+    background-color: #bf7878 !important;
+}
+
+.fondo2{
+    background-color: #81bf78 !important;
+}
+
+.fondo3{
+    background-color: #bfb978 !important;
+}
+
+.contInfo p{
+    overflow-wrap: break-word; 
+    word-break: break-all;
+    font-size: 15px;
+    margin: auto;
+}
+
+.contenidoScroll{
+    height: 340px;
+    max-height: 721px !important;
+}
+
+@media screen and (min-height: 919px) {
+  .contenidoScroll{
+    height: 347px !important;
+    max-height: 347px !important;
+}
+}
+@media screen and (min-height: 920px) {
+    .card-body{
+      height: 730px !important;
+      max-height: 730px !important;
+  }
+  }
+  
+@media screen and (min-height: 950px) {
+    .card-body{
+      height: 770px !important;
+      max-height: 770px !important;
+  }
+  }
+  
+@media screen and (min-height: 1000px) {
+    .card-body{
+      height: 580px !important;
+      max-height: 820px !important;
+  }
+  }
+  
+@media screen and (min-height: 1050px) {
+    .card-body{
+      height: 630px !important;
+      max-height: 630px !important;
+  }
+  }
+  
+@media screen and (min-height: 1100px) {
+    .card-body{
+      height: 68px !important;
+      max-height: 680px !important;
+  }
+  }
+
+@media screen and (min-height: 1150px) {
+  .contenidoScroll{
+    height: 730px !important;
+    max-height: 730px !important;
+}
+
+}
+
+#tab1-tab, #tab2-tab, #tab3-tab{
+    width: 200px; 
+}
+
+
+
+
+
+

@@ -11,9 +11,10 @@
 }
 
 .contComentario{
-    border: 2px solid #343c3e; 
+    background-color: rgb(217, 222, 223);
     border-radius: 10px; 
     padding: 10px; 
+    margin-bottom: 25px;
 }
 
 
@@ -26,4 +27,8 @@ textarea{
 .comentario {
     overflow-wrap: break-word; 
     word-break: break-all;
+}
+
+#enviarComentario:disabled {
+    background-color: rgb(191, 200, 202) !important;
 }

@@ -137,20 +137,22 @@
 }
 
 .contEsterilizado{
-    width: 290px;
+    width: 270px;
     height: 30px;
     margin-left: 20px;
     float: left;
 }
 
 .contDesparasitado{
-    width: 290px;
+    width: 270px;
     height: 30px;
+    margin-left: 20px;
     float: left;
 }
 
 .contDescripcion{
     height: 150px;
+    float: left;
 
 }
 
