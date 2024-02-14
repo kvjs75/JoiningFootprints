@@ -26,7 +26,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
                 <!-- Botones sin autenticar -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/index}">Últimos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,50 +36,50 @@
                         <li><a class="dropdown-item" href="#">Desapareción</a></li>
                         <li><a class="dropdown-item" href="#">Adopción</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Ultimos</a></li>
                         <li><a class="dropdown-item" href="#">Viejos</a></li>
                         <li><a class="dropdown-item" href="#">Aleotorios</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Comunidad</a>
+                    <a class="nav-link" th:href="@{/comunidad}">Comunidad</a>
                 </li>
             </ul>
 
             <!-- Botones de autenticacion y opciones para autenticados -->
             <ul class="navbar-nav ms-lg-auto color-hover">
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+                <a class="nav-link colorAutenticado" th:href="@{/administrar}" sec:authorize="hasAnyRole('administrador')">Administrar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Moderar</a>
+                <a class="nav-link colorAutenticado" th:href="@{/moderar}" sec:authorize="hasAnyRole('moderador')">Moderar</a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" sec:authorize="hasAnyRole('usuario')">
                 <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Publicar
                 </a>
                 <ul class="dropdown-menu colorAutenticado">
-                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
-                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                    <li><a class="dropdown-item" th:href="@{/publicar1_1}">Desapareción</a></li>
+                    <li><a class="dropdown-item" th:href="@{/publicar2_1}">Adopción</a></li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+                <a class="nav-link colorAutenticado" href="#" sec:authorize="hasAnyRole('usuario')">Mensajes</a>
               </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/registro}">Registrarse</a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/login}">Iniciar sesión</a>
+              </li>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{'/perfil?nick='+${usuarioActual.getNick()}+''}">Mi perfil</a>
+              </li>
+              <form th:action="@{/logout}" method="post" id="logoutForm" sec:authorize="isAuthenticated()">
               <li class="nav-item">
-                <a class="nav-link color1 text-light" href="/templates/views/registro.html">Registrarse</a>
+                <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link colorRegistro" href="/templates/views/autenticar.html">Iniciar sesión</a>
-              </li>
-              <!-- 
-              <li class="nav-item">
-                <a class="nav-link" href="#">[Nombre de perfil]</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar sesión</a>
-              </li>
-               -->
+              </form>
+              
             </ul> 
         </div>
     </div>
@@ -105,7 +105,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <!-- Formulario de registro -->
-                <form method="post" th:action="@{/crearUsuario}" th:object="${usuario}">
+                <form method="post" th:action="@{/crearUsuario}" th:object="${usuarioRegistro}">
                   <div class="row">
                     <div class="col-6">
                       <div class="form-group">

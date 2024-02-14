@@ -28,7 +28,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
                 <!-- Botones sin autenticar -->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/index}">Últimos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,44 +43,45 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Comunidad</a>
+                    <a class="nav-link" th:href="@{/comunidad}">Comunidad</a>
                 </li>
             </ul>
 
             <!-- Botones de autenticacion y opciones para autenticados -->
             <ul class="navbar-nav ms-lg-auto color-hover">
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+                <a class="nav-link colorAutenticado" th:href="@{/administrar}" sec:authorize="hasAnyRole('administrador')">Administrar</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+                <a class="nav-link colorAutenticado" th:href="@{/moderar}" sec:authorize="hasAnyRole('moderador')">Moderar</a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" sec:authorize="hasAnyRole('usuario')">
                 <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Publicar
                 </a>
                 <ul class="dropdown-menu colorAutenticado">
-                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
-                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                    <li><a class="dropdown-item" th:href="@{/publicar1_1}">Desapareción</a></li>
+                    <li><a class="dropdown-item" th:href="@{/publicar2_1}">Adopción</a></li>
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+                <a class="nav-link colorAutenticado" href="#" sec:authorize="hasAnyRole('usuario')">Mensajes</a>
               </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/registro}">Registrarse</a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/login}">Iniciar sesión</a>
+              </li>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{'/perfil?nick='+${usuarioActual.getNick()}+''}">Mi perfil</a>
+              </li>
+              <form th:action="@{/logout}" method="post" id="logoutForm" sec:authorize="isAuthenticated()">
               <li class="nav-item">
-                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+                <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
-              </li>
+              </form>
               
-              <li class="nav-item">
-                <a class="nav-link" href="#">Perfil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar sesión</a>
-              </li>
-          
             </ul> 
         </div>
     </div>
@@ -91,7 +92,7 @@
       <div class="col-12">
         <div class="row">
              <!-- Alertas -->
-          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
+          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert" th:if="${reporteExitoso}">
             <p class="m-0 flex-grow-1 text-success">Tu reporte se ha enviado con éxito</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
@@ -117,7 +118,7 @@
             </div>
             <!-- Cartel -->
             <div class="text-center col-10">
-                <img th:src="@{${cartel.getFoto()}}" class="img-fluid w-100" srcset="">
+                <img th:src="@{${cartel.getFoto()}}" id="idCartel" th:data-idCartel="${cartel.getId()}" class="img-fluid w-100" srcset="">
             </div>
             <!-- Botones de compartir -->
             <div class="col-10">
@@ -125,7 +126,7 @@
               <div class="row">
                 <div class="col-6 justify-content-start">
                   <a th:href="@{${cartel.getFoto()}}" class="btn btn-success mt-2" download="cartel_animal">Descargar</a>
-                  <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
+                  <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal" sec:authorize="hasAnyRole('usuario')">Reportar</button>
                 </div>
                 <div class="col-6 d-flex align-items-end justify-content-end">
                     <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
@@ -140,12 +141,12 @@
           <div class="row mt-5 mb-5">
             <div class="col-10 mx-auto">
                 <!-- Formulario de Comentarios -->
-                <form class="enviar">
+                <form class="enviar" sec:authorize="hasAnyRole('usuario')">
                   <div class="mb-3">
                       <label for="comentario" class="form-label">Deja un comentario</label>
                       <textarea class="form-control" id="comentario" name="esteComentario" rows="3"></textarea>
                   </div>
-                  <button type="button" id="enviarComentario" th:data-idCartel="${cartel.getId()}" class="btn btn-primary border-0">Enviar</button>
+                  <button type="button" id="enviarComentario" class="btn btn-primary border-0">Enviar</button>
                 </form>
                 <!-- Lista de Comentarios -->
                 <div id="cajaComentarios">
@@ -191,7 +192,7 @@
   </footer>
 
     <!-- Modal para reportar comentarios -->
-    <form>
+    <form sec:authorize="isAuthenticated()">
         <div class="modal fade" id="reportarComentarioModal" tabindex="-1" aria-labelledby="reportarComentarioModalLabel" aria-hidden="true">
           <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -200,11 +201,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+                <textarea class="form-control" id="causaReporteComentario" name="motivoComentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Reportar</button>
+                <button type="button" id="realizarReporteComentario" class="btn btn-primary" th:data-idUsuario="${usuarioActual.getIdusuario()}">Reportar</button>
               </div>
             </div>
           </div>
@@ -213,7 +214,7 @@
     
     
       <!-- Modal para reportar cartel -->
-    <form>
+    <form sec:authorize="isAuthenticated()">
       <div class="modal fade" id="reportarCartelModal" tabindex="-1" aria-labelledby="reportarCartelModalLabel" aria-hidden="true">
         <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
           <div class="modal-content">
@@ -222,11 +223,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+              <textarea class="form-control" name="motivoCartel" id="causaReporteCartel" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-primary">Reportar</button>
+              <button type="button" id="realizarReporteCartel" class="btn btn-primary" th:data-idUsuario="${usuarioActual.getIdusuario()}">Reportar</button>
             </div>
           </div>
         </div>
@@ -234,5 +235,7 @@
     </form>
 	<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
 	<script th:src="@{/js/publicacion/comentario.js}"></script>
+	<script th:src="@{/js/publicacion/reporteComentarios.js}"></script>
+	<script th:src="@{/js/publicacion/reporteCartel.js}"></script>
 </body>
 </html>

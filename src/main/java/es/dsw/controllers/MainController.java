@@ -25,6 +25,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import es.dsw.config.SecurityConfiguration;
 import es.dsw.datos.consultasCarteles;
 import es.dsw.datos.consultasComentarios;
+import es.dsw.datos.consultasReportes;
 import es.dsw.datos.consultasUsuarios;
 import es.dsw.models.comentarios;
 import es.dsw.models.cartelDesaparicion;
@@ -33,17 +34,28 @@ import es.dsw.models.carteles;
 import es.dsw.models.controlErroresCartelAdopcion;
 import es.dsw.models.controlErroresCartelDesaparicion;
 import es.dsw.models.controlErroresUsuarios;
+import es.dsw.models.reporteCartel;
+import es.dsw.models.reporteComentario;
 import es.dsw.models.solicitudImagen;
 import es.dsw.models.usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@SessionAttributes({"usuario","cartelDesaparicion", "cartelAdopcion"})
+@SessionAttributes({"usuarioRegistro","cartelDesaparicion", "cartelAdopcion"})
 
 public class MainController {
+	//INDEX
 	@GetMapping(value= {"/","/index"})
 	public String index(Model modelo) {
+		//Aqui se comprueba quien es el usuario actual
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
 		
 		cartelDesaparicion cartelDesaparicion = new cartelDesaparicion();
 		modelo.addAttribute("cartelDesaparicion",cartelDesaparicion);
@@ -62,20 +74,32 @@ public class MainController {
 	    modelo.addAttribute("carteles",carteles);
 	    return "subview/listaCarteles";
 	}
-	
+	//LOGIN
 	@GetMapping(value= {"/login"})
 	public String login(Model modelo) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			return "redirect:/index";
+		}
 		return "views/autenticar";
 	}
-	
+	//REGISTRO
 	@GetMapping(value= {"/registro"})
 	public String registrarse(
 			Model modelo,
 			@RequestParam(name="numError", defaultValue="0" ) String numError
 								) {
-		if(modelo.getAttribute("usuario") == null) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			return "redirect:/index";
+		}
+		
+		if(modelo.getAttribute("usuarioRegistro") == null) {
 			usuario usuario = new usuario();
-			modelo.addAttribute("usuario",usuario);
+			modelo.addAttribute("usuarioRegistro",usuario);
 		}
 		controlErroresUsuarios controlErroresUsuarios = new controlErroresUsuarios(numError);
 		modelo.addAttribute("msgError", controlErroresUsuarios.getMsgError());
@@ -102,7 +126,7 @@ public class MainController {
 		consultasUsuarios consultasUsuarios = new consultasUsuarios();
 		String csrf = csrfToken.getToken();
 		usuario usuario = new usuario(nombreUsuario,nick,contrasena,correo,Fnacimiento,zonaGeografica);
-		modelo.addAttribute("usuario",usuario);
+		modelo.addAttribute("usuarioRegistro",usuario);
 		controlErroresUsuarios controlErroresUsuarios = new controlErroresUsuarios(usuario,contrasenaRe,correoRe);
 			
 		if (controlErroresUsuarios.isError() == true) {
@@ -132,11 +156,20 @@ public class MainController {
 	
 	
 	
-	
+	//PUBLICAR1_1
 	@GetMapping(value= {"/publicar1_1"})
 	public String publicar1_1(Model modelo,
 			 				  @RequestParam(name="codError", defaultValue="" ) String codError) {
-		if(modelo.getAttribute("cartelDesaparicion") == null) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
+		
+		if(modelo.getAttribute("cartelDesaparicion") == null) {	
 			cartelDesaparicion cartelDesaparicion = new cartelDesaparicion();
 			modelo.addAttribute("cartelDesaparicion",cartelDesaparicion);
 		}
@@ -205,10 +238,16 @@ public class MainController {
 		}
 	}
 	
-	
+	//PUBLICAR1_2
 	@GetMapping(value= {"/publicar1_2"})
 	public String publicar1_2(Model modelo) {
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
 		if(modelo.getAttribute("cartelDesaparicion") == null) {
 			return "redirect:/publicar1_1";
 		}
@@ -262,10 +301,17 @@ public class MainController {
 	
 	
 	
-	
+	//PUBLICAR2_1
 	@GetMapping(value= {"/publicar2_1"})
 	public String publicar2_1(Model modelo,
 							  @RequestParam(name="codError", defaultValue="" ) String codError) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
 		
 		if(modelo.getAttribute("cartelAdopcion") == null) {
 			cartelAdopcion cartelAdopcion = new cartelAdopcion();
@@ -352,9 +398,17 @@ public class MainController {
 	
 	}
 	
+	//PUBLICAR2_2
 	@GetMapping(value= {"/publicar2_2"})
 	public String publicar2_2(Model modelo) {
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
 		
 		if(modelo.getAttribute("cartelAdopcion") == null) {
 			return "redirect:/publicar2_1";
@@ -408,10 +462,19 @@ public class MainController {
     }
 	
 	
-	
+	//PUBLICACION
 	@GetMapping(value= {"/publicacion"})
 	public String publicacion(Model modelo,
-							  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+							  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel,
+							  @RequestParam(name="reporteExitoso", defaultValue="false" ) boolean reporteExitoso) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
 		
 		consultasCarteles consultasCarteles = new consultasCarteles();
 		carteles cartel = null;
@@ -425,11 +488,28 @@ public class MainController {
 			modelo.addAttribute("cartel",cartel);
 		}
 		
-		
+		modelo.addAttribute("reporteExitoso",reporteExitoso);
 		return "views/publicacion";
 	}
 	
+	@PostMapping(value= {"/reportarCartel"},produces="application/json")
+	@ResponseBody
+	public reporteCartel reportarCartel(Model modelo,
+									  @RequestParam(name="idUsuario", defaultValue="-1" ) int idUsuario,
+									  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel,
+									  @RequestParam(name="motivoCartel", defaultValue="" ) String motivo) {
+		
+		reporteCartel reporteCartel = new reporteCartel();
+		reporteCartel.setIdUsuario(idUsuario);
+		reporteCartel.setIdCartel(idCartel);
+		reporteCartel.setMotivo(motivo);
+		consultasReportes consultasReportes = new consultasReportes();
+		consultasReportes.reportarCartel(reporteCartel);
+		
+		return reporteCartel;
+	}
 	
+	//COMENTARIOS
 	@PostMapping(value= {"/comentarios"},produces="application/json")
 	@ResponseBody
 	public comentarios comentarios(Model modelo,
@@ -452,12 +532,29 @@ public class MainController {
 	public String cajaComentarios(Model modelo,
 								  @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
 		
+		usuario usuario = new usuario();
+		boolean moderador = false;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			String[] roles = usuario.getRoles().split(",");
+			for(int i = 0;i<roles.length;i++) {
+				if(roles[i].equals("moderador")) {
+					moderador = true;
+				}
+			}
+		}
+		
+		
 		consultasComentarios objConsultasComentarios = new consultasComentarios();
 		
 		ArrayList<comentarios> listaComentarios = objConsultasComentarios.mostrarComentario(idCartel);
 		
 		modelo.addAttribute("listaComentarios", listaComentarios);
-		
+		modelo.addAttribute("usuarioActual",usuario);
+		modelo.addAttribute("moderador",moderador);
 		return "subview/cajaComentarios";
 	}
 	
@@ -472,14 +569,32 @@ public class MainController {
 
         // Obtiene el nombre del usuario autenticado
         String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasComentarios objConsultasComentarios = new consultasComentarios();
+			
+			objConsultasComentarios.likesComentarios(idComentario, nombreUsuario, nick);
+		}
 		
-		consultasComentarios objConsultasComentarios = new consultasComentarios();
-		
-		objConsultasComentarios.likesComentarios(idComentario, nombreUsuario, nick);
 		
 		return "redirect:/cajaComentarios";
 	}
 	
+	@PostMapping(value= {"/reportarComentarios"},produces="application/json")
+	@ResponseBody
+	public reporteComentario reportarComentarios(Model modelo,
+									  @RequestParam(name="idUsuario", defaultValue="-1" ) int idUsuario,
+									  @RequestParam(name="idComentario", defaultValue="-1" ) int idComentario,
+									  @RequestParam(name="motivoComentario", defaultValue="" ) String motivo) {
+		
+		reporteComentario reporteComentario = new reporteComentario();
+		reporteComentario.setIdUsuario(idUsuario);
+		reporteComentario.setIdComentario(idComentario);
+		reporteComentario.setMotivo(motivo);
+		consultasReportes consultasReportes = new consultasReportes();
+		consultasReportes.reportarComentario(reporteComentario);
+		
+		return reporteComentario;
+	}
 	
 	@GetMapping(value= {"/borrarComentarios"})
 	public String borrarComentarios(Model modelo,
@@ -493,19 +608,399 @@ public class MainController {
 		return "redirect:/cajaComentarios";
 	}
 	
+	//COMUNIDAD
+	@GetMapping(value= {"/comunidad"})
+	public String comunidad(Model modelo) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
+		
+		consultasUsuarios consultasUsuarios = new consultasUsuarios();
+		ArrayList<usuario> usuarios = consultasUsuarios.mostrarUsuarios();
+		modelo.addAttribute("usuarios",usuarios);
+		return "views/comunidad";
+	}
+	
+	//PERFIL
 	@GetMapping(value= {"/perfil"})
 	public String perfil(Model modelo,
 						 @RequestParam(name="nick", defaultValue="" ) String nick) {
+	
+		boolean dueno = false; 
 		
 		consultasUsuarios consultasUsuarios = new consultasUsuarios();
-		consultasCarteles consultasCarteles = new consultasCarteles();
-		
-		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNick(nick);
 		usuario usuario = consultasUsuarios.mostrarPerfilNick(nick);
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			usuario usuarioActual = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			if(usuarioActual.getNick().equals(usuario.getNick())) {
+				dueno = true;
+			}
+			modelo.addAttribute("usuarioActual",usuarioActual);
+		}
+		
 		modelo.addAttribute("usuario",usuario);
-		modelo.addAttribute("carteles",carteles);
+		modelo.addAttribute("dueno",dueno);
 		return "views/perfil";
 	}
+	
+	//botones
+	@GetMapping(value= {"/resolverCartel"})
+	public String resolverCartel(Model modelo,
+						 @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		
+		consultasCarteles objConsultasCarteles = new consultasCarteles();
+		objConsultasCarteles.resolverCartel(idCartel);
+	
+		return "subview/cartelesActuales";
+	}
+	
+	
+	@GetMapping(value= {"/noResolverCartel"})
+	public String noResolverCartel(Model modelo,
+						 @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		
+		consultasCarteles objConsultasCarteles = new consultasCarteles();
+		objConsultasCarteles.noResolverCartel(idCartel);
+	
+		return "subview/cartelesResueltos";
+	}
+	
+	@GetMapping(value= {"/borrarCartelesActuales"})
+	public String borrarCartelActuales(Model modelo,
+									   @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel,
+									   @RequestParam(name="nick", defaultValue="" ) String nick) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickActuales(nick);
+		int indexCarteles = -1;
+		
+		for (int i=0;i<carteles.size();i++) {
+			if(carteles.get(i).getId() == idCartel) {
+				indexCarteles = i;
+			}
+		}
+		
+		String[] arrayURL = carteles.get(indexCarteles).getFoto().split("/");
+	    String nombreArchivo = arrayURL[arrayURL.length - 1];
+	    
+	    String rutaImagen = "";
+	    if(carteles.get(indexCarteles).getTipoCartel().equals("Desaparición")) {
+	    	rutaImagen = rutaDirectorio+nombreArchivo;
+	    }else {
+	    	rutaImagen = rutaDirectorio2+nombreArchivo;
+	    }
+	    
+	    File archivo = new File(rutaImagen);
+	    if (archivo.exists()) {
+	        if (archivo.delete()) {
+	            System.out.println("Imagen eliminada exitosamente.");
+	        } else {
+	            System.out.println("Error al eliminar la imagen.");
+	        }
+	    } else {
+	        System.out.println("La imagen no existe en el servidor.");
+	    }
+		consultasCarteles.rechazarCartel(idCartel);
+		return "subview/cartelesActuales";
+	}
+	
+	@GetMapping(value= {"/borrarCartelesResueltos"})
+	public String borrarCartelPendientes(Model modelo,
+									   @RequestParam(name="idCartel", defaultValue="-1" ) int idCartel,
+									   @RequestParam(name="nick", defaultValue="" ) String nick) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickResueltos(nick);
+		int indexCarteles = -1;
+		
+		for (int i=0;i<carteles.size();i++) {
+			if(carteles.get(i).getId() == idCartel) {
+				indexCarteles = i;
+			}
+		}
+		
+		String[] arrayURL = carteles.get(indexCarteles).getFoto().split("/");
+	    String nombreArchivo = arrayURL[arrayURL.length - 1];
+	    
+	    String rutaImagen = "";
+	    if(carteles.get(indexCarteles).getTipoCartel().equals("Desaparición")) {
+	    	rutaImagen = rutaDirectorio+nombreArchivo;
+	    }else {
+	    	rutaImagen = rutaDirectorio2+nombreArchivo;
+	    }
+	    
+	    File archivo = new File(rutaImagen);
+	    if (archivo.exists()) {
+	        if (archivo.delete()) {
+	            System.out.println("Imagen eliminada exitosamente.");
+	        } else {
+	            System.out.println("Error al eliminar la imagen.");
+	        }
+	    } else {
+	        System.out.println("La imagen no existe en el servidor.");
+	    }
+		consultasCarteles.rechazarCartel(idCartel);
+		return "subview/cartelesResueltos";
+	}
+	
+	//contador de carteles
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorCartelesActuales"})
+	public int contadorCartelesActuales(Model modelo,
+						 		   		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickActuales(nick);
+		
+						
+		return carteles.size();
+	}
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorCartelesResueltos"})
+	public int contadorCartelesResueltos(Model modelo,
+						 		   		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickResueltos(nick);
+		
+						
+		return carteles.size();
+	}
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorCartelesPendientes"})
+	public int contadorCartelesPendientes(Model modelo,
+						 		   		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickPendientes(nick);
+		
+						
+		return carteles.size();
+	}
+	
+	//pestañas
+	@GetMapping(value= {"/cartelesActuales"})
+	public String cartelesActuales(Model modelo,
+						 		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		usuario usuario = new usuario();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			
+		}
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickActuales(nick);
+		modelo.addAttribute("carteles",carteles);
+		modelo.addAttribute("usuarioActual",usuario);
+						
+		return "subview/cartelesActuales";
+	}
+	
+	
+	@GetMapping(value= {"/cartelesResueltos"})
+	public String cartelesResueltos(Model modelo,
+						 		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+		
+		usuario usuario = new usuario();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			
+		}
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickResueltos(nick);
+		modelo.addAttribute("carteles",carteles);
+		modelo.addAttribute("usuarioActual",usuario);
+						
+		return "subview/cartelesResueltos";
+	}
+	
+	
+	
+	@GetMapping(value= {"/cartelesPendientes"})
+	public String cartelesPendientes(Model modelo,
+						 		   @RequestParam(name="nick", defaultValue="" ) String nick) {
+
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesPerfilNickPendientes(nick);
+		modelo.addAttribute("carteles",carteles);
+						
+		return "subview/cartelesPendientes";
+	}
+	
+	//ADMINISTRAR
+	@GetMapping(value= {"/administrar"})
+	public String administrar(Model modelo) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
+		
+		return "views/administrar";
+	}
+	
+	//MODERAR
+	@GetMapping(value= {"/moderar"})
+	public String moderar(Model modelo) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nombreUsuario = authentication.getName();
+		if(!nombreUsuario.equals("anonymousUser")) {
+			consultasUsuarios consultasUsuarios = new consultasUsuarios();
+			usuario usuario = consultasUsuarios.comprobarTuPerfil(nombreUsuario);
+			modelo.addAttribute("usuarioActual",usuario);
+		}
+		
+		return "views/moderar";
+	}
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorCartelesPendienteModerador"})
+	public int contadorCartelesPendienteModerador(Model modelo) {
+
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneralModerador();
+						
+		return carteles.size();
+	}
+	
+	@GetMapping(value= {"/mostrarCartelesPendientes"})
+	public String mostarCartelesPendientes(Model modelo,
+										   @RequestParam(name="nick", defaultValue="" ) String nick) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneralModerador();
+		modelo.addAttribute("carteles",carteles);
+		return "subview/listaCartelesModerar";
+	}
+	
+	@GetMapping(value= {"/aprobarCartel"})
+	public String aprobarCartel(Model modelo,
+								@RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneralModerador();
+		modelo.addAttribute("carteles",carteles);
+		consultasCarteles.aprobarCartel(idCartel);
+		return "subview/listaCartelesModerar";
+	}
+	
+	@GetMapping(value= {"/rechazarCartel"})
+	public String rechazarCartel(Model modelo,
+								@RequestParam(name="idCartel", defaultValue="-1" ) int idCartel) {
+		consultasCarteles consultasCarteles = new consultasCarteles();
+		ArrayList<carteles> carteles = consultasCarteles.mostrarCartelesGeneralModerador();
+		modelo.addAttribute("carteles",carteles);
+		int indexCarteles = -1;
+		
+		for (int i=0;i<carteles.size();i++) {
+			if(carteles.get(i).getId() == idCartel) {
+				indexCarteles = i;
+			}
+		}
+		
+		String[] arrayURL = carteles.get(indexCarteles).getFoto().split("/");
+	    String nombreArchivo = arrayURL[arrayURL.length - 1];
+	    
+	    String rutaImagen = "";
+	    if(carteles.get(indexCarteles).getTipoCartel().equals("Desaparición")) {
+	    	rutaImagen = rutaDirectorio+nombreArchivo;
+	    }else {
+	    	rutaImagen = rutaDirectorio2+nombreArchivo;
+	    }
+	    
+	    File archivo = new File(rutaImagen);
+	    if (archivo.exists()) {
+	        if (archivo.delete()) {
+	            System.out.println("Imagen eliminada exitosamente.");
+	        } else {
+	            System.out.println("Error al eliminar la imagen.");
+	        }
+	    } else {
+	        System.out.println("La imagen no existe en el servidor.");
+	    }
+		consultasCarteles.rechazarCartel(idCartel);
+		return "subview/listaCartelesModerar";
+	}
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorCartelesDenunciadoModerador"})
+	public int contadorCartelesDenunciadoModerador(Model modelo) {
+
+		consultasReportes consultasReportes = new consultasReportes();
+		ArrayList<reporteCartel> carteles = consultasReportes.mostrarReportarCartel();
+						
+		return carteles.size();
+	}
+	
+	@GetMapping(value= {"/mostrarCartelesDenunciado"})
+	public String mostrarCartelesDenunciado(Model modelo) {
+		
+		consultasReportes consultasReportes = new consultasReportes();
+		ArrayList<reporteCartel> carteles = consultasReportes.mostrarReportarCartel();
+		modelo.addAttribute("carteles",carteles);
+		
+		return "subview/cartelesDenunciadosModerador";
+	}
+	
+	
+	@GetMapping(value= {"/marcarReporteResueltoCartel"})
+	public String marcarReporteResueltoCartel(Model modelo,
+											@RequestParam(name="idReporteCartel", defaultValue="-1" ) int idReporteCartel) {
+		
+		consultasReportes consultasReportes = new consultasReportes();
+		consultasReportes.marcarReporteResueltoCartel(idReporteCartel);
+		
+		return "subview/cartelesDenunciadosModerador";
+	}
+	
+	@ResponseBody
+	@GetMapping(value= {"/contadorComentarioDenunciadoModerador"})
+	public int contadorComentarioDenunciadoModerador(Model modelo) {
+
+		consultasReportes consultasReportes = new consultasReportes();
+		ArrayList<reporteComentario> carteles = consultasReportes.mostrarReportarComentario();
+						
+		return carteles.size();
+	}
+	
+	@GetMapping(value= {"/mostrarComentarioDenunciado"})
+	public String mostrarComentarioDenunciado(Model modelo) {
+		
+		consultasReportes consultasReportes = new consultasReportes();
+		ArrayList<reporteComentario> carteles = consultasReportes.mostrarReportarComentario();
+		modelo.addAttribute("carteles",carteles);
+		
+		return "subview/comentariosDenunciadosModerador";
+	}
+	
+	
+	@GetMapping(value= {"/marcarReporteResueltoComentario"})
+	public String marcarReporteResueltoComentario(Model modelo,
+											@RequestParam(name="idReporteComentario", defaultValue="-1" ) int idReporteComentario) {
+		
+		consultasReportes consultasReportes = new consultasReportes();
+		consultasReportes.marcarReporteResueltoComentario(idReporteComentario);
+		
+		return "subview/comentariosDenunciadosModerador";
+	}
+	
 }
 
 

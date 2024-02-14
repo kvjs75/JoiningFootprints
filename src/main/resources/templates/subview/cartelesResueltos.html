@@ -1,0 +1,12 @@
+<li class="list-group-item text-center mb-3 mt-3 p-e" th:each = "operacion, iterador : ${carteles}">
+	<a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
+		<!-- botones que solo lo puede ver el usuario publicador -->
+			<div class="row">
+				<div class="col-6">
+					<button id="botonNoResuelto" th:data-idCartel="${operacion.getId()}" type="button" class="btn btn-danger w-100" th:if="${operacion.getNick().equals(usuarioActual.getNick())}">No resuelto...</button>
+				</div>
+                <div class="col-6">
+                    <button id="botonBorrarResueltos" th:data-idCartel="${operacion.getId()}" type="button" class="btn btn-danger w-100" th:if="${operacion.getNick().equals(usuarioActual.getNick())}">Borrar</button>
+                </div>
+            </div>
+</li>

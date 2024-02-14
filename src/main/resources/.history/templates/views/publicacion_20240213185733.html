@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/publicacion.css}" rel="stylesheet">
+    <title>Joining Footprints | Cartel</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="#">Perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+          
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina principal -->
+  <div class="container bg-light flex-grow-1 d-flex align-items-center justify-content-center formatoTexto">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row">
+             <!-- Alertas -->
+          <div class="alert alert-success fade show d-flex align-items-center mt-5" role="alert">
+            <p class="m-0 flex-grow-1 text-success">Tu reporte se ha enviado con éxito</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+              <!-- Panel administracion del cartel solo le aparece al moderador -->
+          <div class="card mt-2 bg-transparent border-0">
+            <div class="card-body">
+              <button type="button" class="btn btn-danger mr-2">Borrar publicación</button>
+            </div>
+          </div>  
+        </div>
+        <div class="row d-flex align-items-center justify-content-center mb-2 mt-4">
+            <div class="col-10 pb-2">
+                <div class="row">
+                    <div class="col d-flex justify-content-start">
+                        <h3>Publicado por <a th:href="@{'/perfil?nick='+${cartel.getNick()}+''}" th:text="${cartel.getNick()}">[NICK]</a></h3>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex justify-content-start">
+                    <h4 class="subtitulo"><i><span th:text="${cartel.getFechaPublicacion()}">[/01/01/24]</span> | <span th:text="${cartel.getEstadoCartel()}">[no resuelto]</span></i></h4>
+                  </div>
+                </div>
+            </div>
+            <!-- Cartel -->
+            <div class="text-center col-10">
+                <img th:src="@{${cartel.getFoto()}}" id="idCartel" th:data-idCartel="${cartel.getId()}" class="img-fluid w-100" srcset="">
+            </div>
+            <!-- Botones de compartir -->
+            <div class="col-10">
+    
+              <div class="row">
+                <div class="col-6 justify-content-start">
+                  <a th:href="@{${cartel.getFoto()}}" class="btn btn-success mt-2" download="cartel_animal">Descargar</a>
+                  <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal" sec:authorize="hasAnyRole('usuario')">Reportar</button>
+                </div>
+                <div class="col-6 d-flex align-items-end justify-content-end">
+                    <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
+                    <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/instragram.png}"></a>
+                    <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/reddit.png}"></a>
+                    <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/twitter.png}"></a>
+                    <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/whatsapp.png}"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5 mb-5">
+            <div class="col-10 mx-auto">
+                <!-- Formulario de Comentarios -->
+                <form class="enviar" sec:authorize="hasAnyRole('usuario')">
+                  <div class="mb-3">
+                      <label for="comentario" class="form-label">Deja un comentario</label>
+                      <textarea class="form-control" id="comentario" name="esteComentario" rows="3"></textarea>
+                  </div>
+                  <button type="button" id="enviarComentario" class="btn btn-primary border-0">Enviar</button>
+                </form>
+                <!-- Lista de Comentarios -->
+                <div id="cajaComentarios">
+                <ul class="list-group list-unstyled mt-5">
+        
+                  <!-- Repetir comentarios (principio) -->
+
+                  <li class="list-group-item media mb-3 contComentario">
+                      <div class="media-body">
+                        <div class="row">
+                          <div class="col">
+                            <a href="#"><h4>[NICK]</h4></a>
+                          </div>
+                          <div class="col">
+                            <button class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1">Borrar</button>
+                          <button type="button" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal">Reportar</button>
+                          </div>
+                        </div>
+                          <p class="comentario">[Comentario]</p>
+                          <small><i>[01/01/2024]</i></small>
+                          <span class="float-end mt-2">(0)</span>
+                          <a href="#" class="like float-end ms-2 "><img class="img-fluid" th:src="@{/img/iconos_redesSociales/like.png}" alt=""></a>
+                      </div>
+                  </li>
+
+                  <!-- Repetir comentarios (final) -->
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Modal para reportar comentarios -->
+    <form>
+        <div class="modal fade" id="reportarComentarioModal" tabindex="-1" aria-labelledby="reportarComentarioModalLabel" aria-hidden="true">
+          <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="reportarComentarioModalLabel">Reportar incidencia sobre el comentario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Reportar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+    
+    
+      <!-- Modal para reportar cartel -->
+    <form>
+      <div class="modal fade" id="reportarCartelModal" tabindex="-1" aria-labelledby="reportarCartelModalLabel" aria-hidden="true">
+        <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reportarCartelModalLabel">Reportar incidencia sobre el cartel</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <textarea class="form-control" id="comentario" rows="3" placeholder="Justifica con claridad la causa"></textarea>    
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Reportar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+	<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+	<script th:src="@{/js/publicacion/comentario.js}"></script>
+</body>
+</html>

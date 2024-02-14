@@ -7,8 +7,8 @@
                     <a th:href="'/perfil?nick='+${operacion.getNick()}+''"><h4 th:text="${operacion.getNick()}">[NICK]</h4></a>
                 </div>
                 <div class="col">
-                    <button id="borrarComentario" th:data-nick="${operacion.getNick()}" th:data-idComentario="${operacion.getIdComentario()}" class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1">Borrar</button>
-                    <button type="button" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal">Reportar</button>
+                    <button id="borrarComentario" th:data-nick="${operacion.getNick()}" th:data-idComentario="${operacion.getIdComentario()}" class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1" th:if="${operacion.getNick().equals(usuarioActual.getNick()) || moderador}" sec:authorize="hasAnyRole('usuario')">Borrar</button>
+                    <button type="button" id="botonReportar" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal" th:data-idComentario="${operacion.getIdComentario()}" sec:authorize="hasAnyRole('usuario')" >Reportar</button>
                 </div>
             </div>
             <p class="comentario" th:text="${operacion.getTextoComentario()}">[Comentario]</p>

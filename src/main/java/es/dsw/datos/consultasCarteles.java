@@ -29,7 +29,7 @@ public class consultasCarteles {
 			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel \r\n"
 					+ "FROM db_JNF.cartel a \r\n"
 					+ "right JOIN db_JNF.usuario b\r\n"
-					+ "ON a.ID_Usuario = b.ID_Usuario where not Fecha_Publicacion is null ORDER BY Fecha_Publicacion DESC LIMIT "+cantidad+";";
+					+ "ON a.ID_Usuario = b.ID_Usuario where not Fecha_Publicacion is null AND Aprobacion = 'Aprobado' ORDER BY Fecha_Publicacion DESC LIMIT "+cantidad+";";
 			ResultSet resultado = miConeccion.executeSelect(SQL);
 			
 			try {
@@ -80,7 +80,7 @@ public class consultasCarteles {
 			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel \r\n"
 					+ "FROM db_JNF.cartel a \r\n"
 					+ "right JOIN db_JNF.usuario b\r\n"
-					+ "ON a.ID_Usuario = b.ID_Usuario where not Fecha_Publicacion is null ORDER BY Fecha_Publicacion DESC LIMIT "+cantidad+" OFFSET "+omitir+";";
+					+ "ON a.ID_Usuario = b.ID_Usuario where not Fecha_Publicacion is null AND Aprobacion = 'Aprobado' ORDER BY Fecha_Publicacion DESC LIMIT "+cantidad+" OFFSET "+omitir+";";
 			ResultSet resultado = miConeccion.executeSelect(SQL);
 			
 			try {
@@ -123,6 +123,8 @@ public class consultasCarteles {
 		miConeccion.close();
 		return carteles;
 	}
+	
+	
 	
 	public ArrayList<carteles> mostrarCartelesDesaparicion(){
 		ArrayList<carteles> carteles =new ArrayList<carteles>();
@@ -486,14 +488,14 @@ public class consultasCarteles {
 	}
 	
 	
-	public ArrayList<carteles> mostrarCartelesPerfilNick(String nick){
+	public ArrayList<carteles> mostrarCartelesPerfilNickActuales(String nick){
 		ArrayList<carteles> carteles =new ArrayList<carteles>();
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel \r\n"
 					+ "FROM db_JNF.cartel a \r\n"
 					+ "right JOIN db_JNF.usuario b\r\n"
-					+ "ON a.ID_Usuario = b.ID_Usuario where nick='"+nick+"' and not Fecha_Publicacion is null ORDER BY Fecha_Publicacion DESC;";
+					+ "ON a.ID_Usuario = b.ID_Usuario where nick='"+nick+"' and not Fecha_Publicacion is null and Aprobacion = 'Aprobado' and Estado_Cartel = 0  ORDER BY Fecha_Publicacion DESC;";
 			ResultSet resultado = miConeccion.executeSelect(SQL);
 			
 			try {
@@ -536,4 +538,245 @@ public class consultasCarteles {
 		miConeccion.close();
 		return carteles;
 	}
+	
+	public ArrayList<carteles> mostrarCartelesPerfilNickPendientes(String nick){
+		ArrayList<carteles> carteles =new ArrayList<carteles>();
+		miConeccion.open();
+		if(!miConeccion.isError()) {
+			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel \r\n"
+					+ "FROM db_JNF.cartel a \r\n"
+					+ "right JOIN db_JNF.usuario b\r\n"
+					+ "ON a.ID_Usuario = b.ID_Usuario where nick='"+nick+"' and not Fecha_Publicacion is null and Aprobacion = 'Pendiente' ORDER BY Fecha_Publicacion DESC;";
+			ResultSet resultado = miConeccion.executeSelect(SQL);
+			
+			try {
+				while(resultado.next()) {
+					carteles cartel = new carteles();
+					cartel.setId(resultado.getInt("ID_Cartel"));
+					cartel.setFoto(resultado.getNString("Fotografia"));
+					cartel.setNombreAnimal(resultado.getNString("Nombre_Animal"));
+					cartel.setEspecie(resultado.getNString("Especie"));
+					cartel.setRaza(resultado.getNString("Raza"));
+					cartel.setSexo(resultado.getNString("Sexo"));
+					cartel.setTelefono1(resultado.getNString("Telefono_Contacto1"));
+					cartel.setTelefono2(resultado.getNString("Telefono_Contacto2"));
+					cartel.setCorreo(resultado.getNString("Email_Contacto"));
+					cartel.setDescripcion(resultado.getNString("Descripcion"));
+					cartel.setTipoCartel(resultado.getNString("TipoCartel"));
+					
+					if(resultado.getBoolean("Estado_Cartel")==true) {
+						cartel.setEstadoCartel("resuelto");
+					}
+					else {
+						cartel.setEstadoCartel("no resuelto");
+					}
+					
+					cartel.setNick(resultado.getNString("nick"));
+					
+					DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					LocalDate fechaPulicacion = LocalDate.parse(resultado.getDate("Fecha_Publicacion").toString());
+					String fechaPublicacionFormateada = fechaPulicacion.format(formatoFecha);
+					
+					cartel.setFechaPublicacion(fechaPublicacionFormateada);
+					carteles.add(cartel);
+					miConeccion.commit();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		miConeccion.close();
+		return carteles;
+	}
+	
+	//Consultas del moderador
+	
+	public ArrayList<carteles> mostrarCartelesGeneralModerador(){
+		ArrayList<carteles> carteles =new ArrayList<carteles>();
+		miConeccion.open();
+		if(!miConeccion.isError()) {
+			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel\r\n"
+					+ "FROM db_JNF.cartel a\r\n"
+					+ "right JOIN db_JNF.usuario b\r\n"
+					+ "ON a.ID_Usuario = b.ID_Usuario where not Fecha_Publicacion is null AND Aprobacion = 'Pendiente' ORDER BY Fecha_Publicacion DESC";
+			ResultSet resultado = miConeccion.executeSelect(SQL);
+			
+			try {
+				while(resultado.next()) {
+					carteles cartel = new carteles();
+					cartel.setId(resultado.getInt("ID_Cartel"));
+					cartel.setFoto(resultado.getNString("Fotografia"));
+					cartel.setNombreAnimal(resultado.getNString("Nombre_Animal"));
+					cartel.setEspecie(resultado.getNString("Especie"));
+					cartel.setRaza(resultado.getNString("Raza"));
+					cartel.setSexo(resultado.getNString("Sexo"));
+					cartel.setTelefono1(resultado.getNString("Telefono_Contacto1"));
+					cartel.setTelefono2(resultado.getNString("Telefono_Contacto2"));
+					cartel.setCorreo(resultado.getNString("Email_Contacto"));
+					cartel.setDescripcion(resultado.getNString("Descripcion"));
+					cartel.setTipoCartel(resultado.getNString("TipoCartel"));
+					
+					if(resultado.getBoolean("Estado_Cartel")==true) {
+						cartel.setEstadoCartel("resuelto");
+					}
+					else {
+						cartel.setEstadoCartel("no resuelto");
+					}
+					
+					cartel.setNick(resultado.getNString("nick"));
+					
+					DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					LocalDate fechaPulicacion = LocalDate.parse(resultado.getDate("Fecha_Publicacion").toString());
+					String fechaPublicacionFormateada = fechaPulicacion.format(formatoFecha);
+					
+					cartel.setFechaPublicacion(fechaPublicacionFormateada);
+					carteles.add(cartel);
+					miConeccion.commit();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		miConeccion.close();
+		return carteles;
+	}
+	
+	public void aprobarCartel (int idCartel) {
+		miConeccion.open();
+
+		if(!miConeccion.isError()) {
+			try {
+				String SQL="UPDATE db_jnf.cartel\r\n"
+						+ "SET Aprobacion = 'Aprobado',\r\n"
+						+ "Fecha_Publicacion = CURRENT_TIMESTAMP\r\n"
+						+ "WHERE ID_Cartel = "+idCartel+";";
+				miConeccion.executeUpdateOrDelete(SQL);
+				
+				miConeccion.commit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				miConeccion.rollback();
+			}
+			finally {
+				miConeccion.close();
+			}
+		}
+	}
+	
+	public void rechazarCartel(int idCartel) {
+		miConeccion.open();
+
+		if(!miConeccion.isError()) {
+			try {
+				String SQL="DELETE FROM db_jnf.cartel WHERE ID_Cartel="+idCartel+";";
+				miConeccion.executeUpdateOrDelete(SQL);
+				
+				miConeccion.commit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				miConeccion.rollback();
+			}
+			finally {
+				miConeccion.close();
+			}
+		}
+	}
+	
+	//Perfil
+	
+	public void resolverCartel(int idCartel) {
+		miConeccion.open();
+
+		if(!miConeccion.isError()) {
+			try {
+				String SQL="UPDATE db_jnf.cartel\r\n"
+							+ "SET Estado_Cartel = 1\r\n"
+							+ "WHERE ID_Cartel = "+idCartel+";";
+				miConeccion.executeUpdateOrDelete(SQL);
+				
+				miConeccion.commit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				miConeccion.rollback();
+			}
+			finally {
+				miConeccion.close();
+			}
+		}
+	}
+	
+	public void noResolverCartel(int idCartel) {
+		miConeccion.open();
+
+		if(!miConeccion.isError()) {
+			try {
+				String SQL="UPDATE db_jnf.cartel\r\n"
+							+ "SET Estado_Cartel = 0\r\n"
+							+ "WHERE ID_Cartel = "+idCartel+";";
+				miConeccion.executeUpdateOrDelete(SQL);
+				
+				miConeccion.commit();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				miConeccion.rollback();
+			}
+			finally {
+				miConeccion.close();
+			}
+		}
+	}
+	
+	public ArrayList<carteles> mostrarCartelesPerfilNickResueltos(String nick){
+		ArrayList<carteles> carteles =new ArrayList<carteles>();
+		miConeccion.open();
+		if(!miConeccion.isError()) {
+			String SQL = "SELECT Fecha_Publicacion,nick,Estado_Cartel,ID_Cartel,Fotografia,Nombre_Animal,Especie,Raza,Sexo,Telefono_Contacto1,Telefono_Contacto2,Email_Contacto,Descripcion,TipoCartel \r\n"
+					+ "FROM db_JNF.cartel a \r\n"
+					+ "right JOIN db_JNF.usuario b\r\n"
+					+ "ON a.ID_Usuario = b.ID_Usuario where nick='"+nick+"' and not Fecha_Publicacion is null and Aprobacion = 'Aprobado' and Estado_Cartel = 1  ORDER BY Fecha_Publicacion DESC;";
+			ResultSet resultado = miConeccion.executeSelect(SQL);
+			
+			try {
+				while(resultado.next()) {
+					carteles cartel = new carteles();
+					cartel.setId(resultado.getInt("ID_Cartel"));
+					cartel.setFoto(resultado.getNString("Fotografia"));
+					cartel.setNombreAnimal(resultado.getNString("Nombre_Animal"));
+					cartel.setEspecie(resultado.getNString("Especie"));
+					cartel.setRaza(resultado.getNString("Raza"));
+					cartel.setSexo(resultado.getNString("Sexo"));
+					cartel.setTelefono1(resultado.getNString("Telefono_Contacto1"));
+					cartel.setTelefono2(resultado.getNString("Telefono_Contacto2"));
+					cartel.setCorreo(resultado.getNString("Email_Contacto"));
+					cartel.setDescripcion(resultado.getNString("Descripcion"));
+					cartel.setTipoCartel(resultado.getNString("TipoCartel"));
+					
+					if(resultado.getBoolean("Estado_Cartel")==true) {
+						cartel.setEstadoCartel("resuelto");
+					}
+					else {
+						cartel.setEstadoCartel("no resuelto");
+					}
+					
+					cartel.setNick(resultado.getNString("nick"));
+					
+					DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					LocalDate fechaPulicacion = LocalDate.parse(resultado.getDate("Fecha_Publicacion").toString());
+					String fechaPublicacionFormateada = fechaPulicacion.format(formatoFecha);
+					
+					cartel.setFechaPublicacion(fechaPublicacionFormateada);
+					carteles.add(cartel);
+					miConeccion.commit();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		miConeccion.close();
+		return carteles;
+	}
+	
 }

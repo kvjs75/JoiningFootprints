@@ -130,6 +130,68 @@ public class consultasUsuarios {
 		return usuarios;
 	
 }
+	public usuario comprobarTuPerfil(String nombreUsuario){
+		usuario usuario =null;
+		miConeccion.open();
+		if(!miConeccion.isError()) {
+			String SQL = "SELECT ID_Usuario,NombreUsuario,Nick,CorreoElectronico,Contrasena,FechaNacimiento,ZonaGeografica,FechaRegistro,PuntuacionHonor,NumLikes,NumCompartir,NumPenalizacion\r\n"
+					+ "FROM db_jnf.usuario\r\n"
+					+ "where NombreUsuario='"+nombreUsuario+"';";
+			ResultSet resultado = miConeccion.executeSelect(SQL);
+			
+			try {
+				while(resultado.next()) {
+							usuario = new usuario();
+							usuario.setIdusuario(resultado.getInt("ID_Usuario"));
+							usuario.setNombreUsuario(resultado.getNString("NombreUsuario"));
+							usuario.setNick(resultado.getNString("Nick"));
+							usuario.setCorreo(resultado.getNString("CorreoElectronico"));
+							usuario.setContrasena(resultado.getNString("Contrasena"));
+							usuario.setFechaNacimiento(resultado.getDate("FechaNacimiento").toString());
+							usuario.setZonaGeografica(resultado.getNString("ZonaGeografica"));
+							
+							DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+							LocalDate fechaRegistro = LocalDate.parse(resultado.getDate("FechaRegistro").toString());
+							String fechaRegistroFormateada = fechaRegistro.format(formatoFecha);
+							
+							usuario.setFechaRegistro(fechaRegistroFormateada);
+							usuario.setPuntuacionHonor(resultado.getInt("PuntuacionHonor"));
+							usuario.setNumLikes(resultado.getInt("NumLikes"));
+							usuario.setNumCompartir(resultado.getInt("NumCompartir"));
+							usuario.setNumPenalizaciones(resultado.getInt("NumPenalizacion"));
+							miConeccion.commit();
+				}
+				
+				SQL = "SELECT ID_Usuario,NombreRol FROM db_JNF.rol a\r\n"
+						+ "right JOIN db_JNF.usuariorol b\r\n"
+						+ "ON a.RolID = b.RolID;";
+				resultado = miConeccion.executeSelect(SQL);
+				if(usuario != null) {
+				
+					while(resultado.next()) {
+							
+							if(resultado.getInt("ID_Usuario") == usuario.getIdusuario()) {
+								if(usuario.getRoles().equals("")) {
+									usuario.setRoles(resultado.getNString("NombreRol"));;
+								}else {
+									usuario.setRoles(usuario.getRoles()+","+resultado.getNString("NombreRol"));
+								}
+							}
+							
+							
+						}
+					miConeccion.commit();
+					}
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return usuario;
+	}
 	
 	public usuario mostrarPerfilNick(String nick){
 		usuario usuario =new usuario();

@@ -1,0 +1,29 @@
+<li class="list-group-item" id="listaCarteles" th:each ="operacion, iterador : ${carteles}">
+    <hr>
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-10 mb-1">
+          <div class="row">
+              <div class="col d-flex justify-content-start">
+                  <h3>Solicitud de <a th:href="@{'/perfil?nick='+${operacion.getNick()}+''}" th:text="${operacion.getNick()}">[NICK]</a>: <span th:text="${operacion.getId()}">[ID]</span></h3>
+              </div>
+          </div>
+      </div>
+      <!-- Cartel -->
+      <div class="contCartel text-center col-10">
+        <img th:src="@{${operacion.getFoto()}}" class="img-fluid w-60" alt="cartel">
+      </div>
+      <!-- Botones de aprobar/rechazar -->
+      <div class="col-10">
+
+        <div class="row">
+          <div class="col-6 justify-content-end">
+            <button type="button" class="btn adapBtn btn-success mt-2 w-100">Aprobar</button>
+          </div>
+          <div class="col-6 d-flex align-items-end justify-content-end">
+            <button type="button" class="btn adapBtn btn-danger mt-2 w-100">Rechazar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+</li>

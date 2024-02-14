@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/autenticar.css}" rel="stylesheet">
+    <title>Joining Footprints | Registrarse</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/index}">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/comunidad}">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" th:href="@{/administrar}" sec:authorize="hasAnyRole('administrador')">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" th:href="@{/moderar}" sec:authorize="hasAnyRole('moderador')">Moderar</a>
+              </li>
+              <li class="nav-item dropdown" sec:authorize="hasAnyRole('usuario')">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" th:href="@{/publicar1_1}">Desapareción</a></li>
+                    <li><a class="dropdown-item" th:href="@{/publicar2_1}">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#" sec:authorize="hasAnyRole('usuario')">Mensajes</a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/registro}">Registrarse</a>
+              </li>
+              <li class="nav-item" sec:authorize="!isAuthenticated()">
+                <a class="nav-link colorRegistro" th:href="@{/login}">Iniciar sesión</a>
+              </li>
+              <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" th:href="@{'/perfil?nick='+${usuarioActual.getNick()}+''}">Mi perfil</a>
+              </li>
+              <form th:action="@{/logout}" method="post" id="logoutForm" sec:authorize="isAuthenticated()">
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit();">Cerrar sesión</a>
+              </li>
+              </form>
+              
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina principal -->
+  <div class="container flex-grow-1 d-flex align-items-center justify-content-center fondo">
+    <div class="row w-100">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          <div class="col-md-10">
+            <div class="card formatoTexto">
+              <div class="card-header">
+                <h2 class="card-title text-center">Registrarse</h2>
+              </div>
+              <div class="card-body color2 ">
+                <!-- Alertas -->
+                <div class="alert alert-success fade show d-flex align-items-center" role="alert" th:if="${param.creado}">
+                  <p class="m-0 flex-grow-1 text-success">¡Se ha registrado con éxito!</p>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="alert alert-warning alert-danger fade show d-flex align-items-center" th:if="${param.errorcreado}" role="alert">
+                  <p class="m-0 flex-grow-1" th:text="${msgError}">Ha sucedido un error</p>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <!-- Formulario de registro -->
+                <form method="post" th:action="@{/crearUsuario}" th:object="${usuario}">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="nombreUsuario">Nombre de Usuario:</label>
+                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" th:field="*{nombreUsuario}">
+                      </div>
+                      <div class="form-group">
+                        <label for="correoElectronico">Email:</label>
+                        <input type="email" class="form-control" id="correoElectronico"  name="correoElectronico">
+                      </div>
+                      <div class="form-group">
+                        <label for="contrasena">Contraseña:</label>
+                        <input type="password" class="form-control" id="contrasena" name="contrasena">
+                      </div>
+                      <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" th:field="*{fechaNacimiento}">
+                      </div>
+                    </div>
+
+
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="nick">Nick:</label>
+                        <input type="text" class="form-control" id="nick" name="nick" th:field="*{nick}">
+                      </div>
+                      <div class="form-group">
+                        <label for="reCorreoElectronico">Repetir email:</label>
+                        <input type="email" class="form-control" id="ReCorreoElectronico" name="ReCorreoElectronico">
+                      </div>
+                      <div class="form-group">
+                        <label for="reContrasena">Repetir contraseña:</label>
+                        <input type="password" class="form-control" id="reContrasena" name="reContrasena">
+                      </div>
+                      <div class="form-group">
+                        <label for="provincias">Provincia:</label>
+			              <select class="form-select" id="zonaGeografica" name="zonaGeografica" th:field="*{zonaGeografica}">
+			                  <option value="no-especificar">No especificar</option>
+			              </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center color-hover mt-3">
+                    <button type="submit" class="btn color3 me-2">Registrarse</button>
+                    <button type="reset" class="btn color3">Resetear</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+        <div class="row">
+          <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+        </div>
+    </div>
+  </footer>
+  <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+  <script th:src="@{/js/autenticar_y_filtros/api_obtenerProvincias.js}"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    let botonEnviar = document.getElementById("enviarComentario");
-    let idCartel = botonEnviar.getAttribute("data-idCartel");
+    let contenedor = document.getElementById("idCartel");
+    let idCartel = contenedor.getAttribute("data-idCartel");
     $('#enviarComentario').prop('disabled', true).css('background-color', 'gray');
     mostrarComentarios(idCartel);
     
@@ -11,8 +11,8 @@ $(document).ready(function(){
 $(document).ready(function() {
     $('body').on('click','#enviarComentario', function() {
         let data_comentario = $('#comentario').val();
-        let botonEnviar = document.getElementById("enviarComentario");
-        let idCartel = botonEnviar.getAttribute("data-idCartel");
+       	let contenedor = document.getElementById("idCartel");
+    	let idCartel = contenedor.getAttribute("data-idCartel");
         let token = $("meta[name='_csrf']").attr("content");
         let header = $("meta[name='_csrf_header']").attr("content");
 
@@ -51,8 +51,8 @@ $(document).ready(function() {
 		
         let idComentario = $(this).attr('data-idComentario');
         let nick = $(this).attr('data-nick');
-        let botonBorrar = document.getElementById("enviarComentario");
-        let idCartel = botonBorrar.getAttribute("data-idCartel");
+        let contenedor = document.getElementById("idCartel");
+    	let idCartel = contenedor.getAttribute("data-idCartel");
 
     
         $.ajax({
@@ -77,8 +77,8 @@ $(document).ready(function() {
         let idComentario = $(this).attr('data-idComentario');
         let nick = $(this).attr('data-nick');
         
-        let botonBorrar = document.getElementById("enviarComentario");
-        let idCartel = botonBorrar.getAttribute("data-idCartel");
+        let contenedor = document.getElementById("idCartel");
+    	let idCartel = contenedor.getAttribute("data-idCartel");
 
     
         $.ajax({
@@ -89,7 +89,7 @@ $(document).ready(function() {
             },
             error: function(error) {
                 console.error(error);
-                alert("Error al borrar el comentario.");
+                alert("Error al dar me gusta.");
             }
         });
     });

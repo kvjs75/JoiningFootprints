@@ -1,0 +1,4 @@
+<li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesPendientes}">
+    <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal()}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
+    <h2>Esperando para ser aprobada...</h2>
+</li>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/perfil.css}" rel="stylesheet">
+    <title>Joining Footprints</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Moderar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle colorAutenticado" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="#">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">[Nombre de perfil]</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina principal -->
+  <div class="container flex-grow-1 d-flex align-items-center justify-content-center formatoTexto" style="background-color: aliceblue;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 text-center bg-dark mt-2">
+            <h1 class="text-light m-1" id="nick" th:data-nick="${usuario.getNick()}" th:text="${usuario.getNick()}">[NICK]</h1>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="contInfo col-md-5 m-2">
+              <div class="mt-3 mb-3">
+                <p>E-mail: <span th:text="${usuario.getCorreo()}">[esteCorreo@gmail.com]</span></p>
+                <p>F-nacimiento: <span th:text="${usuario.getFechaNacimiento()}">[01/01/24]</span></p>
+                <p>Provincia: <span th:text="${usuario.getZonaGeografica()}">[las palmas de gran canaria]</span></p>
+                <p>F-Registro: <span th:text="${usuario.getFechaRegistro()}">[01/01/24]</span></p>
+              </div>
+            </div>
+            <div class="col-md-5 m-2">
+              <div class="row contInfo">
+                <div class="col-7"> 
+                  <div class="contPuntuaciones mt-3 mb-3">
+                    <p>Me gusta recibidos</p>
+                    <p>Veces compartidos:</p>
+                    <p>Veces penalizado</p>
+                    <hr>
+                    <p>Puntuación de honor:</p>
+                  </div>
+                </div>
+                <div class="col"> 
+                  <div class="mt-3 mb-3">
+                    <p th:text="${usuario.getNumLikes()}">[0]</p>
+                    <p th:text="${usuario.getNumCompartir()}">[0]</p>
+                    <p th:text="${usuario.getNumPenalizaciones()}">[0]</p>
+                    <hr>
+                    <p th:text="${usuario.getPuntuacionHonor()}">[0]</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="container mt-3">
+            <h2>Publicaciones</h2>
+            <ul class="nav nav-tabs color-hover" id="myTabs">
+              <!-- Primera pestaña de publicaciones (lo pueden ver todos) -->
+              <li class="nav-item">
+                <a class="nav-link text-light active fondo1" id="tab1-tab" data-bs-toggle="tab" href="#tab1">Actuales <span id="contadorCartelesActuales">(0)</span></a>
+              </li>
+              <!-- Segunda pestaña de resueltas (lo pueden ver todos) -->
+              <li class="nav-item">
+                <a class="nav-link text-light fondo2" id="tab2-tab" data-bs-toggle="tab" href="#tab2" >Resueltas <span id="contadorCartelesResueltos">(0)</span> </a>
+              </li>
+              <!-- Tercera pestaña de solicitudes (solo el publicador) -->
+              <li class="nav-item" th:if="${dueno}">
+                <a class="nav-link text-light fondo3" id="tab3-tab" data-bs-toggle="tab" href="#tab3">Pendientes <span id="contadorCartelesPendientes">(0)</span> </a>
+              </li>
+            </ul>
+            <div class="tab-content mt-2">
+              <!-- Primer contenido de la pestaña de publicaciones (lo pueden ver todos) -->
+              <div class="tab-pane fade show active" id="tab1">
+                <div class="card flex-grow-1 fondo1">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="row pb-5">
+                          <ul id="cartelesActuales" class="list-group list-unstyled publicaciones">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesAprobados}">
+                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal()}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
+                              <!-- botones que solo lo puede ver el usuario publicador -->
+                              <div class="row">
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-success w-100">Resuelto</button>
+                                </div>
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
+                                </div>
+                              </div>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+              <!-- Segundo contenido de la pestaña de resueltas (lo pueden ver todos) -->
+              <div class="tab-pane fade" id="tab2">
+                <div class="card flex-grow-1 fondo2">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="row pb-5">
+                          <ul class="list-group list-unstyled publicaciones" id="cartelesResueltos">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesResueltos}">
+                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
+                              <!-- botones que solo lo puede ver el usuario publicador -->
+                              <div class="row">
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">No resuelto...</button>
+                                </div>
+                                <div class="col-6">
+                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
+                                </div>
+                              </div>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+              <!-- tercer contenido de la pestaña de solicitudes (solo el publicador) -->
+              <div class="tab-pane fade" id="tab3">
+                <div class="card flex-grow-1 fondo3">
+                  <div class="contenidoScroll card-body overflow-auto">
+                      <!-- Contenido con scroll -->
+                      <div class="container-fluid">
+                        <div class="row pb-5">
+                          <ul class="list-group list-unstyled publicaciones" id="cartelesPendientes" th:if="${dueno}">
+
+                            <!-- Contenido en bucle -->
+
+                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesPendientes}">
+                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal()}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
+                              <h2>Esperando para ser aprobada...</h2>
+                            </li>
+
+                            <!-- Fin del contenido contenido en bucle -->
+
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- Fin del contenido con scroll -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card mt-2 bg-transparent border-0">
+            <div class="card-body">
+              <button type="button" class="btn btn-danger mr-2">Sancionar</button>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mensajePrivadoModal">Enviar mensaje privado</button>
+            </div>
+          </div>  
+        </div>
+      </div> 
+    </div>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+
+ <!-- Ventana Modal para mensajePrivado -->
+  <form>
+    <div class="modal fade" id="mensajePrivadoModal" tabindex="-1" aria-labelledby="mensajePrivadoModalLabel" aria-hidden="true">
+      <div class="modal-dialog d-flex align-items-center modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="mensajePrivadoModalLabel">Mensaje</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea class="form-control" id="mensaje" rows="3"></textarea>    
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+  <script th:src="@{/js/perfil/perfil.js}"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link th:href="@{/bootstrap-5.3.2-dist/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js}"></script>
+    <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
+    <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
+    <title>Joining Footprints | Publicar</title>
+</head>
+<body class="color1 d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
+        </a>
+        <!-- Boton que aparece cuando se baja la resolucion -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenido de la barra de navegacion -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 color-hover">
+                <!-- Botones sin autenticar -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Últimos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Carteles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Desapareción</a></li>
+                        <li><a class="dropdown-item" href="#">Adopción</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Viejos</a></li>
+                        <li><a class="dropdown-item" href="#">Aleotorios</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Comunidad</a>
+                </li>
+            </ul>
+
+            <!-- Botones de autenticacion y opciones para autenticados -->
+            <ul class="navbar-nav ms-lg-auto color-hover">
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Administrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Moderar</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle color1 text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Publicar
+                </a>
+                <ul class="dropdown-menu colorAutenticado">
+                    <li><a class="dropdown-item color1 text-light" href="#">Desapareción</a></li>
+                    <li><a class="dropdown-item" href="#">Adopción</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorAutenticado" href="#">Mensajes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="/templates/views/registro.html">Registrarse</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link colorRegistro" href="/templates/views/autenticar.html">Iniciar sesión</a>
+              </li>
+              <!-- 
+              <li class="nav-item">
+                <a class="nav-link" href="#">[Nombre de perfil]</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesión</a>
+              </li>
+               -->
+            </ul> 
+        </div>
+    </div>
+  </nav>
+  <!-- Contenido de la pagina -->
+  <div class="container flex-grow-1 bg-light">
+    <div class="row text-center color4 mb-3">
+      <h5 class="p-2">Publicar desaparición <strong>[Paso 1/2]</strong></h5>
+    </div>
+    <!-- formulario -->
+    <form method="post" th:action="@{/paso1_1}" th:object="${cartelDesaparicion}">
+      <!-- Alerta -->
+      <div th:if="${!msgError.equals('')}" class="alert alert-warning alert-danger fade show d-flex align-items-center formatoTexto" role="alert">
+        <p th:text="${msgError}" class="m-0 flex-grow-1">Ha sucedido un error</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <div class="row color2 formatoTexto p-2 m-2">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="nombreAnimal" class="form-label">Nombre *</label>
+              <input type="text" class="form-control" id="nombreAnimal" name="nombreAnimal" th:field="*{nombreAnimal}">
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="raza" class="form-label">Raza</label>
+              <input type="text" class="form-control" id="raza" name="raza" th:field="*{raza}">
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+                <label for="especie" class="form-label">Especie *</label>
+                <select class="form-select" id="especie" name="especie" th:field="*{especie}">
+                    <option value="" disabled selected>Selecciona especie</option>
+                    <option value="perro">Perro</option>
+                    <option value="gato">Gato</option>
+                    <option value="otros">Otros</option>
+                </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="sexo" class="form-label">Sexo *</label>
+              <select class="form-select" id="sexo" name="sexo" th:field="*{sexo}">
+                  <option value="" disabled selected>Selecciona el Sexo</option>
+                  <option value="macho">Macho</option>
+                  <option value="hembra">Hembra</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="fechaDesaparicion" class="form-label">F. desaparición *</label>
+              <input type="date" class="form-control" id="fechaDesaparicion" name="fechaDesaparicion" th:field="*{fechaDesaparicion}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción del animal *</label>
+              <textarea class="form-control" id="descripcion" name="descripcion" rows="3" th:field="*{descripcion}"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <label for="lugarDesaparicion" class="form-label">Lugar de Desaparición *</label>
+            <textarea class="form-control" id="lugarDesaparicion" name="lugarDesaparicion" rows="3" th:field="*{lugarDesaparicion}"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label for="telefono1" class="form-label">Teléfono1 *</label>
+              <input type="tel" class="form-control" id="telefono1" name="telefono1" th:field="*{telefono1}">
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="telefono2" class="form-label">Teléfono2</label>
+              <input type="tel" class="form-control" id="telefono2" name="telefono2" th:field="*{telefono2}">
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="emailContacto" class="form-label">Email</label>
+              <input type="email" class="form-control" id="emailContacto" name="correo" th:field="*{correo}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="recompensa" name="recompensa">
+                  <label class="form-check-label" for="recompensa">
+                    ¿Habrá alguna recompensa?
+                  </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row color-hover">
+          <div class="col mt-3 mb-3 d-flex align-items-center justify-content-end">
+            <button type="submit" class="btn color4 formatoTexto">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- Pie de pagina -->
+  <footer class="bg-dark text-light text-center">
+    <div class="container">
+      <div class="row">
+        <p style="margin: auto;">© 2024 - Víctor | Kevin</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
