@@ -8,13 +8,13 @@
     <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
     <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
     <link th:href="@{/ccs/moderar.css}" rel="stylesheet">
-    <title>Joining Footprints</title>
+    <title>Joining Footprints | Moderar</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -116,39 +116,10 @@
                         <div class="row pb-5">
                           <ul class="list-group list-unstyled publicaciones" id="listaCarteles">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle listar solicitudes de carteles -->
 
-                            <li class="list-group-item" id="contenidoLista" th:each ="operacion, iterador : ${carteles}">
-                              <hr>
-                              <div class="row d-flex align-items-center justify-content-center">
-                                <div class="col-10 mb-1">
-                                    <div class="row">
-                                        <div class="col d-flex justify-content-start">
-                                            <h3>Solicitud de <a th:href="@{'/perfil?nick='+${operacion.getNick()}+''}" th:text="${operacion.getNick()}">[NICK]</a>: <span th:text="${operacion.getId()}">[ID]</span></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Cartel -->
-                                <div class="contCartel text-center col-10">
-                                  <img th:src="@{${operacion.getFoto()}}" class="img-fluid w-60" alt="cartel">
-                                </div>
-                                <!-- Botones de aprobar/rechazar -->
-                                <div class="col-10">
-                        
-                                  <div class="row">
-                                    <div class="col-6 justify-content-end">
-                                      <button type="button" class="btn adapBtn btn-success mt-2 w-100">Aprobar</button>
-                                    </div>
-                                    <div class="col-6 d-flex align-items-end justify-content-end">
-                                      <button type="button" class="btn adapBtn btn-danger mt-2 w-100">Rechazar</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <hr>
-                            </li>
 
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle listar solicitudes de carteles -->
 
                           </ul>
                         </div>
@@ -166,51 +137,11 @@
                         <div class="row pb-5">
                           <ul class="list-group list-unstyled" id="listaCartelesReportados">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle de carteles reportados -->
 
-                            <li class=" list-group-item mb-3 mt-3 p-3 border-0 bg-dark">
-                              <div class=" tituloDenunciaCartel row text-center text-light">
-                                <h1>Denuncia cartel: [ID]</h1>
-                              </div>
-                              <div class="row colorFondo">
-                                <div class="col-6">
-                                  <p>Cartel</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#" id="enlace"><p><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span> <i><span>[Fecha]</span></i></p></a>
-                                </div>
-                              </div>
-                              <div class="row colorFondo">
-                                <div class="col-6">
-                                  <p>Denunciante</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#"><p>[Nick denunciante]</p></a>
-                                </div>
-                                </div>
-                              <div class="row colorFondo">
-                                <div class="col-6">
-                                  <p>Denunciado</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#"><p>[Nick denunciado]</p></a>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col text-light">
-                                  <h2>Motivo de la denuncia</h2>
-                                </div>
-                              </div>
-                              <div class="row colorFondo">
-                                <p>[Texto]</p>
-                              </div>
-                              <div class="row mt-3 justify-content-center">
-                                <button type="button" class="btn adapBtn btn-success">Marcar como resuelto</button>
-                              </div>
-                            </li>
+                            
 
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle de carteles reportados -->
 
                           </ul>
                         </div>
@@ -228,60 +159,11 @@
                         <div class="row pb-5">
                           <ul class="list-group list-unstyled publicaciones" id="listaComentariosReportados">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle de comentarios reportados -->
 
-                            <li class=" list-group-item mb-3 mt-3 p-3 border-0 bg-dark">
-                              <div class=" tituloDenunciaCartel row text-center text-light">
-                                <h1>Denuncia comentario: [ID]</h1>
-                              </div>
-                              <div class="row colorFondo2">
-                                <div class="col-6">
-                                  <p>Alojado</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#" id="enlace"><p><span>[Tipo cartel]</span>: <span>[Nombre de la mascota]</span> <i><span>[Fecha]</span></i></p></a>
-                                </div>
-                              </div>
-                              <div class="row colorFondo2">
-                                <div class="col-6">
-                                  <p>Denunciante</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#"><p>[Nick denunciante]</p></a>
-                                </div>
-                                </div>
-                              <div class="row colorFondo2">
-                                <div class="col-6">
-                                  <p>Denunciado</p>
-                                </div>
-                                <div class="col-6">
-                                  <a href="#"><p>[Nick denunciado]</p></a>
-                                </div>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col text-light">
-                                  <h2>Comentario en cuestión</h2>
-                                </div>
-                              </div>
-                              <div class="row colorFondo2">
-                                <p>[Texto]</p>
-                              </div>
-                              <hr>
-                              <div class="row">
-                                <div class="col text-light">
-                                  <h2>Motivo de la denuncia</h2>
-                                </div>
-                              </div>
-                              <div class="row colorFondo2">
-                                <p>[Texto]</p>
-                              </div>
-                              <div class="row mt-3 justify-content-center">
-                                <button type="button" class="btn adapBtn btn-success">Marcar como resuelto</button>
-                              </div>
-                            </li>
+                     
 
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle de comentarios reportado -->
 
                           </ul>
                         </div>

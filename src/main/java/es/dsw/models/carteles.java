@@ -2,6 +2,7 @@ package es.dsw.models;
 
 public class carteles {
 	private int id=0;
+	private int idUsuario=0;
 	private String foto="";
 	private String nombreAnimal="";
 	private String especie="";
@@ -66,6 +67,14 @@ public class carteles {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getFoto() {

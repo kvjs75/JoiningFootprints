@@ -1,0 +1,8 @@
+<tr th:each ="operacion, iterador : ${listaRoles}">
+	<td th:text="${operacion.getIdRol()}">0</td>
+    <td th:text="${operacion.getNombreRol()}">Usuario</td>
+    <td>
+    	<button th:if="${!operacion.getNombreRol().equals('usuario') && !operacion.getNombreRol().equals('moderador') && !operacion.getNombreRol().equals('administrador')}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificarRolModal">Modificar</button>
+        <button th:if="${!operacion.getNombreRol().equals('usuario') && !operacion.getNombreRol().equals('moderador') && !operacion.getNombreRol().equals('administrador')}" id="btnBorrarRol" th:data-idRol="${operacion.getIdRol()}" class="btn btn-danger">Eliminar</button>
+    </td>
+</tr>

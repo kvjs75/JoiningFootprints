@@ -14,7 +14,7 @@
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -143,7 +143,7 @@
                       <div class="form-group">
                         <label for="provincias">Provincia:</label>
 			              <select class="form-select" id="zonaGeografica" name="zonaGeografica" th:field="*{zonaGeografica}">
-			                  <option value="no-especificar">No especificar</option>
+			                  <option value="No especificado">No especificar</option>
 			              </select>
                       </div>
                     </div>

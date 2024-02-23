@@ -1,3 +1,6 @@
+<div th:if="${listaComentarios.size()==0}" class="mt-5 text-center">
+	<p>No hay ningún comentario</p>	
+</div>
 <ul id="cajaComentarios" class="list-group list-unstyled mt-5">
 	<!-- principio del bucle -->
     <li th:each="operacion, iterador : ${listaComentarios}" id="contComentario" class="list-group-item contComentario">

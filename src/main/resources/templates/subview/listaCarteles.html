@@ -20,23 +20,6 @@
       <div class="contCartel text-center col-10">
           <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}"><img tH:src="@{${operacion.getFoto()}}" class="w-60" alt="cartel"></a>
       </div>
-      <!-- Botones de compartir -->
-      <div class="col-10">
-
-        <div class="row">
-          <div class="col-6 justify-content-start">
-            <a th:href="@{${operacion.getFoto()}}" class="btn btn-success mt-2" download="cartel_animal">Descargar</a>
-            <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
-          </div>
-          <div class="col-6 d-flex align-items-end justify-content-end">
-              <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
-              <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/instragram.png}"></a>
-              <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/reddit.png}"></a>
-              <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/twitter.png}"></a>
-              <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/whatsapp.png}"></a>
-          </div>
-        </div>
-      </div>
     </div>
     <hr>
 </li>

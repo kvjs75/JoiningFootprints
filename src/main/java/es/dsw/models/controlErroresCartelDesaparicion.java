@@ -12,11 +12,14 @@ public class controlErroresCartelDesaparicion {
 		
 	}
 
+	//El primer constructor sirve para comprobar si hay un error. 
+	//Se guardaria el numError para que este sea utilizado en el segundo constructor para dar el mensaje
 	public controlErroresCartelDesaparicion(cartelDesaparicion objCartelDesaparicion) {
 		
 		LocalDate fechaActual = LocalDate.now();
 		LocalDate fechaDesaparecion = null;
 		
+		//Para evitar un dato vacio en localdate y este no de error
 		if(!objCartelDesaparicion.getFechaDesaparicion().equals("")) {
 			fechaDesaparecion = LocalDate.parse(objCartelDesaparicion.getFechaDesaparicion());
 		}
@@ -92,6 +95,7 @@ public class controlErroresCartelDesaparicion {
 		
 	}
 	
+	//Recibiria el numError del primer constructor para decir el mensaje del error
 	public controlErroresCartelDesaparicion(String codigoError) {
 		if(codigoError.equals("1-1")) {
 			this.error=true;

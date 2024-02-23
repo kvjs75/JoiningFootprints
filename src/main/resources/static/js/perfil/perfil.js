@@ -1,28 +1,37 @@
 $(document).ready(function(){
-	let contenedor = document.getElementById("nick");
-    let nick = contenedor.getAttribute("data-nick");
+	//La variable del nick que le pertenece al perfil
+	let elementoH1 = document.getElementById("nick");
+    let nick = elementoH1.getAttribute("data-nick");
+    //Contadores de Carteles
     contadorCartelesActuales(nick)
     contadorCartelesResueltos(nick)
     contadorCartelesPendientes(nick)
+    //Subvistas de Carteles
     mostrarCartelesActuales(nick);
     mostrarCartelesResueltos(nick)
     mostrarCartelesPendientes(nick)
 });
 
-//boton resuelto
+//Boton resuelto (cambia de no-resuelto a resuelto)
 $(document).ready(function() {
     $('body').on('click','#botonResuelto', function() {
-		let contenedor = document.getElementById("nick");
-    	let nick = contenedor.getAttribute("data-nick");
+		let elementoH1 = document.getElementById("nick");
+    	let nick = elementoH1.getAttribute("data-nick");
+    	
+    	//la ID del cartel se saca de la array de carteles
+		//Al pulsar el boton respectivo del cartel se saca la ID de ese cartel	
         let idCartel = $(this).attr('data-idCartel');
 
         $.ajax({
             url: "/resolverCartel?idCartel="+idCartel,
             method: "GET",
             success: function(response) {
+			   //Se actualizan todos los contadores
 			   contadorCartelesActuales(nick)
 			   contadorCartelesResueltos(nick)
     		   contadorCartelesPendientes(nick)
+    		   
+    		   //Actualizan las subvistas de las listas de carteles
                mostrarCartelesActuales(nick)
                mostrarCartelesResueltos(nick)
             },
@@ -34,20 +43,26 @@ $(document).ready(function() {
     });
 });
 
-//boton no resuelto
+//Boton no resuelto (cambia de resuelto a no-resuelto)
 $(document).ready(function() {
     $('body').on('click','#botonNoResuelto', function() {
-		let contenedor = document.getElementById("nick");
-    	let nick = contenedor.getAttribute("data-nick");
+		let elementoH1 = document.getElementById("nick");
+    	let nick = elementoH1.getAttribute("data-nick");
+    	
+    	//la ID del cartel se saca de la array de carteles
+		//Al pulsar el boton respectivo del cartel se saca la ID de ese cartel	
         let idCartel = $(this).attr('data-idCartel');
 
         $.ajax({
             url: "/noResolverCartel?idCartel="+idCartel,
             method: "GET",
             success: function(response) {
+				//Se actualizan todos los contadores
 				contadorCartelesActuales(nick)
 				contadorCartelesResueltos(nick)
     			contadorCartelesPendientes(nick)
+    			
+    			//Actualizan las subvistas de las listas de carteles
 				mostrarCartelesResueltos(nick)
                 mostrarCartelesActuales(nick)
             },
@@ -59,20 +74,26 @@ $(document).ready(function() {
     });
 });
 
-//boton de borrar (utilizando la consulta y el controlador de rechazar del moderador. ya que hace lo mismo)
+//boton de borrar de carteles actuales
 $(document).ready(function() {
     $('body').on('click','#botonBorrarActuales', function() {
-		let contenedor = document.getElementById("nick");
-    	let nick = contenedor.getAttribute("data-nick");
+		let elementoH1 = document.getElementById("nick");
+    	let nick = elementoH1.getAttribute("data-nick");
+    	
+    	//la ID del cartel se saca de la array de carteles
+		//Al pulsar el boton respectivo del cartel se saca la ID de ese cartel	
         let idCartel = $(this).attr('data-idCartel');
 
         $.ajax({
             url: "/borrarCartelesActuales?idCartel="+idCartel+"&nick="+nick,
             method: "GET",
             success: function(response) {
+				//Se actualizan todos los contadores
 				contadorCartelesActuales(nick)
 				contadorCartelesResueltos(nick)
     			contadorCartelesPendientes(nick)
+    			
+    			//Actualizan las subvistas de las listas de carteles
 				mostrarCartelesResueltos(nick)
                 mostrarCartelesActuales(nick)
             },
@@ -84,19 +105,26 @@ $(document).ready(function() {
     });
 });
 
+//boton de borrar de carteles resueltos
 $(document).ready(function() {
     $('body').on('click','#botonBorrarResueltos', function() {
-		let contenedor = document.getElementById("nick");
-    	let nick = contenedor.getAttribute("data-nick");
+		let elementoH1 = document.getElementById("nick");
+    	let nick = elementoH1.getAttribute("data-nick");
+    	
+    	//la ID del cartel se saca de la array de carteles
+		//Al pulsar el boton respectivo del cartel se saca la ID de ese cartel	
         let idCartel = $(this).attr('data-idCartel');
 
         $.ajax({
             url: "/borrarCartelesResueltos?idCartel="+idCartel+"&nick="+nick,
             method: "GET",
             success: function(response) {
+				//Se actualizan todos los contadores
 				contadorCartelesActuales(nick)
 				contadorCartelesResueltos(nick)
     			contadorCartelesPendientes(nick)
+    			
+    			//Actualizan las subvistas de las listas de carteles
 				mostrarCartelesResueltos(nick)
                 mostrarCartelesActuales(nick)
             },
@@ -108,6 +136,7 @@ $(document).ready(function() {
     });
 });
 
+//Funcion que devuelve el numero de publicaciones de carteles actuales sin resolver asociadas al perfil
 function contadorCartelesActuales(nick) {
     $.ajax({
         url: '/contadorCartelesActuales?nick='+nick,
@@ -118,6 +147,7 @@ function contadorCartelesActuales(nick) {
     });
 }
 
+//Funcion que devuelve el numero de publicaciones de carteles resueltos asociadas al perfil
 function contadorCartelesResueltos(nick) {
     $.ajax({
         url: '/contadorCartelesResueltos?nick='+nick,
@@ -128,6 +158,7 @@ function contadorCartelesResueltos(nick) {
     });
 }
 
+//Funcion que devuelve el numero de publicaciones de carteles pendientes asociadas al perfil
 function contadorCartelesPendientes(nick) {
     $.ajax({
         url: '/contadorCartelesPendientes?nick='+nick,
@@ -138,6 +169,7 @@ function contadorCartelesPendientes(nick) {
     });
 }
 
+//Muestra los carteles del perdil que tiene actuales sin resolver (PerfilController | controladora subvista: cartelesActuales)
 function mostrarCartelesActuales(nick) {
     $.ajax({
         url: '/cartelesActuales?nick='+nick,
@@ -148,6 +180,7 @@ function mostrarCartelesActuales(nick) {
     });
 }
 
+//Muestra los carteles del perfil que tiene resueltos (PerfilController | controladora subvista: cartelesResueltos)
 function mostrarCartelesResueltos(nick) {
     $.ajax({
         url: '/cartelesResueltos?nick='+nick,
@@ -158,7 +191,7 @@ function mostrarCartelesResueltos(nick) {
     });
 }
 
-
+//Muestra los carteles del perfil que tiene pendientes para espera de ser aprobados (PerfilController | controladora subvista: cartelesPendientes)
 function mostrarCartelesPendientes(nick) {
     $.ajax({
         url: '/cartelesPendientes?nick='+nick,

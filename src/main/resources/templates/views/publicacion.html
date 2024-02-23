@@ -10,13 +10,13 @@
     <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
     <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
     <link th:href="@{/ccs/publicacion.css}" rel="stylesheet">
-    <title>Joining Footprints | Cartel</title>
+    <title>Joining Footprints | Publicación</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -98,8 +98,8 @@
           </div>
               <!-- Panel administracion del cartel solo le aparece al moderador -->
           <div class="card mt-2 bg-transparent border-0">
-            <div class="card-body">
-              <button type="button" class="btn btn-danger mr-2">Borrar publicación</button>
+            <div class="card-body" sec:authorize="hasAnyRole('moderador')">
+              <a th:href="@{'/borrarPublicacionModerador?idCartel='+${cartel.getId()}}" class="btn btn-danger mr-2">Borrar publicación</a>
             </div>
           </div>  
         </div>
@@ -150,27 +150,10 @@
                 </form>
                 <!-- Lista de Comentarios -->
                 <div id="cajaComentarios">
-                <ul class="list-group list-unstyled mt-5">
+                 <ul class="list-group list-unstyled mt-5">
         
                   <!-- Repetir comentarios (principio) -->
 
-                  <li class="list-group-item media mb-3 contComentario">
-                      <div class="media-body">
-                        <div class="row">
-                          <div class="col">
-                            <a href="#"><h4>[NICK]</h4></a>
-                          </div>
-                          <div class="col">
-                            <button class="btn btn-danger adapBtnComent btn-sm float-end ms-2 m-1">Borrar</button>
-                          <button type="button" class="btn btn-danger adapBtnComent btn-sm ms-2 m-1 float-end" data-bs-toggle="modal" data-bs-target="#reportarComentarioModal">Reportar</button>
-                          </div>
-                        </div>
-                          <p class="comentario">[Comentario]</p>
-                          <small><i>[01/01/2024]</i></small>
-                          <span class="float-end mt-2">(0)</span>
-                          <a href="#" class="like float-end ms-2 "><img class="img-fluid" th:src="@{/img/iconos_redesSociales/like.png}" alt=""></a>
-                      </div>
-                  </li>
 
                   <!-- Repetir comentarios (final) -->
 

@@ -27,19 +27,20 @@ $('#subirFoto').on('change', () => {
 
         // Si todo está bien, se ejecuta el cropper
         cropper = new Cropper(imagen, {
-            aspectRatio: 1,
-            preview: '.img-sample',
-            zoomable: false,
-            viewMode: 1,
-            responsive: true,
-            dragMode: 'move',
+            aspectRatio: 1, //Establece la relacion de aspecto del area de recorte como un cuadrado
+            preview: '.img-sample', //Selector CSS para el elemento donde se mostrara una vista previa del area de recorte
+            zoomable: false, //Permite o deshabilita la capacidad de hacer zoom en la imagen
+            viewMode: 1, //Define como se debe mostrar la imagen dentro del area de recorte
+            responsive: true, //Permite que el Cropper se ajuste automaticamente al cambiar el tamaño de la ventana del navegador
+            dragMode: 'move', //Define el modo de arrastre del Cropper
             ready() {
-                // Se adapta al modal
+                //Se adapta al tamaño del modal
                 let modal = document.querySelector('.modal');
                 let modalBody = modal.querySelector('.modal-body');
                 let modalBodyWidth = modalBody.offsetWidth;
                 let modalBodyHeight = modalBody.offsetHeight;
 
+                //Establece el tamaño del area de recorte para que coincida con el tamaño del modal
                 cropper.setCropBoxData({
                     width: modalBodyWidth,
                     height: modalBodyHeight
@@ -91,6 +92,6 @@ $('#aceptar').on('click', function(event) {
     entrada.value = "";
     cropper.destroy();
 
-    // Al subir la imagen el modal se cierra
+    // Al subir la imagen el modal se oculta
     $('#subirImgModal').modal('hide');
 });

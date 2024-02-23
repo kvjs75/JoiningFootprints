@@ -27,6 +27,7 @@ public class JoiningFootprintsApplication {
     public class MvcConfig implements WebMvcConfigurer {
 
         @Override
+        //Actualiza el repositorio a tiempo real (crear, eliminar y modificar)
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry.addResourceHandler("/img/carteles/desaparicion/**")
                     .addResourceLocations("file:"+rutaDirectorio);

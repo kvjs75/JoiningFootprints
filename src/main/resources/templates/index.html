@@ -8,13 +8,13 @@
     <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
     <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
     <link th:href="@{/ccs/index.css}" rel="stylesheet">
-    <title>Joining Footprints</title>
+    <title>Joining Footprints | Últimos</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -89,10 +89,14 @@
     <div class="row w-100">
       <div class="col-12">
         <div class="row">
-          <h5 class="text-center mt-1">[Sección]</h5>
+          <h5 class="text-center mt-1">Últimos</h5>
+          <!-- Alerta -->
+          <div th:if="${confirmacionBorrado}" class="alert alert-success fade show d-flex align-items-center" role="alert">
+            <p class="m-0 flex-grow-1 text-success">La publicación ha sido borrada con exito</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
           <form class="d-flex mt-1 mb-1" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar carteles" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input id="buscador" class="form-control me-2" type="search" placeholder="Buscar carteles" aria-label="Search">
             <!-- Boton para el filtro Modal-->
             <button class="btn btn-outline-success" type="button"  data-bs-toggle="modal" data-bs-target="#filtroModal">Filtrar</button>
           </form>
@@ -102,55 +106,16 @@
 
             <!-- Contenido en bucle -->
             
-            <li class="list-group-item border-0" id="contenidoLista" th:each ="operacion, iterador : ${carteles}">
-              <hr>
-              <div class="row d-flex align-items-center justify-content-center">
-                <div class="col-10 mb-3">
-                    <div class="row">
-                        <div class="col d-flex justify-content-start">
-                            <h3>Publicado por <a th:href="@{'/perfil?nick='+${operacion.getNick()}+''}" th:text="${operacion.getNick()}">[NICK]</a></h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                      <div class="col d-flex justify-content-start">
-                        <h4 class="subtitulo"><i><span th:text="${operacion.getFechaPublicacion()}">[/01/01/24]</span> | <span th:text="${operacion.getEstadoCartel()}">[no resuelto]</span></i></h4>
-                      </div>
-                    </div>
-                </div>
-                <!-- Cartel -->
-                <div class="contCartel text-center col-10">
-                    <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}"><img tH:src="@{${operacion.getFoto()}}" class="w-60" alt="cartel"></a>
-                </div>
-                <!-- Botones de compartir -->
-                <div class="col-10">
-        
-                  <div class="row">
-                    <div class="col-6 justify-content-start">
-                      <a th:href="@{${operacion.getFoto()}}" class="btn btn-success mt-2" download="cartel_animal">Descargar</a>
-                      <button type="button" class="btn adapBtn btn-danger mt-2 ms-1" data-bs-toggle="modal" data-bs-target="#reportarCartelModal">Reportar</button>
-                    </div>
-                    <div class="col-6 d-flex align-items-end justify-content-end">
-                        <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/facebook.png}"></a>
-                        <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/instragram.png}"></a>
-                        <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/reddit.png}"></a>
-                        <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/twitter.png}"></a>
-                        <a href="#"><img class="redes img-fluid" th:src="@{/img/iconos_redesSociales/whatsapp.png}"></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr>
-            </li>
 
             <!-- fin contenido en bucle -->
 
           </ul>
           <div class="row align-items-center justify-content-center mb-3">
     		    <div class="col-2 text-center">
-        		  <button id="btnAnterior" class="btn btn-primary">Anterior</button>
+        		  <button id="btnAnterior" class="btn btn-primary" hidden>Anterior</button>
     		    </div>
     		    <div class="col-2 text-center">
-				      <button id="btnSiguiente" class="btn btn-primary">Siguiente</button>
+				      <button id="btnSiguiente" class="btn btn-primary" hidden>Siguiente</button>
     		    </div>
 		      </div>
         </div>
@@ -174,12 +139,12 @@
           <h5 class="modal-title" id="filtroModalLabel">Filtrar carteles</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          [Formulario de filtro]
+         <div class="modal-body">
+         	[Formulario]
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Filtrar</button>
+          <button type="button" id="botonFiltrarCarteles" class="btn btn-primary">Filtrar</button>
         </div>
       </div>
     </div>

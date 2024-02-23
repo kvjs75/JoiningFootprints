@@ -23,7 +23,8 @@ public class controlErroresUsuarios {
 		boolean repetidoNick = false;
 		boolean repetidoCorreo = false;
 		
-		//los for son para comprobar si alguno de estos datos esta registrado en la base de datos
+		//los for son para comprobar si alguno de los datos puesto por parametro ya existen en la base datos
+		//Si ya existe dara error
 		for(int i=0;i<usuarios.size();i++) {
 			if(usuarios.get(i).getNombreUsuario().equals(usuario.getNombreUsuario())) {
 				repetidoNombreUsuario = true;

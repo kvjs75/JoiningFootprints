@@ -1,0 +1,3 @@
+<li class="list-group-item border-0" id="listaCarteles" th:each ="operacion, iterador : ${usuarios}">
+	<p><a th:href="'/perfil?nick='+${operacion.getNick()}+''" th:text="${operacion.getNick()}"></a> de <span style="color: red;" th:text="${operacion.getZonaGeografica()}"></span> | Honor: <span style="color: red;" th:text="${operacion.getPuntuacionHonor()}"></span> puntos.</p>
+</li>

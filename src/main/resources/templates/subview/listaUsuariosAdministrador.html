@@ -1,0 +1,13 @@
+<tr th:each ="operacion, iterador : ${listaUsuarios}">
+	<td th:text="${operacion.getIdusuario()}">0</td>
+    <td th:text="${operacion.getNombreUsuario()}">Usuario</td>
+    <td th:text="${operacion.getNick()}">Nick</td>
+    <td th:text="${operacion.getCorreo()}">correo electronico</td>
+    <td th:text="${operacion.getZonaGeografica()}">Provincia</td>
+    <td th:text="${operacion.getRoles()}">Rol</td>
+    <td>
+    	<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificarUsuarioModal">Modificar</button>
+    	<button th:if="${!operacion.getNick().equals(usuarioActual.getNick())}" class="btn btn-danger" id="btnEliminarUsuario" th:data-idUsuario="${operacion.getIdusuario()}">Eliminar</button>
+    	<button th:if="${!operacion.getNick().equals(usuarioActual.getNick())}" class="btn btn-warning">Anular</button>
+    </td>
+</tr>

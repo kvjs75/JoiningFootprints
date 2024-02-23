@@ -1,24 +1,28 @@
 $(document).ready(function(){
-    let contenedor = document.getElementById("idCartel");
-    let idCartel = contenedor.getAttribute("data-idCartel");
+    let elementoImagen = document.getElementById("idCartel");
+    let idCartel = elementoImagen.getAttribute("data-idCartel");
+    
+    //1) Al inicializar la paguina: el boton de enviar comentario esta en gris y desactivado. hasta que se escriba algo
     $('#enviarComentario').prop('disabled', true).css('background-color', 'gray');
+    
+    //2) Al inicializar la paguina: muestra todos los comentarios que tiene cartel mediante con una subvista
     mostrarComentarios(idCartel);
     
 
 });
 
-//Enviar comentario
+//Enviar comentario (controladora: comentarios)
 $(document).ready(function() {
     $('body').on('click','#enviarComentario', function() {
         let data_comentario = $('#comentario').val();
-       	let contenedor = document.getElementById("idCartel");
-    	let idCartel = contenedor.getAttribute("data-idCartel");
+       	let elementoImagen = document.getElementById("idCartel");
+    	let idCartel = elementoImagen.getAttribute("data-idCartel");
         let token = $("meta[name='_csrf']").attr("content");
         let header = $("meta[name='_csrf_header']").attr("content");
 
-        // Verificar si el comentario está vacío
+        //Verifica si el comentario esta vacio
         if (data_comentario.trim() === "") {
-            // Si está vacío, no realizar la petición y mostrar un mensaje
+            //Si esta vacio, no realizar la peticion y mostrar un mensaje
             console.log("El comentario está vacío.");
             return;
         }
@@ -34,6 +38,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 mostrarComentarios(idCartel);
+                //una vez enviado, el input del comentario se vacia y se desactiva el boton de enviar
                 $('#comentario').val('');
                 $('#enviarComentario').prop('disabled', true).css('background-color', 'gray');
             },
@@ -45,20 +50,21 @@ $(document).ready(function() {
     });
 });
 
-//Borrar comentario
+//Borrar comentario (controladora: borrarComentarios)
 $(document).ready(function() {
     $('body').on('click','#borrarComentario', function() {
 		
         let idComentario = $(this).attr('data-idComentario');
         let nick = $(this).attr('data-nick');
-        let contenedor = document.getElementById("idCartel");
-    	let idCartel = contenedor.getAttribute("data-idCartel");
+        let elementoImagen = document.getElementById("idCartel");
+    	let idCartel = elementoImagen.getAttribute("data-idCartel");
 
     
         $.ajax({
             url: "/borrarComentarios?idComentario="+idComentario+"&nick="+nick,
             method: "GET",
             success: function(response) {
+				//al borrar el comentario, se vuelve a recargar todos los comentario para actualizar
                 mostrarComentarios(idCartel)
             },
             error: function(error) {
@@ -70,21 +76,22 @@ $(document).ready(function() {
 });
 
 
-//Likes en los comentarios
+//Likes en los comentarios (controladora: likeComentarios)
 $(document).ready(function() {
     $('body').on('click','#meGusta', function() {
 		
         let idComentario = $(this).attr('data-idComentario');
         let nick = $(this).attr('data-nick');
         
-        let contenedor = document.getElementById("idCartel");
-    	let idCartel = contenedor.getAttribute("data-idCartel");
+        let elementoImagen = document.getElementById("idCartel");
+    	let idCartel = elementoImagen.getAttribute("data-idCartel");
 
     
         $.ajax({
             url: "/likeComentarios?idComentario="+idComentario+"&nick="+nick,
             method: "GET",
             success: function(response) {
+				//al darle like al comentario, se vuelve a recargar todos los comentario para actualizar
                 mostrarComentarios(idCartel)
             },
             error: function(error) {
@@ -98,12 +105,13 @@ $(document).ready(function() {
 
 
 
-//Mostrar comentarios
+//Mostrar comentarios (controladora subvista: cajaComentarios)
 function mostrarComentarios(idCartel) {
     $.ajax({
         url: '/cajaComentarios?idCartel='+idCartel,
         method: 'GET',
         success: function(resultText) {
+			//se carga la subvista en un <ul>
             $("#cajaComentarios").html(resultText);
         }
     });

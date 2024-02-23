@@ -8,13 +8,13 @@
     <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
     <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
     <link th:href="@{/ccs/comunidad.css}" rel="stylesheet">
-    <title>Joining Footprints</title>
+    <title>Joining Footprints | Comunidad</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -89,10 +89,9 @@
     <div class="row w-100">
       <div class="col-12">
         <div class="row">
-          <h5 class="text-center mt-1">[Sección]</h5>
+          <h5 class="text-center mt-1">Comunidad</h5>
           <form class="d-flex mt-1 mb-1" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar carteles" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input id="buscador" class="form-control me-2" type="search" placeholder="Buscar perfiles" aria-label="Search">
             <!-- Boton para el filtro Modal-->
             <button class="btn btn-outline-success" type="button"  data-bs-toggle="modal" data-bs-target="#filtroModal">Filtrar</button>
           </form>
@@ -101,15 +100,11 @@
               <div class="contenidoScroll card-body overflow-auto">
                   <!-- Contenido con scroll -->
                   <div class="container">
-                    <ul class="list-group list-unstyled">
+                    <ul class="list-group" id="listaPerfiles">
 
-                      <!-- Contenido en bucle -->
-                      
-                      <li class="list-group-item border-0" id="listaCarteles" th:each ="operacion, iterador : ${usuarios}">
-                        <a th:href="'/perfil?nick='+${operacion.getNick()}+''" th:text="${operacion.getNick()}">Nick usuario</a>
-                      </li>
+                      <!-- Contenido en bucle de lista de perfiles -->
 
-                      <!-- fin contenido en bucle -->
+                      <!-- fin contenido en bucle de lista de perfiles -->
 
                     </ul>
                   </div>
@@ -146,5 +141,7 @@
       </div>
     </div>
   </div>
+   <script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+  <script th:src="@{/js/comunidad/cargarPerfiles.js}"></script>
 </body>
 </html>

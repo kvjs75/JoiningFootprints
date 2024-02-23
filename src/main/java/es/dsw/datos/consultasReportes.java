@@ -20,6 +20,7 @@ public class consultasReportes {
 		this.miConeccion = new MySqlConnection(false);
 	}
 	
+	//Se utiliza en publicacion para guardar los datos de reportes de cartel
 	public void reportarCartel(reporteCartel reporteCartel) {
 		miConeccion.open();
 		if(!miConeccion.isError()) {
@@ -40,13 +41,19 @@ public class consultasReportes {
 		}
 	}
 	
+	//1) Se utiliza para mostrar al moderador los reportes de carteles
+	//2) Se utiliza para mostrar al moderador un contador del numero de solicitudes que debe atender sobre los reportes de carteles
 	public ArrayList<reporteCartel> mostrarReportarCartel() {
 		ArrayList<reporteCartel> cartelesReportados = new ArrayList<reporteCartel>();
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			
 			try {
-				String SQL = "SELECT ID_reporte,c.ID_Cartel,c.TipoCartel,c.Nombre_Animal,c.Fecha_Publicacion,b.Nick as denunciante,d.Nick as denunciado, motivo FROM db_jnf.reporte_cartel a\r\n"
+				
+				//consulta [Usuario(Denunciante)-cartel-Usuario(Denunciado)]
+				//Muestra los datos necesario que debe ver el moderador (usuarios denunciante, cartel en cuestion, usuario denunciado... etc)
+				String SQL = "SELECT ID_reporte,c.ID_Cartel,c.TipoCartel,c.Nombre_Animal,c.Fecha_Publicacion,b.Nick as denunciante,d.Nick as denunciado, motivo\r\n"
+						+ "FROM db_jnf.reporte_cartel a\r\n"
 						+ "left join db_jnf.usuario b\r\n"
 						+ "on a.ID_usuario = b.ID_Usuario\r\n"
 						+ "left join db_jnf.cartel c\r\n"
@@ -63,6 +70,7 @@ public class consultasReportes {
 					cartel.setTipoCartel(resultado.getNString("TipoCartel"));
 					cartel.setNombreAnimal(resultado.getNString("Nombre_Animal"));
 					
+					//formato fecha
 					DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					LocalDate fechaPulicacion = LocalDate.parse(resultado.getDate("Fecha_Publicacion").toString());
 					String fechaPublicacionFormateada = fechaPulicacion.format(formatoFecha);
@@ -87,6 +95,7 @@ public class consultasReportes {
 		return cartelesReportados;
 	}
 	
+	//Se utiliza en publicacion para guardar los datos de reportes de comentarios
 	public void reportarComentario(reporteComentario reporteComentario) {
 		miConeccion.open();
 		if(!miConeccion.isError()) {
@@ -107,12 +116,16 @@ public class consultasReportes {
 		}
 	}
 	
+	//1) Se utiliza para mostrar al moderador los reportes de comentarios
+	//2) Se utiliza para mostrar al moderador un contador del numero de solicitudes que debe atender sobre los reportes de comentarios
 	public ArrayList<reporteComentario> mostrarReportarComentario() {
 		ArrayList<reporteComentario> comentariosReportados = new ArrayList<reporteComentario>();
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			
 			try {
+				//consulta [Usuario(Denunciante)-Comentario-Usuario(Denunciado)-Cartel]
+				//Muestra los datos necesario que debe ver el moderador (usuarios denunciante, comentario en cuestion, usuario denunciado, cartel en cuestion... etc)
 				String SQL = "SELECT ID_reporte,e.ID_Cartel,e.TipoCartel,e.Nombre_Animal,e.Fecha_Publicacion,b.Nick as denunciante,d.Nick as denunciado, motivo, c.TextoComentario FROM db_jnf.reporte_comentario a\r\n"
 						+ "left join db_jnf.usuario b\r\n"
 						+ "on a.ID_usuario = b.ID_Usuario\r\n"
@@ -132,6 +145,7 @@ public class consultasReportes {
 					cartel.setTipoCartel(resultado.getNString("TipoCartel"));
 					cartel.setNombreAnimal(resultado.getNString("Nombre_Animal"));
 					
+					//formato fecha
 					DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 					LocalDate fechaPulicacion = LocalDate.parse(resultado.getDate("Fecha_Publicacion").toString());
 					String fechaPublicacionFormateada = fechaPulicacion.format(formatoFecha);
@@ -158,11 +172,13 @@ public class consultasReportes {
 	}
 	
 	
+	//Se utiliza para que el moderador pueda marcar la solicitud de denuncia a cartel como resuelta
 	public void marcarReporteResueltoCartel(int idReporteCartel) {
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			
 			try {
+				//Actualiza el estado del reporte a resulto
 				String SQL = "UPDATE db_jnf.reporte_cartel\r\n"
 							  + "SET estado = 'resuelto'\r\n"
 						      + "WHERE ID_Reporte = "+idReporteCartel+"; ";
@@ -179,12 +195,13 @@ public class consultasReportes {
 		}
 	}
 	
-	
+	//Se utiliza para que el moderador pueda marcar la solicitud de denuncia a comentario como resuelta
 	public void marcarReporteResueltoComentario(int idReporteComentario) {
 		miConeccion.open();
 		if(!miConeccion.isError()) {
 			
 			try {
+				//Actualiza el estado del reporte a resulto
 				String SQL = "UPDATE db_jnf.reporte_comentario\r\n"
 							  + "SET estado = 'resuelto'\r\n"
 						      + "WHERE ID_Reporte = "+idReporteComentario+"; ";

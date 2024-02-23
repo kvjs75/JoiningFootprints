@@ -8,13 +8,13 @@
     <link th:href="@{/ccs/formatoColores.css}" rel="stylesheet">
     <link th:href="@{/ccs/navegador.css}" rel="stylesheet">
     <link th:href="@{/ccs/perfil.css}" rel="stylesheet">
-    <title>Joining Footprints</title>
+    <title>Joining Footprints | Perfil</title>
 </head>
 <body class="color1 d-flex flex-column min-vh-100">
   <nav class="navbar navbar-expand-xxl custom-formatoTexto color2">
     <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/index}">
             <img th:src="@{/img/logo1.png}" class="logo" alt="Logo" height="30">
         </a>
         <!-- Boton que aparece cuando se baja la resolucion -->
@@ -149,22 +149,10 @@
                         <div class="row pb-5">
                           <ul id="cartelesActuales" class="list-group list-unstyled publicaciones">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle carteles actuales -->
+                            
 
-                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesAprobados}">
-                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal()}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
-                              <!-- botones que solo lo puede ver el usuario publicador -->
-                              <div class="row">
-                                <div class="col-6">
-                                  <button type="button" class="btn btn-success w-100">Resuelto</button>
-                                </div>
-                                <div class="col-6">
-                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
-                                </div>
-                              </div>
-                            </li>
-
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle carteles actuales -->
 
                           </ul>
                         </div>
@@ -182,22 +170,10 @@
                         <div class="row pb-5">
                           <ul class="list-group list-unstyled publicaciones" id="cartelesResueltos">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle carteles resueltos -->
 
-                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesResueltos}">
-                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
-                              <!-- botones que solo lo puede ver el usuario publicador -->
-                              <div class="row">
-                                <div class="col-6">
-                                  <button type="button" class="btn btn-danger w-100">No resuelto...</button>
-                                </div>
-                                <div class="col-6">
-                                  <button type="button" class="btn btn-danger w-100">Borrar</button>
-                                </div>
-                              </div>
-                            </li>
 
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle carteles resueltos -->
 
                           </ul>
                         </div>
@@ -215,14 +191,10 @@
                         <div class="row pb-5">
                           <ul class="list-group list-unstyled publicaciones" id="cartelesPendientes" th:if="${dueno}">
 
-                            <!-- Contenido en bucle -->
+                            <!-- Contenido en bucle carteles pendientes -->
 
-                            <li class="list-group-item text-center mb-3 mt-3 p-3" th:each ="operacion, iterador : ${cartelesPendientes}">
-                              <a th:href="@{'/publicacion?idCartel='+${operacion.getId()}+''}" id="enlace"><h1><span th:text="${operacion.getTipoCartel()}">[Tipo cartel]</span>: <span th:text="${operacion.getNombreAnimal()}">[Nombre de la mascota]</span> <i><span th:text="${operacion.getFechaPublicacion()}">[Fecha]</span></i></h1></a>
-                              <h2>Esperando para ser aprobada...</h2>
-                            </li>
 
-                            <!-- Fin del contenido contenido en bucle -->
+                            <!-- Fin del contenido contenido en bucle carteles pendientes -->
 
                           </ul>
                         </div>
@@ -237,7 +209,7 @@
         <div class="row">
           <div class="card mt-2 bg-transparent border-0">
             <div class="card-body">
-              <button type="button" class="btn btn-danger mr-2">Sancionar</button>
+              <button type="button" class="btn btn-danger mr-2" sec:authorize="hasAnyRole('moderador')">Sancionar</button>
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#mensajePrivadoModal">Enviar mensaje privado</button>
             </div>
           </div>  

@@ -20,8 +20,8 @@ $(document).ready(function() {
                 success: function(response) {
                    console.log(response);
                     
-                    //una vez guardado correctamente, redireccina al index
-                    window.location.href = "/index";
+                    //una vez guardado correctamente, redireccina a la confirmacion
+                    window.location.href = "/publicar_confirmacion?confirmacion=true";
                 },
                 error: function(error) {
                     console.error(error);
@@ -55,8 +55,8 @@ $(document).ready(function() {
                 success: function(response) {
                     console.log(response);
                     
-                    //una vez guardado correctamente, redireccina al index
-                    window.location.href = "/index";
+                    //una vez guardado correctamente, redireccina a la confirmacion
+                    window.location.href = "/publicar_confirmacion?confirmacion=true";
                 },
                 error: function(error) {
                     console.error(error);

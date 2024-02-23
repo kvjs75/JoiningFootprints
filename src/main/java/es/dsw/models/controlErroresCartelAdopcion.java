@@ -9,11 +9,14 @@ public class controlErroresCartelAdopcion {
 	
 	public controlErroresCartelAdopcion() {}
 	
+	//El primer constructor sirve para comprobar si hay un error. 
+	//Se guardaria el numError para que este sea utilizado en el segundo constructor para dar el mensaje
 	public controlErroresCartelAdopcion(cartelAdopcion objCartelAdopcion) {
 		
 		LocalDate fechaActual = LocalDate.now();
 		LocalDate fechaNacimiento = null;
 		
+		//Para evitar un dato vacio en localdate y este no de error
 		if(!objCartelAdopcion.getFechaNacimiento().equals("")) {
 			fechaNacimiento = LocalDate.parse(objCartelAdopcion.getFechaNacimiento());
 		}
@@ -44,8 +47,14 @@ public class controlErroresCartelAdopcion {
 			this.msgError="Sexo es obligatorio";
 		}
 		
-		else if(!objCartelAdopcion.getFechaNacimiento().equals("") && fechaActual.isBefore(fechaNacimiento)) {
+		else if(objCartelAdopcion.getFechaNacimiento().equals("")) {
 			this.numError="4-1";
+			this.error=true;
+			this.msgError="La fecha no puede estar vacia";
+		}
+		
+		else if(!objCartelAdopcion.getFechaNacimiento().equals("") && fechaActual.isBefore(fechaNacimiento)) {
+			this.numError="4-2";
 			this.error=true;
 			this.msgError="La fecha no puede ser mayor que la actual";
 		}
@@ -83,6 +92,7 @@ public class controlErroresCartelAdopcion {
 		
 	}
 	
+	//Recibiria el numError del primer constructor para decir el mensaje del error
 	public controlErroresCartelAdopcion(String codigoError) {
 		if(codigoError.equals("1-1")) {
 			this.error=true;
@@ -105,6 +115,11 @@ public class controlErroresCartelAdopcion {
 		}
 		
 		if(codigoError.equals("4-1")) {
+			this.error=true;
+			this.msgError="La fecha no puede estar vacia";
+		}
+		
+		if(codigoError.equals("4-2")) {
 			this.error=true;
 			this.msgError="La fecha no puede ser mayor que la actual";
 		}
